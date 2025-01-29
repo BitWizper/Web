@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borcelle - Personalización de Pastelería</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-color: #dfd090;
+      --primary-color: #800020;
+      --black: #13131a;
+      --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    }
+
+    * {
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      text-transform: capitalize;
+      transition: all .2s linear;
+    }
+
+    body {
+      background: url('https://i.pinimg.com/736x/01/22/cb/0122cbe268952bacaea583a0d2f62ad3.jpg') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+      padding: 4rem 2rem;
+      border-radius: .5rem;
+      box-shadow: var(--box-shadow);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .container h1 {
+      font-size: 4rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .container p {
+      font-size: 1.8rem;
+      color: var(--black);
+      margin-bottom: 3rem;
+    }
+
+    .container button {
+      display: block;
+      width: 100%;
+      padding: 1rem 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.7rem;
+      color: #fff;
+      background: var(--primary-color);
+      border-radius: .5rem;
+      cursor: pointer;
+      box-shadow: var(--box-shadow);
+      transition: background 0.3s;
+    }
+
+    .container button:hover {
+      background: var(--main-color);
+      color: var(--primary-color);
+    }
+
+    .container button:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Borcelle</h1>
+    <p>Pastelería personalizada</p>
+    <button onclick="window.location.href='components/login.html'">Iniciar Sesión</button>
+    <button onclick="window.location.href='components/register.html'">Crear Cuenta</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Ayuda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap">
+    <style>
+        :root {
+            --main-color: #dfd090;
+            --primary-color: #800020;
+            --black: #13131a;
+            --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+        }
+
+        * {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            text-transform: capitalize;
+            list-style: none;
+            transition: all .2s linear;
+        }
+
+        body {
+            background: #f9f9f9;
+            line-height: 1.6;
+            padding-top: 8rem; /* Espacio para el header fijo */
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 9%;
+            background: #fff;
+            box-shadow: var(--box-shadow);
+        }
+
+        header .logo {
+            font-size: 2.5rem;
+            font-weight: bolder;
+            color: var(--black);
+        }
+
+        header .logo i {
+            color: var(--main-color);
+            padding-right: .5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: .5rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .heading {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 3rem;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--black);
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Preguntas Frecuentes */
+        .faq-item {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 1rem;
+        }
+
+        .faq-item h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .faq-item p {
+            display: none;
+            color: var(--black);
+            margin-top: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .faq-item.active p {
+            display: block;
+        }
+
+        /* Contáctenos */
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .contact-options a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--main-color);
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            border-radius: .5rem;
+            box-shadow: var(--box-shadow);
+            font-size: 1.8rem;
+        }
+
+        .contact-options a:hover {
+            background: var(--primary-color);
+            color: var(--main-color);
+        }
+
+        .contact-options a i {
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="home.html" class="logo"><i class="fas fa-arrow-left"></i> Centro de Ayuda</a>
+</header>
+
+<section class="container">
+    <h1 class="heading">Centro de Ayuda</h1>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="faq">Preguntas Frecuentes</div>
+        <div class="tab" data-tab="contact">Contáctenos</div>
+    </div>
+
+    <div class="tab-content active" id="faq">
+        <div class="faq-item">
+            <h3>¿Cuánto tiempo de anticipación necesito para hacer un pedido?</h3>
+            <p>Recomendamos hacer tu pedido con al menos dos semanas de anticipación para asegurar disponibilidad y tiempo suficiente para la preparación.</p>
+        </div>
+        <div class="faq-item">
+            <h3>¿Dónde puedo ver el portafolio de pasteles del repostero?</h3>
+            <p>El portafolio está disponible en nuestra sección de catálogo, donde puedes encontrar trabajos anteriores de nuestros reposteros.</p>
+        </div>
+        <div class="faq-item">
+            <h3>¿Cómo creo un perfil de usuario?</h3>
+            <p>Puedes registrarte fácilmente en nuestra página de registro llenando tus datos básicos.</p>
+        </div>
+        <div class="faq-item">
+            <h3>¿Cómo puedo reservar una cita con el repostero?</h3>
+            <p>En la página de cada repostero, hay una opción para agendar una cita según su disponibilidad.</p>
+        </div>
+    </div>
+
+    <div class="tab-content" id="contact">
+        <div class="contact-options">
+            <a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+    });
+
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+</script>
+
+</body>
+</html>
