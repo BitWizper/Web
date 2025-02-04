@@ -204,15 +204,18 @@ section{
 
 /* home */
 
-.home{
+.home {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url(https://i.pinimg.com/736x/01/22/cb/0122cbe268952bacaea583a0d2f62ad3.jpg) no-repeat;
-    background-size: cover;
-    background-position: center;
+    background: url(https://i.pinimg.com/736x/ef/87/40/ef87403dc43ac01987aea9f9deeb23ee.jpg) no-repeat;
+    background-size: contain;
+    background-repeat: no-repeat;
+    image-rendering: crisp-edges; 
 }
+
+
 
 .home .content{
     max-width: 55rem;
