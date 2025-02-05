@@ -1,115 +1,108 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
-:root {
-  --main-color: #f7e2f1; /* Rosa suave */
-  --primary-color: #f1b6a1; /* Rosa suave para bordes */
-  --secondary-color: #fff3e6; /* Fondo beige suave */
-  --highlight-color: #f5c7d3; /* Rosa pálido para hover */
-  --golden-color: #f2d1a2; /* Dorado suave */
-  --black: #13131a;
-  --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
-  --hover-color: #ffe6d4; /* Rosa dorado para hover */
-}
+    :root {
+      --main-color: #d6d3d1;
+      --primary-color: #800020;
+      --secondary-color: #eaeaea;
+      --black: #13131a;
+      --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+    }
 
-* {
-  font-family: 'Nunito', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
+    * {
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
 
-body {
-  background: var(--secondary-color);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 2rem;
-}
+    body {
+      background: var(--secondary-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
 
-.container {
-  display: flex;
-  width: 100%;
-  max-width: 1200px;
-  flex-direction: row;
-}
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
 
-.main-content {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  width: 100%;
-}
+    .header {
+      background: var(--main-color);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
 
-.profile {
-  text-align: center;
-  padding: 2rem;
-  margin-right: 2rem;
-  background: var(--main-color);
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+    .header h2 {
+      font-size: 2.4rem;
+      color: var(--black);
+    }
 
-.profile .profile-img-container {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 1rem;
-}
+    .header .back-btn {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+    }
 
-.profile .profile-img-container img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: var(--main-color);
-  border: 4px solid var(--golden-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+    .profile {
+      text-align: center;
+      padding: 2rem;
+    }
 
-.profile h3 {
-  font-size: 2rem;
-  color: var(--black);
-}
+    .profile img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--main-color);
+      margin-bottom: 1rem;
+    }
 
-.options {
-  display: flex;
-  flex-direction: column;
-  width: 250px;
-}
+    .profile h3 {
+      font-size: 2rem;
+      color: var(--black);
+    }
 
-.option {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1.5rem;
-  background: var(--secondary-color);
-  margin-bottom: 1rem;
-  border-radius: .5rem;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid transparent; /* Para el efecto de resaltar */
-}
+    .options {
+      padding: 1rem 2rem;
+    }
 
-.option:hover {
-  background: var(--highlight-color);
-  transform: translateY(-2px); /* Efecto al pasar el cursor */
-  border-left: 4px solid var(--golden-color); /* Resaltado dorado */
-}
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 1rem;
+      background: var(--secondary-color);
+      margin-bottom: 1rem;
+      border-radius: .5rem;
+      cursor: pointer;
+    }
 
-.option i {
-  font-size: 1.8rem;
-  margin-right: 1rem;
-  color: var(--primary-color);
-}
+    .option:hover {
+      background: var(--main-color);
+    }
 
-.option span {
-  font-size: 1.6rem;
-  color: var(--black);
-}
+    .option i {
+      font-size: 1.8rem;
+      margin-right: 1rem;
+    }
 
-.option-arrow {
-  font-size: 1.6rem;
-  color: var(--black);
-}
+    .option span {
+      font-size: 1.6rem;
+      color: var(--black);
+    }
+
+    .option-arrow {
+      font-size: 1.6rem;
+      color: var(--black);
+    }
