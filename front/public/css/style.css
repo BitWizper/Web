@@ -18,6 +18,7 @@
     transition: all .2s linear;
 }
 
+
 html{
     font-size: 62.5%;
     overflow-x: hidden;
@@ -315,25 +316,25 @@ section{
 
 .categorias {
     display: flex;
-    justify-content: space-evenly; /* Alinea los elementos de forma más uniforme */
+    justify-content: space-evenly;
     align-items: center;
-    gap: 1rem; /* Reducimos el espacio entre los círculos */
-    flex-wrap: wrap; /* Permite que los elementos se ajusten si es necesario */
+    gap: 3rem;
+    flex-wrap: wrap;
     margin-top: 3rem;
 }
 
 .categoria {
     text-align: center;
     flex: 1;
-    max-width: 8rem; /* Reducimos el tamaño máximo de los círculos */
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease; /* Efecto al hacer hover */
+    max-width: 12rem;
+    margin: 1.5rem 0;
+    transition: transform 0.3s ease;
 }
 
 .categoria img {
-    width: 8rem; /* Ajustamos el tamaño de las imágenes */
-    height: 8rem; /* Mantenemos la proporción circular */
-    border-radius: 50%; /* Hace que las imágenes sean circulares */
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
 }
 
 .categoria p {
@@ -343,8 +344,10 @@ section{
 }
 
 .categoria:hover {
-    transform: scale(1.1); /* Efecto de agrandamiento al pasar el cursor */
+    transform: scale(1.1);
 }
+
+
 
 
 
@@ -973,4 +976,43 @@ section{
         padding: 0.7rem 2.5rem;
         font-size: 1.4rem;
     }
+
+    /* Media query para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .categorias {
+        gap: 2rem; /* Reducimos el espacio entre los círculos */
+        justify-content: center; /* Centramos los círculos en la pantalla */
+    }
+
+    .categoria {
+        max-width: 8rem; /* Reducimos el tamaño máximo de los círculos */
+        margin: 1rem 0; /* Reducimos el margen entre los círculos */
+    }
+
+    .categoria img {
+        width: 8rem; /* Reducimos el tamaño de las imágenes */
+        height: 8rem;
+    }
+
+    .categoria p {
+        font-size: 1rem; /* Reducimos el tamaño del texto */
+    }
+}
+
+/* Media query para pantallas muy pequeñas (móviles pequeños) */
+@media (max-width: 480px) {
+    .categoria {
+        max-width: 6rem; /* Aún más pequeño en pantallas muy pequeñas */
+        margin: 0.8rem 0;
+    }
+
+    .categoria img {
+        width: 6rem; /* Reducimos aún más el tamaño de las imágenes */
+        height: 6rem;
+    }
+
+    .categoria p {
+        font-size: 0.9rem; /* Ajustamos el tamaño del texto */
+    }
+}
 }
