@@ -4,25 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reposteros</title>
-    <!-- fontawesome cdn link -->
+    <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- custom css link -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
-    <!-- header section starts -->
-
+    <!-- Header Section Starts -->
     <header class="header">
+        <div class="left-section">
+            <!-- Menú hamburguesa -->
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
+            
+            <!-- Logo -->
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
+        </div>
 
-        <a href="#" class="logo"> <i class="fas fa-cake"></i> Borcelle</a>
-
+        <!-- Menú desplegable de opciones de usuario -->
+        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+            <ul>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+        
         <nav class="navbar">
-            <a href="index.html" class="active">home</a>
+            <a href="home.html" class="active">Home</a>
             <a href="categorias.html">Pasteles</a>
             <a href="reposteros.html">Reposteros</a>
             <a href="#">Crear Pastel</a>
         </nav>
+
         <!-- Search Bar -->
         <div class="header-right">
             <div class="search-bar">
@@ -42,39 +58,37 @@
                 </a>
             </div>
         </div>
-        
-        <div id="menu" class="fas fa-bars"></div>
-
     </header>
+    <!-- Header Section Ends -->
 
-    <div class="heading-title" style="background: url(https://i.pinimg.com/736x/ea/66/f9/ea66f963dc334e7aed104508ee4f30fb.jpg) no-repeat;">
+    <!-- Title Section -->
+    <div class="heading-title" style="background: url('https://i.pinimg.com/736x/ea/66/f9/ea66f963dc334e7aed104508ee4f30fb.jpg') no-repeat;">
         <h1>Reposteros</h1>
     </div>
 
+    <!-- Popular Reposteros Section -->
     <section id="reposteros-populares" class="section">
         <div class="section-header">
-            <h2>Reposteros populares</h2>
+            <h2>Reposteros Populares</h2>
             <a href="#" class="ver-mas">Ver más &gt;&gt;</a>
         </div>
-        <div class="reposteros-container"></div> <!-- Este es el contenedor -->
+        <div class="reposteros-container"></div> <!-- Reposteros content -->
     </section>
-    
-    <!-- Pasteles destacados -->
+
+    <!-- Featured Pasteles Section -->
     <section id="pasteles-destacados" class="section">
         <div class="section-header">
             <h2>Pasteles Destacados</h2>
         </div>
-        <div class="pasteles-container" id="destacados"></div>
+        <div class="pasteles-container" id="destacados"></div> <!-- Featured pasteles content -->
     </section>
 
-    <!-- footer section starts -->
-
+    <!-- Footer Section -->
     <section class="footer">
-
         <div class="box-container">
 
             <div class="box">
-                <h3>quick links</h3>
+                <h3>Quick Links</h3>
                 <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
                 <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
                 <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
@@ -82,35 +96,31 @@
             </div>
 
             <div class="box">
-                <h3>extra links</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mi carrito</a>
-                <a href="perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> política y privacidad</a>
+                <h3>Extra Links</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> Mis pedidos</a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> Mis favoritos</a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> Mi carrito</a>
+                <a href="perfil.html"> <i class="fas fa-arrow-right"></i> Mi perfil</a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> Política y privacidad</a>
             </div>
 
             <div class="box">
                 <h3>Síguenos</h3>
-                <a href="#"> <i class="fab fa-facebook-f"></i> facebook</a>
-                <a href="#"> <i class="fab fa-twitter"></i> twitter</a>
-                <a href="#"> <i class="fab fa-instagram"></i> instagram</a>
-                <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
-                <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
+                <a href="#"> <i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"> <i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"> <i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"> <i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="#"> <i class="fab fa-pinterest"></i> Pinterest</a>
             </div>
 
-            
-
         </div>
-
     </section>
 
     <section class="credit"></section>
 
-    <!-- footer section ends -->
-
-    <!-- custom js link -->
+    <!-- Custom JS -->
     <script src="../js/repostero.js"></script>
+    <script src="../js/menu.js"></script>
 
 </body>
 </html>
