@@ -77,30 +77,9 @@ section{
     background: #E91E63; /* Rosa fuerte */
     position: relative;
     box-shadow: var(--box-shadow);
-    overflow: hidden;
     z-index: 0;
-    border: none; /* Se elimina el borde */
+    border: 2px solid #DAA520; /* Dorado fuerte y más delgado */
 }
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    height: 100%; width: 100%;
-    clip-path: polygon(0 0, 100% 0, 19% 15%, 0% 100%);
-    z-index: -1;
-    background: #C2185B; /* Un rosa más oscuro para efecto */
-    transition: .3s cubic-bezier(.38,1.15,.7,1.12);
-}
-
-.btn:hover::before {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-}
-
-.btn:hover {
-    color: #E91E63; /* Cambia a rosa fuerte en hover */
-}
-
 
 /* header */
 
@@ -207,17 +186,13 @@ section{
 
 .header .navbar a {
     font-size: 2rem;
-    color: var(--black);
+    color: black;
     text-align: center; /* Asegura que el texto esté centrado en su contenedor */
     margin: 0 20px; /* Agrega espacio horizontal entre los elementos */
 }
 
-.header .navbar .active {
-    color: var(--main-color);
-}
-
 .header .navbar a:hover {
-    color: var(--main-color);
+    color: #ff69b4; /* Un rosa intermedio al pasar el cursor */
 }
 
 
