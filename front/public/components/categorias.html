@@ -6,73 +6,89 @@
     <title>Catalogo</title>
     <!-- fontawesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+
     <!-- custom css link -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-
+    
     <!-- header section starts -->
     <header class="header">
-        <a href="#" class="logo"> <i class="fas fa-cake"></i> Borcelle</a>
+        <div class="left-section">
+            <!-- Menú hamburguesa -->
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
+            
+            <!-- Logo -->
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
+        </div>
+
+        <!-- Menú desplegable de opciones de usuario -->
+        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+            <ul>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+        
         <nav class="navbar">
-            <a href="../index.html">home</a>
+            <a href="home.html" class="active">Home</a>
+            <a href="categorias.html">Pasteles</a>
             <a href="reposteros.html">Reposteros</a>
-            <a href="categorias.html" class="active">Catalogo</a>
-            <a href="ayuda.html">Centro de ayuda</a>
-            <a href="login.html">login</a>
-            <a href="register.html">register</a>
+            <a href="#">Crear Pastel</a>
         </nav>
-        <!-- Search Bar -->
+
         <div class="header-right">
             <div class="search-bar">
                 <input type="text" placeholder="Search here..." class="search-input">
                 <button class="search-btn"><i class="fas fa-search"></i></button>
             </div>
-            <!-- Profile Icon -->
             <div class="profile-section">
                 <a href="perfil.html" title="Profile">
                     <i class="fas fa-user-circle fa-lg"></i>
                 </a>
             </div>
-            <!-- Cart Icon -->
             <div class="cart-section">
                 <a href="#" id="cart-icon" title="Shopping Cart">
                     <i class="fas fa-shopping-cart fa-lg"></i>
                 </a>
             </div>
         </div>
-        <div id="menu" class="fas fa-bars"></div>
     </header>
     <!-- header section ends -->
 
-    <div class="heading-title" style="background: url(https://i.pinimg.com/736x/ef/87/40/ef87403dc43ac01987aea9f9deeb23ee.jpg) no-repeat;">
+    <!-- heading section starts -->
+    <div class="heading-title" style="background: url(https://static.vecteezy.com/system/resources/previews/040/459/837/non_2x/ai-generated-a-birthday-cake-in-pink-adorned-with-golden-candles-and-balloons-free-photo.jpg) no-repeat;">
         <h1>Catalogo</h1>
     </div>
+    <!-- heading section ends -->
 
     <!-- category section starts -->
     <section class="category">
-        <h1 class="heading">Categorias</h1>
-        <div class="box-container">
-            <a href="#" class="box" data-categoria="baby-shower">
-                <img src="https://i.pinimg.com/736x/09/b5/54/09b55414cc53937ad60b7516bbd3bdf1.jpg" alt="">
-                <h3>Baby Shower</h3>
-            </a>
-            <a href="#" class="box" data-categoria="xv-años">
-                <img src="https://i.pinimg.com/736x/50/0a/10/500a1062ea81355b6dfa69b0f5cff490.jpg" alt="">
-                <h3>XV Años</h3>
-            </a>
-            <a href="#" class="box" data-categoria="cumpleaños">
-                <img src="https://i.pinimg.com/736x/4a/59/f7/4a59f7a71d5c809755e5d38503276a98.jpg" alt="">
-                <h3>Cumpleaños</h3>
-            </a>
-            <a href="#" class="box" data-categoria="bodas">
-                <img src="https://i.pinimg.com/736x/6f/f5/f6/6ff5f673a6272eb7cfddab4b7ba4ca5d.jpg" alt="">
-                <h3>Bodas</h3>
-            </a>
-            <a href="#" class="box" data-categoria="bautizo">
-                <img src="https://i.pinimg.com/736x/92/34/fa/9234fac1bce76bf319ca1c525bbbf82c.jpg" alt="">
-                <h3>Bautizo</h3>
-            </a>
+        <div class="categorias">
+            <div class="categoria">
+                <img src="../img/xv añoss.jpg" alt="XV Años">
+                <p>XV Años</p>
+            </div>
+            <div class="categoria">
+                <img src="../img/boda.jpg" alt="Boda">
+                <p>Boda</p>
+            </div>
+            <div class="categoria">
+                <img src="../img/boda.jpg" alt="Babyshower">
+                <p>Babyshower</p>
+            </div>
+            <div class="categoria">
+                <img src="../img/cumpleaños.jpg" alt="Cumpleaños">
+                <p>Cumpleaños</p>
+            </div>
+            <div class="categoria">
+                <img src="../img/boda.jpg" alt="Bautizo">
+                <p>Bautizo</p>
+            </div>
         </div>
     </section>
     <!-- category section ends -->
@@ -83,7 +99,6 @@
         <div class="cakes-gallery box-container"></div>
     </section>
     <!-- menu section ends -->
-
 
     <!-- footer section starts -->
     <section class="footer">
@@ -111,14 +126,13 @@
                 <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
                 <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
             </div>
-            
         </div>
     </section>
     <section class="credit"></section>
     <!-- footer section ends -->
 
-    <!-- custom js links -->
     <script src="../js/categoria.js"></script>
-    
+    <script src="../js/menu.js"></script>
+
 </body>
 </html>

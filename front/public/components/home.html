@@ -6,6 +6,9 @@
     <title>Borcelle</title>
     <!-- fontawesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+
     <!-- custom css link -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -13,82 +16,88 @@
     
     <!-- header section starts -->
     <header class="header">
-        <a href="#" class="logo"> <i class="fas fa-cake"></i> Borcelle</a>
-       
+        <div class="left-section">
+            <!-- Menú hamburguesa -->
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
+            
+            <!-- Logo -->
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
+        </div>
+    
+        <!-- Menú desplegable de opciones de usuario -->
+        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+            <ul>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+        
+    
         <nav class="navbar">
-            <a href="index.html" class="active">home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="categorias.html">Pasteles</a>
             <a href="reposteros.html">Reposteros</a>
             <a href="#">Crear Pastel</a>
         </nav>
-        <!-- Search Bar -->
+    
         <div class="header-right">
             <div class="search-bar">
-                <input type="text" placeholder="Search here..." class="search-input">
+                <input type="text" placeholder="Buscar..." class="search-input">
                 <button class="search-btn"><i class="fas fa-search"></i></button>
             </div>
-            <!-- Profile Icon -->
             <div class="profile-section">
                 <a href="perfil.html" title="Profile">
                     <i class="fas fa-user-circle fa-lg"></i>
                 </a>
             </div>
-            <!-- Cart Icon -->
             <div class="cart-section">
                 <a href="#" id="cart-icon" title="Shopping Cart">
                     <i class="fas fa-shopping-cart fa-lg"></i>
                 </a>
             </div>
         </div>
-        <div id="menu" class="fas fa-bars"></div>
     </header>
+    
+    
     <!-- header section ends -->
 
     <!-- home section starts -->
     <section class="home" id="home">
         <div class="content">
-            <h3>Bienvenido/a a Borcelle</h3>
-            <a href="components/categorias.html" class="btn"> hecha un vistazo en el catalogo</a>
+            <h3>Borcelle </h3>
+            <a href="categorias.html" class="btn">Ver catálogo</a>
         </div>
     </section>
     <!-- home section ends -->
 
     <!-- banner section starts -->
-    <section class="banner">
-        <div class="hex">
-            <div class="shape">
-                <img src="https://i.pinimg.com/736x/48/4b/41/484b4184cab2267d81f4834f358bf247.jpg" alt="">
-                <div class="content">
-                    <div>
-                        <h2>Recomendado</h2>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
+    <div class="categorias">
+        <div class="categoria">
+            <img src="../img/xv añoss.jpg" alt="XV Años">
+            <p>XV Años</p>
         </div>
-        <div class="hex">
-            <div class="shape">
-                <img src="https://i.pinimg.com/736x/c3/ce/4b/c3ce4b6f250a9055141faaaa10bcb431.jpg" alt="">
-                <div class="content">
-                    <div>
-                        <h2>Destacado</h2>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
+        <div class="categoria">
+            <img src="../img/boda.jpg" alt="Boda">
+            <p>Boda</p>
         </div>
-        <div class="hex">
-            <div class="shape">
-                <img src="https://i.pinimg.com/736x/85/b1/4e/85b14edc3fa18d5f12dc4c28f272a7c9.jpg" alt="">
-                <div class="content">
-                    <div>
-                        <h2>Nuevo</h2>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
+        <div class="categoria">
+            <img src="../img/boda.jpg" alt="Babyshower">
+            <p>Babyshower</p>
         </div>
-    </section>
+        <div class="categoria">
+            <img src="../img/cumpleaños.jpg" alt="Cumpleaños">
+            <p>Cumpleaños</p>
+        </div>
+        <div class="categoria">
+            <img src="../img/boda.jpg" alt="Bautizo">
+            <p>Bautizo</p>
+        </div>
+    </div>
+    
+
     <!-- banner section ends -->
 
     <!-- home-menu section starts -->
@@ -112,7 +121,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
-                    <a href="#" class="btn add-to-cart-btn">add to cart</a>
+                    <a href="#" class="btn add-to-cart-btn">Añadir al carrito</a>
                 </div>
             </div>
             <div class="box">
@@ -132,7 +141,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
-                    <a href="#" class="btn add-to-cart-btn">add to cart</a>
+                    <a href="#" class="btn add-to-cart-btn">Añadir al carrito</a>
                 </div>
             </div>
             <div class="box">
@@ -152,7 +161,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
-                    <a href="#" class="btn add-to-cart-btn">add to cart</a>
+                    <a href="#" class="btn add-to-cart-btn">Añadir al carrito</a>
                 </div>
             </div>
         </div>
@@ -190,6 +199,9 @@
     </section>
     <section class="credit"></section>
     <!-- footer section ends -->
+
+    <script src="../js/menu.js"></script>
+
 
 </body>
 </html>

@@ -18,6 +18,7 @@
     transition: all .2s linear;
 }
 
+
 html{
     font-size: 62.5%;
     overflow-x: hidden;
@@ -66,37 +67,18 @@ section{
     color: #fff;
 }
 
-.btn{
+.btn {
     display: inline-block;
     margin-top: 1rem;
-    padding: 1rem 4rem;
-    font-size: 1.7rem;
-    border-radius: .5rem;
-    color: var(--primary-color);
-    background: var(--main-color);
+    padding: 1.5rem 5rem; /* Aumenta el tamaño del botón */
+    font-size: 2rem; /* Hace el texto más grande */
+    border-radius: 1rem;
+    color: #fff; /* Letras blancas */
+    background: #E91E63; /* Rosa fuerte */
     position: relative;
     box-shadow: var(--box-shadow);
-    overflow: hidden;
     z-index: 0;
-}
-
-.btn::before{
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    height: 100%; width: 100%;
-    clip-path: polygon(0 0, 100% 0, 19% 15%, 0% 100%);
-    z-index: -1;
-    background: var(--primary-color);
-    transition: .3s cubic-bezier(.38,1.15,.7,1.12);
-}
-
-.btn:hover::before{
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-}
-
-.btn:hover{
-    color: var(--main-color);
+    border: 2px solid #DAA520; /* Dorado fuerte y más delgado */
 }
 
 /* header */
@@ -115,6 +97,75 @@ section{
     box-shadow: var(--box-shadow);
 }
 
+.left-section {
+    display: flex;
+    align-items: center; /* Alinea el icono del menú y el logo en la misma línea */
+    gap: 1.5rem; /* Espacio entre el icono de menú y el logo */
+}
+
+.menu-icon {
+    font-size: 2.4rem; /* Tamaño del icono de menú */
+    cursor: pointer;
+}
+
+/* Estilo del menú desplegable */
+/* Menú de hamburguesa */
+.dropdown-menu {
+    display: none; /* Menú oculto inicialmente */
+    position: absolute;
+    top: 60px; /* Ajusta la distancia desde el borde superior si es necesario */
+    left: 0;
+    width: 300px; /* Aumenta el ancho del menú */
+    background: #fff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Aumenta la sombra */
+    padding: 2rem; /* Aumenta el padding para mayor tamaño interno */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 1.6rem; /* Aumenta aún más el tamaño de la fuente */
+    z-index: 100; /* Asegura que el menú esté por encima */
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu ul {
+    list-style: none; /* Eliminar los puntos de la lista */
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu ul li {
+    padding: 15px 0; /* Aumentar el espacio entre los elementos */
+    border-bottom: 1px solid #eee; /* Línea separadora entre los elementos */
+}
+
+.dropdown-menu ul li a {
+    color: #333; /* Color de texto */
+    text-decoration: none; /* Sin subrayado */
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem; /* Tamaño de fuente de los enlaces, más grande */
+    gap: 10px; /* Espacio entre el icono y el texto */
+}
+
+.dropdown-menu ul li a:hover {
+    color: #ff4081; /* Color de texto cuando se pasa el ratón */
+}
+
+/* Ajustar el ícono del menú hamburguesa */
+.menu-icon {
+    font-size: 2rem; /* Ajustar el tamaño del icono de la hamburguesa */
+}
+
+/* Asegurarse de que el contenedor del menú hamburguesa esté alineado correctamente */
+.left-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
+
+
+
 .header .logo {
     font-size: 2.5rem;
     font-weight: bolder;
@@ -128,27 +179,28 @@ section{
 
 .header .navbar {
     display: flex;
-    gap: 2rem;
+    justify-content: center; /* Centra los elementos dentro del contenedor */
+    align-items: center; /* Asegura que los elementos estén centrados verticalmente */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
 }
 
 .header .navbar a {
     font-size: 2rem;
-    color: var(--black);
-}
-
-.header .navbar .active {
-    color: var(--main-color);
+    color: black;
+    text-align: center; /* Asegura que el texto esté centrado en su contenedor */
+    margin: 0 20px; /* Agrega espacio horizontal entre los elementos */
 }
 
 .header .navbar a:hover {
-    color: var(--main-color);
+    color: #ff69b4; /* Un rosa intermedio al pasar el cursor */
 }
+
 
 #menu {
     font-size: 2.5rem;
     cursor: pointer;
     color: var(--black);
-    display: none;
+    display: block;
 }
 
 /* Ajuste para la barra de búsqueda, perfil y carrito */
@@ -209,108 +261,71 @@ section{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url(https://i.pinimg.com/736x/ef/87/40/ef87403dc43ac01987aea9f9deeb23ee.jpg) no-repeat center center;
-    background-size: cover;
+    background: url(../css/banner.jpg) no-repeat center center;
+    background-size: auto; /* Mantiene el tamaño original de la imagen */
+    background-attachment: fixed;
+    image-rendering: high-quality;
 }
-
-
 
 .home .content{
     max-width: 55rem;
     text-align: center;
 }
 
-.home .content h3{
-    color: #fff;
-    font-size: 6rem;
-    line-height: 1.2;
-    letter-spacing: .5rem;
-    font-weight: 800;
-    text-transform: uppercase;
+.home .content h3 {
+    font-family: Poppins; /* Usar Poppins */
+    color: #000; /* Texto en negro */
+    font-size: 8rem; /* Letras más grandes */
+    line-height: 1.2; /* Espaciado entre líneas */
+    letter-spacing: 0.4rem; /* Espaciado de letras */
+    font-weight: 600; /* Peso medio */
+    text-transform: uppercase; /* Todo en mayúsculas */
     padding-bottom: 2rem;
+    -webkit-text-stroke: 2px #fff; /* Bordes blancos alrededor del texto (más delgados) */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); /* Sombra suave para contraste */
 }
 
 /* end */
 
-/* banner */
+/* categorias*/
 
-.banner{
-    position: relative;
+.categorias {
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 3rem;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    margin-top: 3rem;
 }
 
-.banner .hex{
-    position: relative;
-    width: 35rem;
-    height: 40rem;
-    margin: 3rem 1.5rem;
-}
-
-.banner .hex::before{
-    content: '';
-    position: absolute;
-    bottom: -7rem;
-    width: 100%;
-    height: 6rem;
-    background: radial-gradient(rgba(0,0,0,0.15), transparent, transparent);
-    border-radius: 50%;
-    transition: .5s;
-}
-
-.banner .hex:hover::before{
-    opacity: 0.8;
-    transform: scale(0.8);
-}
-
-.banner .hex .shape{
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
-    transition: .5s;
-}
-
-.banner .hex:hover .shape{
-    transform: translateY(-1rem);
-}
-
-.banner .hex .shape img{
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-}
-
-.banner .hex .shape .content{
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.categoria {
     text-align: center;
-    background: linear-gradient(45deg, #5e3719 37.47%, #dfd090 93.67%);
-    color: #fff;
-    opacity: 0;
-    transition: .5s;
+    flex: 1;
+    max-width: 12rem;
+    margin: 1.5rem 0;
+    transition: transform 0.3s ease;
 }
 
-.banner .hex .shape .content h2{
-    font-size: 3rem;
-    padding-bottom: 1.2rem;
+.categoria img {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
 }
 
-.banner .hex .shape .content p{
-    font-size: 1.7rem;
-    line-height: 1.8;
+.categoria p {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #333;
 }
 
-.banner .hex:hover .shape .content{
-    opacity: 1;
+.categoria:hover {
+    transform: scale(1.1);
 }
+
+
+
+
+
 
 /* end */
 
@@ -936,4 +951,43 @@ section{
         padding: 0.7rem 2.5rem;
         font-size: 1.4rem;
     }
+
+    /* Media query para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .categorias {
+        gap: 2rem; /* Reducimos el espacio entre los círculos */
+        justify-content: center; /* Centramos los círculos en la pantalla */
+    }
+
+    .categoria {
+        max-width: 8rem; /* Reducimos el tamaño máximo de los círculos */
+        margin: 1rem 0; /* Reducimos el margen entre los círculos */
+    }
+
+    .categoria img {
+        width: 8rem; /* Reducimos el tamaño de las imágenes */
+        height: 8rem;
+    }
+
+    .categoria p {
+        font-size: 1rem; /* Reducimos el tamaño del texto */
+    }
+}
+
+/* Media query para pantallas muy pequeñas (móviles pequeños) */
+@media (max-width: 480px) {
+    .categoria {
+        max-width: 6rem; /* Aún más pequeño en pantallas muy pequeñas */
+        margin: 0.8rem 0;
+    }
+
+    .categoria img {
+        width: 6rem; /* Reducimos aún más el tamaño de las imágenes */
+        height: 6rem;
+    }
+
+    .categoria p {
+        font-size: 0.9rem; /* Ajustamos el tamaño del texto */
+    }
+}
 }
