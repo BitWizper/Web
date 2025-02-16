@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Repostero</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #ffb6c1;
+            padding-top: 20px;
+            position: fixed;
+            transition: 0.3s;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .sidebar a:hover {
+            background: #ff69b4;
+        }
+        .sidebar a i {
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#pedidos"><i class="fa fa-box"></i> Pedidos</a>
+        <a href="#productos"><i class="fa fa-birthday-cake"></i> Productos & Recetas</a>
+        <a href="#produccion"><i class="fa fa-chart-line"></i> Producción y Entregas</a>
+        <a href="#historial"><i class="fa fa-history"></i> Historial de Pedidos</a>
+        <a href="#notificaciones"><i class="fa fa-bell"></i> Notificaciones</a>
+        <a href="#configuracion"><i class="fa fa-cog"></i> Configuración</a>
+    </div>
+    <div class="content">
+        <h2>Bienvenido al Panel de Repostería</h2>
+        <p>Selecciona una opción del menú para comenzar.</p>
+    </div>
+</body>
+</html>
