@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendación de Citas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #ffb6c1;
+            padding-top: 20px;
+            position: fixed;
+            transition: 0.3s;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .sidebar a:hover {
+            background: #ff69b4;
+        }
+        .sidebar a i {
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="pedidos.html"><i class="fa fa-box"></i> Pedidos</a>
+        <a href="recetas.html"><i class="fa fa-birthday-cake"></i> Productos y Recetas</a>
+        <a href="produccion.html"><i class="fa fa-chart-line"></i> Producción y Entregas</a>
+        <a href="historial.html"><i class="fa fa-history"></i> Historial de Pedidos</a>
+        <a href="citas.html"><i class="fa fa-calendar"></i> Agendar Citas</a>
+        <a href="notificaciones.html"><i class="fa fa-bell"></i> Notificaciones</a>
+        <a href="configuracion.html"><i class="fa fa-cog"></i> Configuración</a>
+    </div>
+    <div class="content">
+        <h2 class="text-2xl font-bold">Agendación de Citas</h2>
+        <form id="formCita" class="mt-4 bg-white p-4 shadow-md rounded-lg">
+            <label class="block text-gray-700">Nombre del Cliente:</label>
+            <input type="text" id="cliente" class="w-full p-2 border rounded mt-1" required>
+            
+            <label class="block text-gray-700 mt-2">Fecha y Hora:</label>
+            <input type="datetime-local" id="fecha" class="w-full p-2 border rounded mt-1" required>
+            
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Agendar</button>
+        </form>
+        
+        <h3 class="text-xl font-semibold mt-6">Citas Agendadas</h3>
+        <ul id="listaCitas" class="mt-4"></ul>
+    </div>
+
+    <script>
+        function cargarCitas() {
+            const citas = JSON.parse(localStorage.getItem("citas")) || [];
+            const lista = document.getElementById("listaCitas");
+            lista.innerHTML = "";
+            citas.forEach(cita => {
+                const li = document.createElement("li");
+                li.textContent = `${cita.cliente} - ${cita.fecha}`;
+                li.classList.add("bg-white", "p-2", "shadow-md", "rounded-lg", "mt-2");
+                lista.appendChild(li);
+            });
+        }
+
+        document.getElementById("formCita").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const cliente = document.getElementById("cliente").value;
+            const fecha = document.getElementById("fecha").value;
+            const citas = JSON.parse(localStorage.getItem("citas")) || [];
+            citas.push({ cliente, fecha });
+            localStorage.setItem("citas", JSON.stringify(citas));
+            cargarCitas();
+            document.getElementById("formCita").reset();
+        });
+
+        document.addEventListener("DOMContentLoaded", cargarCitas);
+    </script>
+</body>
+</html>

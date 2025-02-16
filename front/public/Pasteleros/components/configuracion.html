@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración del Repostero</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #ffb6c1;
+            padding-top: 20px;
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .sidebar a:hover {
+            background: #ff69b4;
+        }
+        .sidebar a i {
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="pedidos.html"><i class="fa fa-box"></i> Pedidos</a>
+        <a href="recetas.html"><i class="fa fa-birthday-cake"></i> Productos y Recetas</a>
+        <a href="produccion.html"><i class="fa fa-chart-line"></i> Producción y Entregas</a>
+        <a href="historial.html"><i class="fa fa-history"></i> Historial de Pedidos</a>
+        <a href="citas.html"><i class="fa fa-calendar"></i> Agendar Citas</a>
+        <a href="notificaciones.html"><i class="fa fa-bell"></i> Notificaciones</a>
+        <a href="configuracion.html" class="bg-pink-500"><i class="fa fa-cog"></i> Configuración</a>
+    </div>
+    <div class="content">
+        <h2 class="text-2xl font-bold">Configuración</h2>
+        <div class="mt-4 space-y-6">
+            <!-- Perfil -->
+            <div class="bg-white p-4 shadow-md rounded-lg">
+                <h3 class="text-xl font-semibold mb-2">Perfil</h3>
+                <input type="text" class="w-full p-2 border rounded" placeholder="Nombre">
+                <input type="email" class="w-full p-2 mt-2 border rounded" placeholder="Correo Electrónico">
+                <button class="bg-green-500 text-white px-4 py-2 mt-2 rounded">Guardar</button>
+            </div>
+            
+            <!-- Horario de trabajo -->
+            <div class="bg-white p-4 shadow-md rounded-lg">
+                <h3 class="text-xl font-semibold mb-2">Horario de Trabajo</h3>
+                <input type="text" class="w-full p-2 border rounded" placeholder="Lunes a Viernes: 9 AM - 6 PM">
+                <button class="bg-green-500 text-white px-4 py-2 mt-2 rounded">Actualizar Horario</button>
+            </div>
+            
+            <!-- Métodos de Pago -->
+            <div class="bg-white p-4 shadow-md rounded-lg">
+                <h3 class="text-xl font-semibold mb-2">Métodos de Pago</h3>
+                <select class="w-full p-2 border rounded">
+                    <option>Transferencia Bancaria</option>
+                    <option>PayPal</option>
+                    <option>Efectivo</option>
+                </select>
+                <button class="bg-green-500 text-white px-4 py-2 mt-2 rounded">Guardar Método</button>
+            </div>
+            
+            <!-- Seguridad -->
+            <div class="bg-white p-4 shadow-md rounded-lg">
+                <h3 class="text-xl font-semibold mb-2">Seguridad</h3>
+                <input type="password" class="w-full p-2 border rounded" placeholder="Nueva Contraseña">
+                <input type="password" class="w-full p-2 mt-2 border rounded" placeholder="Confirmar Contraseña">
+                <button class="bg-red-500 text-white px-4 py-2 mt-2 rounded">Cambiar Contraseña</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Pedidos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #ffb6c1;
+            padding-top: 20px;
+            position: fixed;
+            transition: 0.3s;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .sidebar a:hover {
+            background: #ff69b4;
+        }
+        .sidebar a i {
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="pedidos.html"><i class="fa fa-box"></i> Pedidos</a>
+        <a href="recetas.html"><i class="fa fa-birthday-cake"></i> Productos y Recetas</a>
+        <a href="produccion.html"><i class="fa fa-chart-line"></i> Producción y Entregas</a>
+        <a href="historial.html"><i class="fa fa-history"></i> Historial de Pedidos</a>
+        <a href="citas.html"><i class="fa fa-calendar"></i> Agendar Citas</a>
+        <a href="notificaciones.html"><i class="fa fa-bell"></i> Notificaciones</a>
+        <a href="configuracion.html"><i class="fa fa-cog"></i> Configuración</a>
+    </div>
+    <div class="content">
+        <h2 class="text-2xl font-bold">Historial de Pedidos</h2>
+        <table class="w-full mt-4 border rounded-lg overflow-hidden">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-2 text-left">Cliente</th>
+                    <th class="p-2 text-left">Pastel</th>
+                    <th class="p-2 text-left">Estado</th>
+                    <th class="p-2 text-left">Fecha</th>
+                </tr>
+            </thead>
+            <tbody id="historial-body">
+                <!-- Los pedidos aceptados/rechazados se agregarán aquí dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const historial = JSON.parse(localStorage.getItem("historialPedidos")) || [];
+            const historialBody = document.getElementById("historial-body");
+
+            historial.forEach(pedido => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td class="p-2">${pedido.cliente}</td>
+                    <td class="p-2">${pedido.pastel}</td>
+                    <td class="p-2 ${pedido.estado === 'Aceptado' ? 'text-green-500' : 'text-red-500'}">${pedido.estado}</td>
+                    <td class="p-2">${pedido.fecha}</td>
+                `;
+                historialBody.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>
