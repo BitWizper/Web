@@ -6,15 +6,33 @@ const jwt = require('jsonwebtoken');
 class UsuarioService {
   static async crearUsuario(data) {
     try {
+      const { userData } = data;
+
+      // Verificar si el correo ya está registrado
+      const usuarioExistente = await Usuario.findOne({ where: { correo: userData.correo } });
+      if (usuarioExistente) {
+        throw new Error('El correo ya está en uso.');
+      }
+
       // Encriptar la contraseña antes de guardar
-      data.contrasena = await bcrypt.hash(data.contrasena, 8);
-      const usuario = await Usuario.create(data);
-      return usuario;
+      const hashedPassword = await bcrypt.hash(userData.contrasena, 10);
+
+      // Crear el usuario en la base de datos
+      const nuevoUsuario = await Usuario.create({
+        nombre: userData.nombre,
+        correo: userData.correo,
+        contrasena: hashedPassword,
+        direccion: userData.direccion,
+        telefono: userData.telefono,
+        tipo_usuario: 'Cliente' 
+      });
+
+      return nuevoUsuario;
     } catch (error) {
       throw new Error('Error al crear usuario: ' + error.message);
     }
   }
-
+  
   static async obtenerUsuarios() {
     try {
       const usuarios = await Usuario.findAll();

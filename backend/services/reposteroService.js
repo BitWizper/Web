@@ -1,10 +1,42 @@
 const Repostero = require('../models/Repostero');
+const Usuario = require('../models/Usuario');
+const bcrypt = require('bcrypt');
 
 class ReposteroService {
   static async crearRepostero(data) {
     try {
-      const repostero = await Repostero.create(data);
-      return repostero;
+      const { userData, reposteroData } = data;
+
+      // Verificar si el correo ya está registrado
+      const usuarioExistente = await Usuario.findOne({ where: { correo: userData.correo } });
+      if (usuarioExistente) {
+        throw new Error('El correo ya está en uso.');
+      }
+
+      // Encriptar la contraseña antes de guardar
+      const hashedPassword = await bcrypt.hash(userData.contrasena, 10);
+
+      // Crear el usuario en la base de datos
+      const nuevoUsuario = await Usuario.create({
+        nombre: userData.nombre,
+        correo: userData.correo,
+        contrasena: hashedPassword,
+        direccion: userData.direccion,
+        telefono: userData.telefono,
+        tipo_usuario: 'Repostero' // Establecer el tipo de usuario como "Repostero"
+      });
+
+      // Crear el repostero asociado al usuario
+      const nuevoRepostero = await Repostero.create({
+        id_usuario: nuevoUsuario.id_usuario,
+        NombreNegocio: reposteroData.NombreNegocio,
+        Ubicacion: reposteroData.Ubicacion,
+        Especialidades: reposteroData.Especialidades,
+        PortafolioURL: reposteroData.PortafolioURL
+      });
+
+      return { usuario: nuevoUsuario, repostero: nuevoRepostero };
+
     } catch (error) {
       throw new Error('Error al crear repostero: ' + error.message);
     }
