@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro</title>
+  <title>Registro de Repostero</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -31,56 +31,55 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 20px;
     }
 
     .container {
       width: 100%;
       max-width: 450px;
       background: #fff;
-      padding: 3rem 2rem;
+      padding: 2.5rem;
       border-radius: .5rem;
       box-shadow: var(--box-shadow);
       text-align: center;
     }
 
     .container h2 {
-      font-size: 2.8rem;
-      margin-bottom: 2rem;
+      font-size: 2.4rem;
+      margin-bottom: 1.5rem;
       color: var(--primary-color);
     }
 
-    .container form {
+    form {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.2rem;
     }
 
     form input,
-    form select {
+    form textarea {
       width: 100%;
-      padding: 1rem;
-      font-size: 1.6rem;
+      padding: 0.9rem;
+      font-size: 1.5rem;
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: .5rem;
       background: #f9f9f9;
     }
 
     form input:focus,
-    form select:focus {
+    form textarea:focus {
       border: 1px solid var(--primary-color);
       background: #fff;
     }
 
-    form select {
-      appearance: none; /* Eliminar estilo predeterminado del navegador */
-      background: #f9f9f9 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0h10L5 6z" fill="%23800020"/></svg>') no-repeat right 1rem center;
-      background-size: 1.5rem;
-      padding-right: 3rem;
+    form textarea {
+      resize: none;
+      height: 80px;
     }
 
     form button {
       padding: 1rem 2rem;
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       color: #fff;
       background: var(--primary-color);
       border-radius: .5rem;
@@ -94,8 +93,8 @@
     }
 
     .container p {
-      margin-top: 1.5rem;
-      font-size: 1.4rem;
+      margin-top: 1.2rem;
+      font-size: 1.3rem;
       color: var(--black);
     }
 
@@ -111,19 +110,25 @@
 </head>
 <body>
   <div class="container">
-    <h2>Crear Cuenta</h2>
-    <form id="registerForm">
+    <h2>Registro de Repostero</h2>
+    <form id="registerReposteroForm">
       <input type="text" id="nombre" placeholder="Nombre" required>
       <input type="email" id="correo" placeholder="Correo" required>
-      <input type="password" id="contrasena" placeholder="Contraseña" required>
+      <input type="password" id="contrasena" placeholder="Contraseña (8 caracteres)" required>
       <input type="text" id="direccion" placeholder="Dirección" required>
-      <input type="text" id="telefono" placeholder="Teléfono" required>
+      <input type="text" id="telefono" placeholder="Teléfono (10 dígitos)" required>
+
+      <h2 style="font-size: 1.8rem; margin-top: 1.5rem;">Información del Negocio</h2>
+      <input type="text" id="NombreNegocio" placeholder="Nombre del Negocio" required>
+      <input type="text" id="Ubicacion" placeholder="Ubicación" required>
+      <textarea id="Especialidades" placeholder="Especialidades" required></textarea>
+      <input type="url" id="PortafolioURL" placeholder="URL del Portafolio (opcional)">
       
       <button type="submit">Crear Cuenta</button>
     </form>
     <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
   </div>
 
-  <script src="../js/register.js"></script>
+  <script src="../js/register-repostero.js"></script>
 </body>
 </html>
