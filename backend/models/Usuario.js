@@ -1,14 +1,13 @@
+// models/Usuario.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Usuario = sequelize.define('Usuario', {
-
-  id_usuario:{
+  id_usuario: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
-
   nombre: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -30,8 +29,10 @@ const Usuario = sequelize.define('Usuario', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  // Se amplía el ENUM para incluir también 'Repostero'
   tipo_usuario: {
     type: DataTypes.ENUM('Cliente', 'Repostero'),
+    defaultValue: 'Cliente',
     allowNull: false,
   },
   fecha_registro: {
@@ -43,4 +44,3 @@ const Usuario = sequelize.define('Usuario', {
 });
 
 module.exports = Usuario;
-
