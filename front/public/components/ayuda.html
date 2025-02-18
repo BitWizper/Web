@@ -3,222 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro de Ayuda</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap">
+    <title>Preguntas Frecuentes - BORCELLE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --main-color: #dfd090;
-            --primary-color: #800020;
-            --black: #13131a;
-            --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
-        }
-
-        * {
+        body {
             font-family: 'Nunito', sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            outline: none;
-            border: none;
-            text-decoration: none;
-            text-transform: capitalize;
-            list-style: none;
-            transition: all .2s linear;
-        }
-
-        body {
-            background: #f9f9f9;
-            line-height: 1.6;
-            padding-top: 8rem; /* Espacio para el header fijo */
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 2rem 9%;
-            background: #fff;
-            box-shadow: var(--box-shadow);
-        }
-
-        header .logo {
-            font-size: 2.5rem;
-            font-weight: bolder;
-            color: var(--black);
-        }
-
-        header .logo i {
-            color: var(--main-color);
-            padding-right: .5rem;
+            background-color: #f7f2f2;
+            color: #333;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: #fff;
-            border-radius: .5rem;
-            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 1100px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 30px;
         }
 
-        .heading {
+        h1 {
             text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-            font-size: 3rem;
+            color: #d78fa4;
+            font-size: 2.5em;
         }
 
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #ddd;
+        h2 {
+            font-size: 1.8em;
+            color: #d78fa4;
+            margin-top: 20px;
         }
 
-        .tab {
-            padding: 1rem 2rem;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--black);
-            border-bottom: 2px solid transparent;
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
         }
 
-        .tab.active {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
+        .highlight {
+            font-weight: bold;
+            color: #d78fa4;
         }
 
-        .tab-content {
-            display: none;
+        .section {
+            margin-top: 40px;
         }
 
-        .tab-content.active {
+        .question {
+            font-weight: bold;
+            font-size: 1.4em;
+            color: #d78fa4;
+            margin-top: 20px;
+        }
+
+        .cta-button {
             display: block;
-        }
-
-        /* Preguntas Frecuentes */
-        .faq-item {
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 1rem;
-        }
-
-        .faq-item h3 {
-            font-size: 2rem;
-            color: var(--primary-color);
+            margin: 20px auto;
+            padding: 15px 30px;
+            background-color: #d78fa4;
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
         }
 
-        .faq-item p {
-            display: none;
-            color: var(--black);
-            margin-top: 1rem;
-            font-size: 1.6rem;
+        .cta-button:hover {
+            background-color: #c77490;
         }
 
-        .faq-item.active p {
-            display: block;
-        }
-
-        /* Contáctenos */
-        .contact-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .contact-options a {
+        .stats {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--main-color);
-            color: var(--primary-color);
-            padding: 1rem 2rem;
-            border-radius: .5rem;
-            box-shadow: var(--box-shadow);
-            font-size: 1.8rem;
+            justify-content: space-around;
+            text-align: center;
         }
 
-        .contact-options a:hover {
-            background: var(--primary-color);
-            color: var(--main-color);
-        }
-
-        .contact-options a i {
-            margin-right: 1rem;
+        .stat {
+            font-size: 1.4em;
+            color: #333;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Preguntas Frecuentes - <span class="highlight">BORCELLE</span></h1>
+        
+        <div class="section">
+            <h2>¿Qué es <span class="highlight">BORCELLE</span>?</h2>
+            <p>Es una plataforma en línea que permite diseñar y encargar pasteles personalizados para eventos exclusivos como bodas, quince años y celebraciones especiales.</p>
+        </div>
 
-<header>
-    <a href="home.html" class="logo"><i class="fas fa-arrow-left"></i> Centro de Ayuda</a>
-</header>
+        <div class="section">
+            <h2>¿Cómo funciona <span class="highlight">BORCELLE</span>?</h2>
+            <p>Los usuarios pueden crear un pastel único, eligiendo desde los sabores hasta las decoraciones, y ver el diseño en tiempo real mientras eligen las opciones.</p>
+        </div>
 
-<section class="container">
-    <h1 class="heading">Centro de Ayuda</h1>
+        <div class="section">
+            <h2>¿Qué problemas resuelve <span class="highlight">BORCELLE</span>?</h2>
+            <p>Soluciona las dificultades que enfrentan las personas al no encontrar proveedores que ofrezcan pasteles con la calidad, sabor y diseño deseados.</p>
+        </div>
 
-    <div class="tabs">
-        <div class="tab active" data-tab="faq">Preguntas Frecuentes</div>
-        <div class="tab" data-tab="contact">Contáctenos</div>
+        <div class="section">
+            <h2>¿Puedo elegir al pastelero de mi preferencia?</h2>
+            <p>Sí, en la plataforma puedes seleccionar el pastelero de acuerdo a su experiencia, trabajos anteriores y opiniones de otros clientes.</p>
+        </div>
+
+        <div class="section">
+            <h2>¿Cómo puedo contactar al pastelero?</h2>
+            <p>A través de la plataforma, puedes agendar una cita para degustaciones y comunicarte con el pastelero para coordinar todos los detalles.</p>
+        </div>
+
+        <div class="section">
+            <h2>¿Cuál es el modelo de negocio de <span class="highlight">BORCELLE</span>?</h2>
+            <p><span class="highlight">BORCELLE</span> gana dinero mediante comisiones por pedido, suscripciones de pasteleros y publicidad en la plataforma.</p>
+        </div>
+
+        <div class="section">
+            <h2>¿Cómo puedo comenzar a usar la plataforma?</h2>
+            <p>Solo tienes que registrarte, crear tu pastel personalizado y elegir al pastelero que mejor se adapte a tus necesidades.</p>
+        </div>
+
+        <div class="section">
+            <h2>¿BORCELLE está disponible para cualquier evento?</h2>
+            <p>Está especialmente diseñado para eventos exclusivos como bodas, quince años y celebraciones de alto nivel.</p>
+        </div>
+
+        <div class="section">
+            <h2>¿Cómo se asegura la calidad de los pasteles?</h2>
+            <p><span class="highlight">BORCELLE</span> trabaja solo con los mejores pasteleros de la ciudad, quienes tienen un historial comprobado de trabajos anteriores y son altamente calificados.</p>
+        </div>
+
+        <div class="section">
+            <h2>¿Qué pasa si no estoy satisfecho con el pastel?</h2>
+            <p>La plataforma permite coordinar todos los detalles con el pastelero para asegurar que el pastel sea exactamente lo que buscas. Si hay algún problema, trabajamos para solucionarlo.</p>
+        </div>
+
+        <div class="section">
+            <a href="registro.html" class="cta-button">Comienza ahora</a>
+        </div>
     </div>
-
-    <div class="tab-content active" id="faq">
-        <div class="faq-item">
-            <h3>¿Cuánto tiempo de anticipación necesito para hacer un pedido?</h3>
-            <p>Recomendamos hacer tu pedido con al menos dos semanas de anticipación para asegurar disponibilidad y tiempo suficiente para la preparación.</p>
-        </div>
-        <div class="faq-item">
-            <h3>¿Dónde puedo ver el portafolio de pasteles del repostero?</h3>
-            <p>El portafolio está disponible en nuestra sección de catálogo, donde puedes encontrar trabajos anteriores de nuestros reposteros.</p>
-        </div>
-        <div class="faq-item">
-            <h3>¿Cómo creo un perfil de usuario?</h3>
-            <p>Puedes registrarte fácilmente en nuestra página de registro llenando tus datos básicos.</p>
-        </div>
-        <div class="faq-item">
-            <h3>¿Cómo puedo reservar una cita con el repostero?</h3>
-            <p>En la página de cada repostero, hay una opción para agendar una cita según su disponibilidad.</p>
-        </div>
-    </div>
-
-    <div class="tab-content" id="contact">
-        <div class="contact-options">
-            <a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-            <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
-        </div>
-    </div>
-</section>
-
-<script>
-    const tabs = document.querySelectorAll('.tab');
-    const contents = document.querySelectorAll('.tab-content');
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
-
-            tab.classList.add('active');
-            document.getElementById(tab.dataset.tab).classList.add('active');
-        });
-    });
-
-    faqItems.forEach(item => {
-        item.addEventListener('click', () => {
-            item.classList.toggle('active');
-        });
-    });
-</script>
-
 </body>
 </html>

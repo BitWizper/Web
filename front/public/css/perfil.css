@@ -17,6 +17,10 @@ body {
 
 /* Sidebar */
 .sidebar {
+  position: relative;  /* Asegura que la barra lateral se comporta como un contenedor */
+}
+
+.sidebar {
   width: 250px;
   background: #d78fa4;
   color: white;
@@ -27,10 +31,11 @@ body {
   text-align: left;
   font-weight: 600;
   display: flex;
-  align-items: center;  /* Alinea la flecha y el texto verticalmente */
-  gap: 10px;  /* Da espacio entre la flecha y el texto */
+  align-items: center;
+  gap: 10px;
+  position: relative;  /* Para que el h3 esté en su propio espacio */
+  z-index: 2;  /* Eleva el z-index del h3 para que no se superponga con las opciones */
 }
-
 .back-btn {
   font-size: 24px;
   cursor: pointer;
