@@ -13,45 +13,78 @@
             <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
             <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
         </div>
+        
         <nav class="navbar">
             <a href="home.html" class="active">Home</a>
             <a href="categorias.html">Pasteles</a>
             <a href="reposteros.html">Reposteros</a>
             <a href="#">Crear Pastel</a>
         </nav>
+        
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search here..." class="search-input">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="profile-section">                                                       
+                <a href="perfil.html" title="Profile">
+                    <i class="fas fa-user-circle fa-lg"></i>
+                </a>
+            </div>
+            <div class="cart-section">
+                <a href="#" id="cart-icon" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                </a>
+            </div>
+        </div>
     </header>
-    
+
     <div class="heading-title" style="background: url('https://i.pinimg.com/736x/ea/66/f9/ea66f963dc334e7aed104508ee4f30fb.jpg') no-repeat;">
         <h1>Reposteros</h1>
     </div>
 
     <section id="catalogo-reposteros" class="section">
-        <h2>Catálogo de Reposteros</h2>
-        <div class="reposteros-grid">
-            <div class="repostero-card" data-id="1">
-                <i class="far fa-heart favorito"></i>
-                <img src="../images/repostero1.jpg" alt="Repostero 1">
-                <h3>Maria González</h3>
-                <p>Especialista en pasteles temáticos y fondant.</p>
-                <a href="perfil-repostero.html">Ver Perfil</a>
-            </div>
-            <div class="repostero-card" data-id="2">
-                <i class="far fa-heart favorito"></i>
-                <img src="../images/repostero2.jpg" alt="Repostero 2">
-                <h3>Juan Pérez</h3>
-                <p>Experto en repostería artesanal y cupcakes.</p>
-                <a href="perfil-repostero.html">Ver Perfil</a>
-            </div>
+        <div class="section-header">
+            <h2>Catálogo de Reposteros</h2>
+        </div>
+        <div class="reposteros-container" id="reposteros">
+            <!-- Reposteros serán generados dinámicamente -->
         </div>
     </section>
-    
+
     <script>
-        document.querySelectorAll('.favorito').forEach(heart => {
-            heart.addEventListener('click', function() {
-                this.classList.toggle('fas'); // Cambia de far (vacío) a fas (relleno)
-                this.classList.toggle('text-red'); // Cambia el color
+        document.addEventListener("DOMContentLoaded", function() {
+            const reposteros = [
+                {nombre: "Ana Martínez", imagen: "../images/repostero1.jpg"},
+                {nombre: "Carlos López", imagen: "../images/repostero2.jpg"},
+                {nombre: "María Pérez", imagen: "../images/repostero3.jpg"}
+            ];
+
+            const container = document.getElementById("reposteros");
+            
+            reposteros.forEach(repostero => {
+                const card = document.createElement("div");
+                card.classList.add("repostero-card");
+                
+                card.innerHTML = `
+                    <div class="favorite" onclick="toggleFavorite(this)">
+                        <i class="far fa-heart"></i>
+                    </div>
+                    <img src="${repostero.imagen}" alt="${repostero.nombre}">
+                    <h3>${repostero.nombre}</h3>
+                    <a href="#" class="ver-perfil">Ver Perfil</a>
+                `;
+                
+                container.appendChild(card);
             });
         });
+
+        function toggleFavorite(icon) {
+            icon.classList.toggle("active");
+            icon.innerHTML = icon.classList.contains("active") 
+                ? '<i class="fas fa-heart" style="color: red;"></i>' 
+                : '<i class="far fa-heart"></i>';
+        }
     </script>
 </body>
 </html>
