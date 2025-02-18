@@ -4,123 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reposteros</title>
-    <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-
-    <!-- Header Section Starts -->
     <header class="header">
         <div class="left-section">
-            <!-- Menú hamburguesa -->
             <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
-            
-            <!-- Logo -->
             <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
         </div>
-
-        <!-- Menú desplegable de opciones de usuario -->
-        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
-            <ul>
-                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
-                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
-                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
-                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
-                <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
-            </ul>
-        </div>
-        
         <nav class="navbar">
             <a href="home.html" class="active">Home</a>
             <a href="categorias.html">Pasteles</a>
             <a href="reposteros.html">Reposteros</a>
             <a href="#">Crear Pastel</a>
         </nav>
-
-        <!-- Search Bar -->
-        <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="Search here..." class="search-input">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
-            </div>
-            <!-- Profile Icon-->
-            <div class="profile-section">                                                      
-                <a href="perfil.html" title="Profile">
-                    <i class="fas fa-user-circle fa-lg"></i>
-                </a>
-            </div>
-            <!-- Cart Icon -->
-            <div class="cart-section">
-                <a href="#" id="cart-icon" title="Shopping Cart">
-                    <i class="fas fa-shopping-cart fa-lg"></i>
-                </a>
-            </div>
-        </div>
     </header>
-    <!-- Header Section Ends -->
-
-    <!-- Title Section -->
+    
     <div class="heading-title" style="background: url('https://i.pinimg.com/736x/ea/66/f9/ea66f963dc334e7aed104508ee4f30fb.jpg') no-repeat;">
         <h1>Reposteros</h1>
     </div>
 
-    <!-- Popular Reposteros Section -->
-    <section id="reposteros-populares" class="section">
-        <div class="section-header">
-            <h2>Reposteros Populares</h2>
-            <a href="#" class="ver-mas">Ver más &gt;&gt;</a>
-        </div>
-        <div class="reposteros-container"></div> <!-- Reposteros content -->
-    </section>
-
-    <!-- Featured Pasteles Section -->
-    <section id="pasteles-destacados" class="section">
-        <div class="section-header">
-            <h2>Pasteles Destacados</h2>
-        </div>
-        <div class="pasteles-container" id="destacados"></div> <!-- Featured pasteles content -->
-    </section>
-
-    <!-- Footer Section -->
-    <section class="footer">
-        <div class="box-container">
-
-            <div class="box">
-                <h3>Quick Links</h3>
-                <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
-                <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
-                <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
-                <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
+    <section id="catalogo-reposteros" class="section">
+        <h2>Catálogo de Reposteros</h2>
+        <div class="reposteros-grid">
+            <div class="repostero-card" data-id="1">
+                <i class="far fa-heart favorito"></i>
+                <img src="../images/repostero1.jpg" alt="Repostero 1">
+                <h3>Maria González</h3>
+                <p>Especialista en pasteles temáticos y fondant.</p>
+                <a href="perfil-repostero.html">Ver Perfil</a>
             </div>
-
-            <div class="box">
-                <h3>Extra Links</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Mis pedidos</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Mis favoritos</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Mi carrito</a>
-                <a href="perfil.html"> <i class="fas fa-arrow-right"></i> Mi perfil</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Política y privacidad</a>
+            <div class="repostero-card" data-id="2">
+                <i class="far fa-heart favorito"></i>
+                <img src="../images/repostero2.jpg" alt="Repostero 2">
+                <h3>Juan Pérez</h3>
+                <p>Experto en repostería artesanal y cupcakes.</p>
+                <a href="perfil-repostero.html">Ver Perfil</a>
             </div>
-
-            <div class="box">
-                <h3>Síguenos</h3>
-                <a href="#"> <i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="#"> <i class="fab fa-twitter"></i> Twitter</a>
-                <a href="#"> <i class="fab fa-instagram"></i> Instagram</a>
-                <a href="#"> <i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="#"> <i class="fab fa-pinterest"></i> Pinterest</a>
-            </div>
-
         </div>
     </section>
-
-    <section class="credit"></section>
-
-    <!-- Custom JS -->
-    <script src="../js/repostero.js"></script>
-    <script src="../js/menu.js"></script>
-
+    
+    <script>
+        document.querySelectorAll('.favorito').forEach(heart => {
+            heart.addEventListener('click', function() {
+                this.classList.toggle('fas'); // Cambia de far (vacío) a fas (relleno)
+                this.classList.toggle('text-red'); // Cambia el color
+            });
+        });
+    </script>
 </body>
 </html>
