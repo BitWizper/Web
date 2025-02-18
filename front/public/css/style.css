@@ -261,7 +261,7 @@ section{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url(../css/banner.jpg) no-repeat center center;
+    background: url(../css/banner_princ.jpg) no-repeat center center;
     background-size: auto; /* Mantiene el tamaño original de la imagen */
     background-attachment: fixed;
     image-rendering: high-quality;

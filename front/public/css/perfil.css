@@ -1,139 +1,113 @@
-/* Estilos para la estructura del perfil */
 body {
   font-family: 'Nunito', sans-serif;
   margin: 0;
   padding: 0;
-  display: flex;
-  background-color: #f7f2f2; /* Color beige suave para el fondo */
+  background-color: #f7f2f2;
 }
 
 .container {
   display: flex;
-  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
+/* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #f8f1f1; /* Beige claro */
+  background: #d78fa4;
+  color: white;
   padding: 20px;
-  height: 100vh;
-  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centrado verticalmente */
-  align-items: center; /* Centrado horizontalmente */
 }
 
 .sidebar h3 {
-  font-size: 24px;
-  margin-bottom: 30px;
-  color: #d78fa4; /* Rosa suave */
-}
-
-.sidebar .option {
-  padding: 12px 0;
+  text-align: left;
+  font-weight: 600;
   display: flex;
-  align-items: center;
+  align-items: center;  /* Alinea la flecha y el texto verticalmente */
+  gap: 10px;  /* Da espacio entre la flecha y el texto */
+}
+
+.back-btn {
+  font-size: 24px;
   cursor: pointer;
-  border-bottom: 1px solid #f0e1e1;
-  color: #d78fa4; /* Rosa suave */
-  width: 100%;
+  color: white;  /* Mantiene el color blanco para que se vea bien sobre el fondo rosado */
+}
+
+
+.option {
+  padding: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
   text-align: center;
+  transition: background 0.3s;
 }
 
-.sidebar .option:hover {
-  background-color: #f2d8d8; /* Rosa muy suave al pasar el mouse */
+.option:hover {
+  background: rgba(255, 255, 255, 0.4);
 }
 
-.sidebar .option i {
-  font-size: 18px;
-  margin-right: 10px;
-}
-
+/* Perfil */
 .profile-container {
-  flex-grow: 1;
-  padding: 30px;
-  background-color: #fff;
-  box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  padding: 20px;
 }
 
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
-.header .back-btn {
+.back-btn {
+  font-size: 24px;
   cursor: pointer;
-  font-size: 20px;
+  color: white;
 }
 
 .profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.profile .profile-img img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid #d78fa4; /* Borde dorado */
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-}
-
-.profile-info {
   text-align: center;
   margin-top: 20px;
 }
 
+.profile-img img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #d78fa4;
+}
+
 .profile-info h3 {
-  font-size: 28px;
-  color: #d78fa4; /* Rosa suave */
+  margin: 10px 0 5px;
+  font-weight: 600;
+  color: #d78fa4;
 }
 
 .profile-info p {
-  font-size: 16px;
-  color: #555;
-  margin-top: 10px;
-  max-width: 400px;
-  line-height: 1.6;
+  color: gray;
 }
 
-.options {
-  margin-top: 40px;
+/* Secciones */
+.content-section {
+  display: none;
+  margin-top: 20px;
 }
 
-.option {
-  padding: 12px 0;
-  display: flex;
-  align-items: center;
+button {
+  background: #d78fa4;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  border-bottom: 1px solid #ddd;
-  color: #d78fa4; /* Rosa suave */
+  transition: background 0.3s;
 }
 
-.option:hover {
-  background-color: #f2d8d8; /* Rosa suave al pasar el mouse */
-}
-
-.option i {
-  font-size: 20px;
-  margin-right: 15px;
-  color: #d78fa4; /* Rosa suave */
-}
-
-.option span {
-  font-size: 16px;
-  color: #333;
-}
-
-.option i, .option span {
-  transition: color 0.3s ease;
-}
-
-.option:hover i, .option:hover span {
-  color: #d78fa4; /* Efecto hover dorado para iconos y texto */
+button:hover {
+  background: #c77490;
 }

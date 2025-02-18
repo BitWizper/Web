@@ -1,50 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Perfil</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/perfil.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/perfil.css">
+    <style>
+        .content-section {
+            display: none; /* Ocultar las secciones por defecto */
+        }
+        .hidden {
+            display: none; /* Para ocultar elementos */
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <h3>Mi Perfil</h3>
-      <div class="option" onclick="window.location.href='editar_perfil.html'">
-        <i class="fas fa-user-edit"></i>
-        <span>Editar Perfil</span>
-      </div>
-      <div class="option">
-        <i class="fas fa-bell"></i>
-        <span>Notificaciones</span>
-      </div>
-      <div class="option">
-        <i class="fas fa-credit-card"></i>
-        <span>Mi tarjeta</span>
-      </div>
-      <div class="option">
-        <i class="fas fa-cog"></i>
-        <span>Configuración</span>
-      </div>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <span class="back-btn" onclick="window.location.href='home.html'">&#8592;</span>
+            <h3>Mi Perfil</h3>
+            <div class="option" onclick="showContent('editarPerfil')">
+                <span>Editar Perfil</span>
+            </div>
+            <div class="option" onclick="showContent('notificaciones')">
+                <span>Notificaciones</span>
+            </div>
+            <div class="option" onclick="showContent('miTarjeta')">
+                <span>Mi tarjeta</span>
+            </div>
+            <div class="option" onclick="showContent('configuracion')">
+                <span>Configuración</span>
+            </div>
+        </div>
+
+        <!-- Perfil -->
+        <div class="profile-container">
+            <div class="profile" id="profileSection">
+                <div class="profile-img">
+                    <img id="profileImage" src="user-placeholder.jpg" alt="Foto de perfil">
+                </div>
+                <div class="profile-info">
+                    <h3 id="profileName">Nombre del Usuario</h3>
+                    <p id="profileBio">Descripción breve del usuario.</p>
+                </div>
+            </div>
+
+            <!-- Secciones -->
+            <div id="editarPerfil" class="content-section">
+                <h4>Editar Perfil</h4>
+                <form id="editForm">
+                    <label for="editName">Nombre:</label>
+                    <input type="text" id="editName" name="editName" value="Nombre del Usuario"><br><br>
+
+                    <label for="editBio">Biografía:</label><br>
+                    <textarea id="editBio" name="editBio" rows="4" cols="50">Descripción breve del usuario.</textarea><br><br>
+
+                    <label for="editImage">Cambiar Imagen de Perfil:</label>
+                    <input type="file" id="editImage" name="editImage" accept="image/*"><br><br>
+
+                    <button type="submit">Actualizar Información</button>
+                </form>
+                <p id="errorMessage" style="color: red; display: none;">Por favor, completa todos los campos.</p>
+            </div>
+            
+            <div id="notificaciones" class="content-section">
+                <h4>Notificaciones</h4>
+                <p>Recibe alertas sobre actividades importantes y actualizaciones.</p>
+            </div>
+            <div id="miTarjeta" class="content-section">
+                <h4>Mi Tarjeta</h4>
+                <p>Gestiona tus métodos de pago y tarjetas de crédito aquí.</p>
+            </div>
+            <div id="configuracion" class="content-section">
+                <h4>Configuración</h4>
+                <p>Ajusta tus preferencias de cuenta y configuración general.</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Perfil -->
-    <div class="profile-container">
-      <div class="header">
-        <span class="back-btn" onclick="window.location.href='home.html'">&#8592;</span>
-      </div>
-      <div class="profile">
-        <div class="profile-img">
-          <img src="https://i.pinimg.com/736x/5e/20/14/5e201432edf89a85fe7b5e81ddef8f25.jpg" alt="Foto de perfil">
-        </div>
-        <div class="profile-info">
-          <h3>Alessandra S.</h3>
-          <p>¡Bienvenida a mi perfil! Soy una persona que ama la tecnología y siempre está buscando nuevas oportunidades para aprender y mejorar.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Enlazar el archivo JS externo -->
+    <script src="../js/perfil.js"></script>
 </body>
 </html>
