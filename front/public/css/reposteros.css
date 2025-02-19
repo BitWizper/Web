@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+:root{
+    --main-color:#dfd090;
+    --primary-color: #CA7373;
+    --black:#13131a;
+    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+*{
+    font-family: 'Nunito',sans-serif;
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    outline: none; border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    list-style: none;
+    transition: all .2s linear;
+}
+
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+}
+
+html::-webkit-scrollbar{
+    width: .6rem;
+}
+
+html::-webkit-scrollbar-track{
+    background-color: #fff;
+}
+
+html::-webkit-scrollbar-thumb{
+    background: var(--primary-color);
+}
+
+section{
+    padding: 3rem 7%;
+}
+
+.heading{
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+    font-size: 4rem;
+    margin-top: 4rem;
+}
+
+.heading-title{
+    background-size: cover !important;
+    background-position: cover !important;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Poppins; /* Usar Poppins */
+    color: #000; /* Texto en negro */
+    line-height: 1.2; /* Espaciado entre líneas */
+    letter-spacing: 0.4rem; /* Espaciado de letras */
+    text-transform: uppercase; /* Todo en mayúsculas */
+    -webkit-text-stroke: 2px #000000; /* Bordes blancos alrededor del texto (más delgados) */
+    
+}
+
+.heading-title h1{
+    padding-top: 5rem;
+    font-size: 8rem;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 1.5rem 5rem; /* Aumenta el tamaño del botón */
+    font-size: 2rem; /* Hace el texto más grande */
+    border-radius: 1rem;
+    color: #fff; /* Letras blancas */
+    background: #E91E63; /* Rosa fuerte */
+    position: relative;
+    box-shadow: var(--box-shadow);
+    z-index: 0;
+    border: 2px solid #DAA520; /* Dorado fuerte y más delgado */
+}
+
+/* header */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 9%;
+    background: #fff;
+    box-shadow: var(--box-shadow);
+}
+
+.left-section {
+    display: flex;
+    align-items: center; /* Alinea el icono del menú y el logo en la misma línea */
+    gap: 1.5rem; /* Espacio entre el icono de menú y el logo */
+}
+
+.menu-icon {
+    font-size: 2.4rem; /* Tamaño del icono de menú */
+    cursor: pointer;
+}
+
+/* Estilo del menú desplegable */
+/* Menú de hamburguesa */
+.dropdown-menu {
+    display: none; /* Menú oculto inicialmente */
+    position: absolute;
+    top: 60px; /* Ajusta la distancia desde el borde superior si es necesario */
+    left: 0;
+    width: 300px; /* Aumenta el ancho del menú */
+    background: #fff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Aumenta la sombra */
+    padding: 2rem; /* Aumenta el padding para mayor tamaño interno */
+    border-radius: 10px; /* Bordes redondeados */
+    font-size: 1.6rem; /* Aumenta aún más el tamaño de la fuente */
+    z-index: 100; /* Asegura que el menú esté por encima */
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu ul {
+    list-style: none; /* Eliminar los puntos de la lista */
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu ul li {
+    padding: 15px 0; /* Aumentar el espacio entre los elementos */
+    border-bottom: 1px solid #eee; /* Línea separadora entre los elementos */
+}
+
+.dropdown-menu ul li a {
+    color: #333; /* Color de texto */
+    text-decoration: none; /* Sin subrayado */
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem; /* Tamaño de fuente de los enlaces, más grande */
+    gap: 10px; /* Espacio entre el icono y el texto */
+}
+
+.dropdown-menu ul li a:hover {
+    color: #ff4081; /* Color de texto cuando se pasa el ratón */
+}
+
+/* Ajustar el ícono del menú hamburguesa */
+.menu-icon {
+    font-size: 2rem; /* Ajustar el tamaño del icono de la hamburguesa */
+}
+
+/* Asegurarse de que el contenedor del menú hamburguesa esté alineado correctamente */
+.left-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
+
+
+
+.header .logo {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: var(--black);
+}
+
+.header .logo i {
+    color: var(--main-color);
+    padding-right: .5rem;
+}
+
+.header .navbar {
+    display: flex;
+    justify-content: center; /* Centra los elementos dentro del contenedor */
+    align-items: center; /* Asegura que los elementos estén centrados verticalmente */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+.header .navbar a {
+    font-size: 2rem;
+    color: black;
+    text-align: center; /* Asegura que el texto esté centrado en su contenedor */
+    margin: 0 20px; /* Agrega espacio horizontal entre los elementos */
+}
+
+.header .navbar a:hover {
+    color: #ff69b4; /* Un rosa intermedio al pasar el cursor */
+}
+
+
+#menu {
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: var(--black);
+    display: block;
+}
+
+/* Ajuste para la barra de búsqueda, perfil y carrito */
+.header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espaciado entre elementos */
+}
+
+.header .search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.header .search-bar .search-input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    width: 200px;
+}
+
+.header .search-bar .search-btn {
+    background: var(--main-color);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.header .profile-section,
+.header .cart-section {
+    display: flex;
+    align-items: center;
+}
+
+.header .profile-section a,
+.header .cart-section a {
+    font-size: 2rem;
+    color: var(--black);
+}
+
+.header .profile-section a:hover,
+.header .cart-section a:hover {
+    color: var(--main-color);
+}
+
+
+/* Catálogo de Reposteros */
+#catalogo-reposteros {
+    padding: 3rem 7%;
+    background-color: var(--main-color);
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    margin: 3rem auto;
+    text-align: center;
+}
+
+#catalogo-reposteros .section-header h2 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.reposteros-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.repostero-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.repostero-card:hover {
+    transform: translateY(-1rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.repostero-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.repostero-card h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+.repostero-card .ver-perfil {
+    display: inline-block;
+    padding: 0.7rem 2.5rem;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: var(--box-shadow);
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+.repostero-card .ver-perfil:hover {
+    background: var(--main-color);
+    color: var(--primary-color);
+}
+
+/* Icono de favorito */
+.favorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.favorite i {
+    color: #ccc;
+    transition: color 0.3s;
+}
+
+.favorite.active i {
+    color: red;
+}

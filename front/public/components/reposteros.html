@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reposteros</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/reposteros.css">
 </head>
 <body>
     <header class="header">
@@ -39,14 +39,12 @@
         </div>
     </header>
 
-    <div class="heading-title" style="background: url('https://i.pinimg.com/736x/ea/66/f9/ea66f963dc334e7aed104508ee4f30fb.jpg') no-repeat;">
+    <div class="heading-title" style="background: url('http://beechefpastryschool.com/wp-content/uploads/2021/08/Bee-Chef-26-7-19-8848.jpg') no-repeat;">
         <h1>Reposteros</h1>
     </div>
 
     <section id="catalogo-reposteros" class="section">
-        <div class="section-header">
-            <h2>Catálogo de Reposteros</h2>
-        </div>
+        
         <div class="reposteros-container" id="reposteros">
             <!-- Reposteros serán generados dinámicamente -->
         </div>
@@ -55,9 +53,20 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const reposteros = [
-                {nombre: "Ana Martínez", imagen: "C:\Users\haddy\OneDrive\Documentos\Web\front\public\img\repostera1.jpg"},
-                {nombre: "emiliana López", imagen: "C:\Users\haddy\OneDrive\Documentos\Web\front\public\img\repostera2.jpg"},
-                {nombre: "Mario Pérez", imagen: "C:\Users\haddy\OneDrive\Documentos\Web\front\public\img\repostero3.jpg"}
+                {nombre: "Ana Martínez", imagen: "../img/repostera1.jpg"},
+                {nombre: "emiliana López", imagen: "../img/repostera2.jpg"},
+                {nombre: "Mario Pérez", imagen: "../img/repostero3.jpg"},
+                {nombre: "Pastelería Ana María", imagen: "https://pasteleriaanamaria.com/images/logo-ana.png"},
+                {nombre: "Kenysse Pasteles Fondant Mérida", imagen: "../img/repostero3.jpg"},
+                {nombre: "La Pastelería de París", imagen: "../img/repostero3.jpg"},
+                {nombre: "Bachour Café", imagen: "../img/repostero3.jpg"},
+                {nombre: "Catalina", imagen: "../img/repostero3.jpg"},
+                {nombre: "Aroma a Pan", imagen: "../img/repostero3.jpg"},
+                {nombre: "Socó", imagen: "../img/repostero3.jpg"},
+
+                
+    
+                
             ];
 
             const container = document.getElementById("reposteros");
