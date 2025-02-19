@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pedidos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/mis_pedidos.css">
+</head>
+<body style="background-color: #f7f2f2;">
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3 onclick="window.location.href='home.html'" style="cursor: pointer;">&#8592; Mis Pedidos</h3>
+            <div class="option" onclick="showContent('pedidosActivos')">
+                <span>Pedidos Activos</span>
+            </div>
+            <div class="option" onclick="showContent('historialPedidos')">
+                <span>Historial de Pedidos</span>
+            </div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="orders-container">
+            <div id="pedidosActivos" class="content-section">
+                <h4>Pedidos Activos</h4>
+                <p>Aquí aparecerán los pedidos en curso.</p>
+            </div>
+            <div id="historialPedidos" class="content-section" style="display: none;">
+                <h4>Historial de Pedidos</h4>
+                <p>Aquí se mostrarán tus pedidos anteriores.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContent(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
