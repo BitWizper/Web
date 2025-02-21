@@ -7,79 +7,143 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --main-color: #dfd090;
-      --primary-color: #800020;
+      --main-color: #dfb47a;
+      --primary-color: #a63d40;
+      --secondary-color: #f8f1e7;
       --black: #13131a;
       --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
     }
+
     * {
       font-family: 'Nunito', sans-serif;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      outline: none;
-      border: none;
       text-decoration: none;
-      text-transform: capitalize;
-      transition: all .2s linear;
+      transition: all .3s ease-in-out;
     }
+
     body {
       background: url('https://i.pinimg.com/736x/be/99/c4/be99c4ada20cedd3ded33bcf9e53374f.jpg') no-repeat center center fixed;
       background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      color: #fff;
+      height: 100vh;
       text-align: center;
+      position: relative;
     }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
     .container {
-      background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
-      padding: 4rem 2rem;
-      border-radius: .5rem;
+      position: relative;
+      z-index: 2;
+      background: var(--secondary-color);
+      padding: 3rem 2rem;
+      border-radius: 10px;
       box-shadow: var(--box-shadow);
       max-width: 400px;
       width: 90%;
     }
+
+    .back-link {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 2rem;
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: #882f2d;
+    }
+
     .container h1 {
-      font-size: 4rem;
+      font-size: 3rem;
       color: var(--primary-color);
       margin-bottom: 1rem;
+      font-weight: 700;
     }
+
     .container p {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       color: var(--black);
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
+
     .container button {
       display: block;
       width: 100%;
-      padding: 1rem 2rem;
-      margin-bottom: 1.5rem;
-      font-size: 1.7rem;
-      color: #fff;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
       background: var(--primary-color);
-      border-radius: .5rem;
+      border-radius: 5px;
       cursor: pointer;
       box-shadow: var(--box-shadow);
-      transition: background 0.3s;
+      border: none;
+      margin-bottom: 1rem;
+      transition: background 0.3s, transform 0.2s;
     }
+
     .container button:hover {
       background: var(--main-color);
       color: var(--primary-color);
+      transform: scale(1.05);
     }
-    .container button:last-child {
-      margin-bottom: 0;
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      .container h1 {
+        font-size: 2.5rem;
+      }
+      .container p {
+        font-size: 1.2rem;
+      }
+      .container button {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem 1rem;
+      }
+      .container h1 {
+        font-size: 2rem;
+      }
+      .container p {
+        font-size: 1rem;
+      }
+      .container button {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <a href="../index.html" class="back-link">↩</a>
     <h1>Borcelle</h1>
-    <p>Pastelería personalizada</p>
+    <p>Lo hace posible</p>
     <p>Regístrate como:</p>
-    <button onclick="window.location.href='register.html'">Clientes</button>
-    <button onclick="window.location.href='registerRepostero.html'">Reposteros</button>
+    <button onclick="window.location.href='register.html'">Cliente</button>
+    <button onclick="window.location.href='registerRepostero.html'">Repostero</button>
   </div>
 </body>
 </html>

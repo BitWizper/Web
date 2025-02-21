@@ -7,8 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --main-color: #dfd090;
-      --primary-color: #800020;
+      --main-color: #dfb47a; /* Dorado pastel */
+      --primary-color: #a63d40; /* Burdeos */
+      --secondary-color: #f8f1e7; /* Beige claro */
       --black: #13131a;
       --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
     }
@@ -18,49 +19,63 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      outline: none;
-      border: none;
       text-decoration: none;
-      text-transform: capitalize;
-      transition: all .2s linear;
+      transition: all .3s ease-in-out;
     }
 
     body {
-      background: #f9f9f9;
+      background: url('https://i.pinimg.com/736x/be/99/c4/be99c4ada20cedd3ded33bcf9e53374f.jpg') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      position: relative;
+    }
+
+    /* Overlay para mejorar legibilidad */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
     }
 
     .container {
-      width: 100%;
-      max-width: 450px;
-      background: #fff;
-      padding: 2.5rem;
-      border-radius: .5rem;
+      position: relative;
+      z-index: 2;
+      background: var(--secondary-color);
+      padding: 3rem 2rem;
+      border-radius: 10px;
       box-shadow: var(--box-shadow);
-      text-align: center;
+      max-width: 450px;
+      width: 90%;
     }
 
     .container h2 {
-      font-size: 2.4rem;
+      font-size: 2rem; /* Título más pequeño */
       margin-bottom: 1.5rem;
       color: var(--primary-color);
+      font-weight: 700;
+      text-align: center; /* Centraliza el título */
     }
 
     form {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.5rem; /* Espacio entre campos */
     }
 
     form input,
     form textarea {
       width: 100%;
-      padding: 0.9rem;
-      font-size: 1.5rem;
+      padding: 1rem;
+      font-size: 1.4rem;
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: .5rem;
       background: #f9f9f9;
@@ -72,30 +87,29 @@
       background: #fff;
     }
 
-    form textarea {
-      resize: none;
-      height: 80px;
-    }
-
     form button {
-      padding: 1rem 2rem;
-      font-size: 1.6rem;
+      padding: 1rem;
+      font-size: 1.2rem;
       color: #fff;
       background: var(--primary-color);
       border-radius: .5rem;
       cursor: pointer;
       box-shadow: var(--box-shadow);
+      transition: background 0.3s, transform 0.2s;
+      border: none;
     }
 
     form button:hover {
       background: var(--main-color);
       color: var(--primary-color);
+      transform: scale(1.05);
     }
 
     .container p {
       margin-top: 1.2rem;
       font-size: 1.3rem;
       color: var(--black);
+      text-align: center; /* Centraliza la pregunta */
     }
 
     .container p a {
@@ -106,6 +120,7 @@
     .container p a:hover {
       color: var(--main-color);
     }
+
   </style>
 </head>
 <body>
@@ -118,7 +133,7 @@
       <input type="text" id="direccion" placeholder="Dirección" required>
       <input type="text" id="telefono" placeholder="Teléfono (10 dígitos)" required>
 
-      <h2 style="font-size: 1.8rem; margin-top: 1.5rem;">Información del Negocio</h2>
+      <h2 style="font-size: 1.8rem; margin-top: 1.5rem; text-align: center;">Información del Negocio</h2>
       <input type="text" id="NombreNegocio" placeholder="Nombre del Negocio" required>
       <input type="text" id="Ubicacion" placeholder="Ubicación" required>
       <textarea id="Especialidades" placeholder="Especialidades" required></textarea>

@@ -7,10 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --background-color: #fdf7ef;
-      --primary-color: #a33d3a;
-      --text-color: #13131a;
-      --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --main-color: #dfb47a; /* Dorado pastel */
+      --primary-color: #a63d40; /* Burdeos */
+      --secondary-color: #f8f1e7; /* Beige claro */
+      --black: #13131a;
+      --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
     }
 
     * {
@@ -21,71 +22,105 @@
       outline: none;
       border: none;
       text-decoration: none;
-      transition: all .2s linear;
+      text-transform: capitalize;
+      transition: all .3s ease-in-out;
     }
 
     body {
-      background: var(--background-color);
+      background: url('https://i.pinimg.com/736x/be/99/c4/be99c4ada20cedd3ded33bcf9e53374f.jpg') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      font-size: 1.6rem;
+      position: relative;
+      margin: 0;
+    }
+
+    /* Overlay para mejorar legibilidad */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
     }
 
     .container {
       width: 100%;
       max-width: 450px;
-      background: #fff;
-      padding: 3rem 2rem;
+      background: var(--secondary-color);
+      padding: 2.5rem;
       border-radius: .5rem;
       box-shadow: var(--box-shadow);
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
 
     .container h2 {
-      font-size: 2.8rem;
-      margin-bottom: 2rem;
+      font-size: 2.4rem;
+      margin-bottom: 1.5rem;
       color: var(--primary-color);
     }
 
-    .container form {
+    form {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.2rem;
     }
 
-    form input {
+    form input,
+    form textarea {
       width: 100%;
-      padding: 1rem;
-      font-size: 1.6rem;
+      padding: 0.9rem;
+      font-size: 1.5rem;
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: .5rem;
       background: #f9f9f9;
     }
 
-    form input:focus {
+    form input:focus,
+    form textarea:focus {
       border: 1px solid var(--primary-color);
       background: #fff;
     }
 
+    form textarea {
+      resize: none;
+      height: 80px;
+    }
+
     form button {
-      padding: 1rem 2rem;
-      font-size: 1.7rem;
-      color: #fff;
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
       background: var(--primary-color);
-      border-radius: .5rem;
+      border-radius: 5px;
       cursor: pointer;
       box-shadow: var(--box-shadow);
+      border: none;
+      margin-bottom: 1rem;
+      transition: background 0.3s, transform 0.2s;
     }
 
     form button:hover {
-      background: #882f2d;
+      background: var(--main-color);
+      color: var(--primary-color);
+      transform: scale(1.05);
     }
 
     .container p {
-      margin-top: 1.5rem;
-      font-size: 1.4rem;
-      color: var(--text-color);
+      margin-top: 1.2rem;
+      font-size: 1.3rem;
+      color: var(--black);
     }
 
     .container p a {
@@ -94,12 +129,65 @@
     }
 
     .container p a:hover {
-      color: #882f2d;
+      color: var(--main-color);
+    }
+
+    /* Estilo para la flecha dentro del recuadro */
+    .back-link {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 2rem;
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: var(--main-color);
+    }
+
+    /* Diseño Responsivo */
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      .container h2 {
+        font-size: 2.2rem;
+      }
+
+      form input {
+        font-size: 1.5rem;
+      }
+
+      form button {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem 1rem;
+      }
+
+      .container h2 {
+        font-size: 2rem;
+      }
+
+      form input {
+        font-size: 1.4rem;
+      }
+
+      form button {
+        font-size: 1.3rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <a href="javascript:history.back()" class="back-link">↩</a>
     <h2>Crear Cuenta</h2>
     <form id="registerForm">
       <input type="text" id="nombre" placeholder="Nombre" required>

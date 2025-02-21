@@ -1,16 +1,17 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar Sesión</title>
+  <title>Iniciar Sesión</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --background-color: #fdf7ef;
-      --primary-color: #a33d3a;
-      --text-color: #13131a;
-      --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --main-color: #dfb47a; /* Dorado pastel */
+      --primary-color: #a63d40; /* Burdeos */
+      --secondary-color: #f8f1e7; /* Beige claro */
+      --black: #13131a;
+      --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
     }
 
     * {
@@ -18,37 +19,49 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      outline: none;
-      border: none;
       text-decoration: none;
-      transition: all .2s linear;
+      transition: all .3s ease-in-out;
     }
 
     body {
-      background: var(--background-color);
+      background: url('https://i.pinimg.com/736x/be/99/c4/be99c4ada20cedd3ded33bcf9e53374f.jpg') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      font-size: 1.4rem;
-      color: var(--text-color);
-    }
-
-    .container {
-      width: 100%;
-      max-width: 400px;
-      background: #fff;
-      padding: 3rem 2rem;
-      border-radius: .5rem;
-      box-shadow: var(--box-shadow);
+      height: 100vh;
       text-align: center;
       position: relative;
     }
 
-    .container h2 {
+    /* Overlay para mejorar legibilidad */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      background: var(--secondary-color);
+      padding: 3rem 2rem;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .container h1 {
       font-size: 3rem;
-      margin-bottom: 1rem;
       color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-weight: 700;
     }
 
     .container form {
@@ -60,35 +73,40 @@
     form input {
       width: 100%;
       padding: 1rem;
-      font-size: 1.6rem;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: .5rem;
+      font-size: 1.4rem;
       background: #f9f9f9;
+      border: none; /* Sin borde */
+      border-radius: .5rem;
     }
 
     form input:focus {
-      border: 1px solid var(--primary-color);
       background: #fff;
     }
 
     form button {
-      padding: 1rem 2rem;
-      font-size: 1.7rem;
-      color: #fff;
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
       background: var(--primary-color);
-      border-radius: .5rem;
+      border-radius: 5px;
       cursor: pointer;
       box-shadow: var(--box-shadow);
+      margin-top: 1rem;
+      transition: background 0.3s, transform 0.2s;
+      border: none; /* Sin borde */
     }
 
     form button:hover {
-      background: #882f2d;
+      background: var(--main-color);
+      color: var(--primary-color);
+      transform: scale(1.05);
     }
 
     .container p {
       margin-top: 1.5rem;
       font-size: 1.4rem;
-      color: var(--text-color);
+      color: var(--black);
     }
 
     .container p a {
@@ -100,26 +118,7 @@
       color: #882f2d;
     }
 
-    .alert {
-      display: none;
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #ff4d4d;
-      color: #fff;
-      padding: 1rem 2rem;
-      border-radius: 5px;
-      box-shadow: var(--box-shadow);
-      text-align: center;
-      font-size: 1.4rem;
-      z-index: 1000;
-    }
-
-    .alert.success {
-      background: #28a745;
-    }
-
+    /* Estilo para la flecha dentro del recuadro */
     .back-link {
       position: absolute;
       top: 1rem;
@@ -133,21 +132,57 @@
     .back-link:hover {
       color: #882f2d;
     }
+
+    /* Diseño Responsivo */
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      .container h1 {
+        font-size: 2.5rem;
+      }
+
+      .container form button {
+        font-size: 1rem;
+      }
+
+      .container p {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem 1rem;
+      }
+
+      .container h1 {
+        font-size: 2rem;
+      }
+
+      .container p {
+        font-size: 1rem;
+      }
+
+      .container form button {
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <a href="../index.html" class="back-link">↩</a>
-    <h2>Iniciar Sesión</h2>
+    <h1>Iniciar Sesión</h1>
     <form id="loginForm">
       <input type="email" id="correo" placeholder="Correo" required>
       <input type="password" id="contrasena" placeholder="Contraseña" required>
       <button type="submit">Iniciar Sesión</button>
     </form>
-    <p>¿No tienes una cuenta? <a href="register.html">Regístrate</a></p>
+    <p>¿No tienes una cuenta? <a href="selectRegister.html">Regístrate</a></p>
   </div>
-
-  <div id="alert" class="alert"></div>
+ <div id="alert" class="alert"></div>
 
   <script src="../js/login.js"></script>
 </body>
