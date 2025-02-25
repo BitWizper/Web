@@ -9,7 +9,7 @@ async function iniciarSesion(event) {
 
   try {
     // Realiza la solicitud al servidor
-    const response = await fetch("https://pateles-borcelle.onrender.com/api/usuario/loginuser", {
+    const response = await fetch("http://localhost:3000/api/usuario/loginuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
