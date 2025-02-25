@@ -6,94 +6,113 @@
     <title>Reposteros</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../css/reposteros.css">
+    <style>
+        .profile-popup {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup-content {
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .popup-content h3 {
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
-        <div class="left-section">
-            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
-            <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
-        </div>
-        
         <nav class="navbar">
             <a href="home.html" class="active">Home</a>
             <a href="categorias.html">Pasteles</a>
             <a href="reposteros.html">Reposteros</a>
             <a href="#">Crear Pastel</a>
         </nav>
-        
-        <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="Search here..." class="search-input">
-                <button class="search-btn"><i class="fas fa-search"></i></button>
-            </div>
-            <div class="profile-section">                                                       
-                <a href="perfil.html" title="Profile">
-                    <i class="fas fa-user-circle fa-lg"></i>
-                </a>
-            </div>
-            <div class="cart-section">
-                <a href="#" id="cart-icon" title="Shopping Cart">
-                    <i class="fas fa-shopping-cart fa-lg"></i>
-                </a>
-            </div>
-        </div>
     </header>
 
-    <div class="heading-title" style="background: url('http://beechefpastryschool.com/wp-content/uploads/2021/08/Bee-Chef-26-7-19-8848.jpg') no-repeat;">
+    <div class="heading-title">
         <h1>Reposteros</h1>
     </div>
 
     <section id="catalogo-reposteros" class="section">
-        
-        <div class="reposteros-container" id="reposteros">
-            <!-- Reposteros serán generados dinámicamente -->
-        </div>
+        <div class="reposteros-container" id="reposteros"></div>
     </section>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const reposteros = [
-                {nombre: "Ana Martínez", imagen: "../img/repostera1.jpg"},
-                {nombre: "emiliana López", imagen: "../img/repostera2.jpg"},
-                {nombre: "Mario Pérez", imagen: "../img/repostero3.jpg"},
-                {nombre: "Pastelería Ana María", imagen: "https://pasteleriaanamaria.com/images/logo-ana.png"},
-                {nombre: "Kenysse Pasteles Fondant Mérida", imagen: "../img/repostero3.jpg"},
-                {nombre: "La Pastelería de París", imagen: "../img/repostero3.jpg"},
-                {nombre: "Bachour Café", imagen: "../img/repostero3.jpg"},
-                {nombre: "Catalina", imagen: "../img/repostero3.jpg"},
-                {nombre: "Aroma a Pan", imagen: "../img/repostero3.jpg"},
-                {nombre: "Socó", imagen: "../img/repostero3.jpg"},
-
-                
-    
-                
+                {nombre: "Ana Martínez", imagen: "../img/repostera1.jpg", descripcion: "Especialista en pasteles fondant.", estrellas: 5, reseñas: ["Excelentes pasteles!", "Muy recomendable."], puntaje: 4.9},
+                {nombre: "Mario Pérez", imagen: "../img/repostero3.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
+                {nombre: "Mario Pérez", imagen: "../img/repostero3.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
+                {nombre: "Mario Pérez", imagen: "../img/repostero3.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
+                {nombre: "Mario Pérez", imagen: "../img/repostero3.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
+                {nombre: "Mario Pérez", imagen: "../img/repostero3.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
             ];
 
             const container = document.getElementById("reposteros");
+            let activeProfile = null;
             
-            reposteros.forEach(repostero => {
+            reposteros.forEach((repostero, index) => {
                 const card = document.createElement("div");
                 card.classList.add("repostero-card");
                 
                 card.innerHTML = `
-                    <div class="favorite" onclick="toggleFavorite(this)">
-                        <i class="far fa-heart"></i>
-                    </div>
                     <img src="${repostero.imagen}" alt="${repostero.nombre}">
                     <h3>${repostero.nombre}</h3>
-                    <a href="#" class="ver-perfil">Ver Perfil</a>
+                    <button class="ver-perfil" data-index="${index}">Ver Perfil</button>
+                    <div class="profile-popup" id="profile-popup-${index}">
+                        <div class="popup-content">
+                            <button class="close-btn" data-index="${index}">Cerrar</button>
+                            <h3>${repostero.nombre}</h3>
+                            <p>${repostero.descripcion}</p>
+                            <div class="stars">${"★".repeat(repostero.estrellas) + "☆".repeat(5 - repostero.estrellas)}</div>
+                            <h3>Reseñas</h3>
+                            <ul>${repostero.reseñas.map(r => `<li>${r}</li>`).join("")}</ul>
+                            <p><strong>Puntaje:</strong> ${repostero.puntaje}</p>
+                        </div>
+                    </div>
                 `;
                 
                 container.appendChild(card);
             });
-        });
+            
+            document.querySelectorAll(".ver-perfil").forEach(button => {
+                button.addEventListener("click", function() {
+                    const index = this.getAttribute("data-index");
+                    const popup = document.getElementById(`profile-popup-${index}`);
+                    
+                    // Mostrar la pestaña emergente
+                    popup.style.display = "block";
+                });
+            });
 
-        function toggleFavorite(icon) {
-            icon.classList.toggle("active");
-            icon.innerHTML = icon.classList.contains("active") 
-                ? '<i class="fas fa-heart" style="color: red;"></i>' 
-                : '<i class="far fa-heart"></i>';
-        }
+            document.querySelectorAll(".close-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    const index = this.getAttribute("data-index");
+                    const popup = document.getElementById(`profile-popup-${index}`);
+                    
+                    // Ocultar la pestaña emergente
+                    popup.style.display = "none";
+                });
+            });
+        });
     </script>
 </body>
 </html>
