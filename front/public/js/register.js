@@ -27,7 +27,7 @@ document.getElementById("registerForm")?.addEventListener("submit", async (event
     };
 
     try {
-        const response = await fetch("http://localhost:3000/api/usuario/crearusuarios", {
+        const response = await fetch("https://pateles-borcelle.onrender.com/api/usuario/crearusuarios", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
