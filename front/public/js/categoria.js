@@ -40,12 +40,12 @@ function mostrarPasteles(pasteles, containerSelector) {
                 <div class="stars">
                     ${getStarsHTML(pastel.popularidad)}
                 </div>
-                <a href="#" class="btn">add to cart</a>
+                <button class="btn add-to-cart">Añadir al Carrito</button>
             </div>
         `;
 
         // Añadir funcionalidad al botón "Add to Cart"
-        pastelElemento.querySelector('.btn').addEventListener('click', (event) => {
+        pastelElemento.querySelector('.add-to-cart').addEventListener('click', (event) => {
             event.preventDefault(); // Prevenir comportamiento por defecto del enlace
             agregarAlCarrito({
                 id: pastel.id,
@@ -65,10 +65,8 @@ function mostrarPasteles(pasteles, containerSelector) {
 function getStarsHTML(popularidad) {
     const fullStars = Math.floor(popularidad);
     const halfStar = popularidad % 1 !== 0;
-    console.log(`estrella completa: ${fullStars}`);
-    console.log(`media estrella: ${halfStar}`);
-    const emptyStars = (5 - fullStars - (halfStar ? 1 : 0)) >= 0? (5 - fullStars - (halfStar ? 1 : 0)) : 0 ;
-    
+    const emptyStars = Math.max(0, 5 - fullStars - (halfStar ? 1 : 0));
+
     return (
         '<i class="fas fa-star"></i>'.repeat(fullStars) +
         (halfStar ? '<i class="fas fa-star-half-alt"></i>' : '') +
