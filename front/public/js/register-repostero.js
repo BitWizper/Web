@@ -45,7 +45,7 @@ document.getElementById("registerReposteroForm")?.addEventListener("submit", asy
     };
 
     try {
-        const response = await fetch("http://localhost:3000/api/repostero/creareposteros", {
+        const response = await fetch("https://pateles-borcelle.onrender.com/api/repostero/creareposteros", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
