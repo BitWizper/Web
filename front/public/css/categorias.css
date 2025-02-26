@@ -116,7 +116,7 @@
     display: inline-block;
     margin-top: 20px;
     padding: 12px 24px;
-    background: #4CAF50;
+    background: #CA7373;
     color: white;
     font-size: 1.2em;
     font-weight: bold;
@@ -124,8 +124,11 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    margin-left: auto;  /* Centra el cuadro */
+    margin-right: auto; /* Centra el cuadro */
+    display: block; /* Asegura que el cuadro se comporta como un bloque */
 }
-
 
 
 .mostrar-mas {

@@ -70,7 +70,7 @@
       gap: 1.5rem;
     }
 
-    form input {
+    form input, form select {
       width: 100%;
       padding: 1rem;
       font-size: 1.4rem;
@@ -79,7 +79,7 @@
       border-radius: .5rem;
     }
 
-    form input:focus {
+    form input:focus, form select:focus {
       background: #fff;
     }
 
@@ -178,11 +178,26 @@
     <form id="loginForm">
       <input type="email" id="correo" placeholder="Correo" required>
       <input type="password" id="contrasena" placeholder="Contraseña" required>
+      <select id="rol" required>
+        <option value="">Selecciona tu rol</option>
+        <option value="cliente">Cliente</option>
+        <option value="repostero">Repostero</option>
+      </select>
       <button type="submit">Iniciar Sesión</button>
     </form>
     <p>¿No tienes una cuenta? <a href="selectRegister.html">Regístrate</a></p>
   </div>
  <div id="alert" class="alert"></div>
+
+  <script>
+    // Detectar el cambio en el campo select
+    document.getElementById('rol').addEventListener('change', function() {
+      if (this.value === 'repostero') {
+        // Redirigir al usuario a la vista de reposteros
+        window.location.href = '../pasteleros/components/menu.html'; // Cambia esto a la URL de la vista de reposteros
+      }
+    });
+  </script>
 
   <script src="../js/login.js"></script>
 </body>

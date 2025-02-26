@@ -8,8 +8,71 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- custom css link -->
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Estilos para el panel lateral */
+        .cart-sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #f8f8f8;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .cart-sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #333;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .cart-sidebar a:hover {
+            background-color: #ddd;
+        }
+
+        .cart-sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            background-color: transparent;
+            border: none;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .cart-sidebar h2 {
+            padding: 20px;
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* Ajuste para el ícono del carrito */
+        .cart-icon {
+            font-size: 30px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Estilo para el contenido del carrito */
+        #cart-items {
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 <body>
+
     <!-- header section starts -->
     <header class="header">
         <a href="#" class="logo"> <i class="fas fa-cake"></i> Borcelle</a>
@@ -75,7 +138,30 @@
     <section class="credit"></section>
     <!-- footer section ends -->
 
+    <!-- Carrito Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <button class="close-btn" onclick="closeCart()">&times;</button>
+        <h2>Tu Carrito</h2>
+        <div id="cart-items">
+            <!-- Aquí se mostrarán los productos del carrito -->
+            <p>No hay productos en el carrito.</p>
+        </div>
+    </div>
+
     <!-- custom js link -->
     <script src="../js/carrito.js"></script>
+
+    <!-- JS para abrir y cerrar el carrito -->
+    <script>
+        // Función para abrir el carrito
+        document.getElementById('cart-icon').onclick = function() {
+            document.getElementById('cartSidebar').style.width = '300px';
+        }
+
+        // Función para cerrar el carrito
+        function closeCart() {
+            document.getElementById('cartSidebar').style.width = '0';
+        }
+    </script>
 </body>
 </html>

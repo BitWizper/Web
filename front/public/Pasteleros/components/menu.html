@@ -6,47 +6,74 @@
     <title>Panel Repostero</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        :root {
+            --main-color: #dfb47a; /* Dorado pastel */
+            --primary-color: #a63d40; /* Burdeos */
+            --secondary-color: #f8f1e7; /* Beige claro */
+            --black: #13131a;
+            --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Nunito', sans-serif;
             display: flex;
         }
+
         .sidebar {
             width: 250px;
             height: 100vh;
-            background: #ffb6c1;
+            background: var(--primary-color);
             padding-top: 20px;
             position: fixed;
             transition: 0.3s;
         }
+
         .sidebar a {
             display: block;
             padding: 15px;
             color: #fff;
             text-decoration: none;
             font-size: 18px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.2s;
         }
+
         .sidebar a:hover {
-            background: #ff69b4;
+            background: var(--main-color);
+            transform: scale(1.05);
         }
+
         .sidebar a i {
             margin-right: 10px;
         }
+
         .content {
             margin-left: 260px;
             padding: 20px;
             flex: 1;
+            background: var(--secondary-color);
+            box-shadow: var(--box-shadow);
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+        }
+
+        p {
+            color: var(--black);
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <a href="#pedidos"><i class="fa fa-box"></i> Pedidos</a>
-        <a href="#productos"><i class="fa fa-birthday-cake"></i> Productos & Recetas</a>
-        <a href="#produccion"><i class="fa fa-chart-line"></i> Producción y Entregas</a>
-        <a href="#historial"><i class="fa fa-history"></i> Historial de Pedidos</a>
-        <a href="#notificaciones"><i class="fa fa-bell"></i> Notificaciones</a>
-        <a href="#configuracion"><i class="fa fa-cog"></i> Configuración</a>
+        <a href="pedidos.html"><i class="fa fa-box"></i> Pedidos</a>
+        <a href="productos.html"><i class="fa fa-birthday-cake"></i> Productos y Recetas</a>
+        <a href="produccion.html"><i class="fa fa-chart-line"></i> Producción y Entregas</a>
+        <a href="historial.html"><i class="fa fa-history"></i> Historial de Pedidos</a>
+        <a href="notificaciones.html"><i class="fa fa-bell"></i> Notificaciones</a>
+        <a href="configuracion.html"><i class="fa fa-cog"></i> Configuración</a>
     </div>
     <div class="content">
         <h2>Bienvenido al Panel de Repostería</h2>
