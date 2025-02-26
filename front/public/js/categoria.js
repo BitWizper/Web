@@ -74,42 +74,41 @@ function getStarsHTML(popularidad) {
     );
 }
 
-// Funciones existentes para mostrar pasteles
-async function mostrarDestacados() {
+// Función para cargar los pasteles según la categoría
+async function cargarPastelesPorCategoria(categoria) {
     try {
         const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
         const pasteles = await response.json();
         
-        const destacados = pasteles.filter(pastel => pastel.popularidad >= 4.2);
-        mostrarPasteles(destacados, '.menu .box-container');
-    } catch (error) {
-        console.error('Error al obtener los pasteles destacados:', error);
-    }
-}
+        let pastelesFiltrados = [];
+        
+        switch (categoria) {
+            case 'destacados':
+                pastelesFiltrados = pasteles.filter(pastel => pastel.popularidad >= 4.2);
+                break;
+            case 'novedades':
+                pastelesFiltrados = pasteles.filter(pastel => pastel.popularidad <= 4.0);
+                break;
+            case 'recomendados':
+                pastelesFiltrados = pasteles.sort((a, b) => b.popularidad - a.popularidad);
+                break;
+            default:
+                pastelesFiltrados = pasteles;
+                break;
+        }
 
-async function mostrarNovedades() {
-    try {
-        const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
-        const pasteles = await response.json();
-        
-        const novedades = pasteles.filter(pastel => pastel.popularidad <= 4.0);
-        mostrarPasteles(novedades, '.menu .box-container');
+        mostrarPasteles(pastelesFiltrados, '.menu .box-container');
     } catch (error) {
-        console.error('Error al obtener los pasteles de novedades:', error);
-    }
-}
-
-async function mostrarRecomendados() {
-    try {
-        const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
-        const pasteles = await response.json();
-        
-        const recomendados = pasteles.sort((a, b) => b.popularidad - a.popularidad);
-        mostrarPasteles(recomendados, '.menu .box-container');
-    } catch (error) {
-        console.error('Error al obtener los pasteles recomendados:', error);
+        console.error(`Error al obtener los pasteles de la categoría ${categoria}:`, error);
     }
 }
 
 // Event listener para cargar pasteles recomendados por defecto al cargar la página
-document.addEventListener('DOMContentLoaded', mostrarRecomendados);
+document.addEventListener('DOMContentLoaded', () => cargarPastelesPorCategoria('recomendados'));
+
+// Agregar funcionalidad a los botones de categorías
+document.querySelector('.categoria.xv').addEventListener('click', () => cargarPastelesPorCategoria('destacados'));
+document.querySelector('.categoria.boda').addEventListener('click', () => cargarPastelesPorCategoria('novedades'));
+document.querySelector('.categoria.babyshower').addEventListener('click', () => cargarPastelesPorCategoria('recomendados'));
+document.querySelector('.categoria.cumpleaños').addEventListener('click', () => cargarPastelesPorCategoria('destacados'));
+document.querySelector('.categoria.bautizo').addEventListener('click', () => cargarPastelesPorCategoria('novedades'));

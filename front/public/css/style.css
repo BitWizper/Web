@@ -74,11 +74,11 @@ section{
     font-size: 2rem; /* Hace el texto más grande */
     border-radius: 1rem;
     color: #fff; /* Letras blancas */
-    background: #E91E63; /* Rosa fuerte */
+    background: #ca7373; /* Rosa fuerte */
     position: relative;
     box-shadow: var(--box-shadow);
     z-index: 0;
-    border: 2px solid #DAA520; /* Dorado fuerte y más delgado */
+     /* Dorado fuerte y más delgado */
 }
 
 /* header */
@@ -227,7 +227,7 @@ section{
 }
 
 .header .search-bar .search-btn {
-    background: var(--main-color);
+    background: #ca7373;
     color: #fff;
     border: none;
     padding: 0.5rem 1rem;
