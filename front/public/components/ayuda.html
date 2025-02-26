@@ -6,6 +6,7 @@
     <title>Preguntas Frecuentes - BORCELLE</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Estilos generales */
         body {
             font-family: 'Nunito', sans-serif;
             margin: 0;
@@ -17,29 +18,34 @@
         .container {
             width: 100%;
             max-width: 1100px;
-            margin: 20px auto;
+            margin: 40px auto;
             background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             padding: 30px;
+            overflow: hidden;
         }
 
         h1 {
             text-align: center;
             color: #d78fa4;
             font-size: 2.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
 
         h2 {
             font-size: 1.8em;
             color: #d78fa4;
-            margin-top: 20px;
+            margin-top: 25px;
+            font-weight: 600;
         }
 
         p {
             font-size: 1.1em;
             line-height: 1.6;
-            color: #333;
+            color: #555;
+            margin-top: 15px;
         }
 
         .highlight {
@@ -51,16 +57,9 @@
             margin-top: 40px;
         }
 
-        .question {
-            font-weight: bold;
-            font-size: 1.4em;
-            color: #d78fa4;
-            margin-top: 20px;
-        }
-
         .cta-button {
             display: block;
-            margin: 20px auto;
+            margin: 40px auto;
             padding: 15px 30px;
             background-color: #d78fa4;
             color: white;
@@ -70,40 +69,67 @@
             cursor: pointer;
             transition: background 0.3s;
             text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .cta-button:hover {
             background-color: #c77490;
         }
 
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
+        .question {
+            font-weight: bold;
+            font-size: 1.4em;
+            color: #d78fa4;
+            margin-top: 20px;
         }
 
-        .stat {
-            font-size: 1.4em;
-            color: #333;
+        /* Hover effect */
+        .section:hover {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            transition: background 0.3s ease-in-out;
+        }
+
+        /* Diseño responsivo */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            .cta-button {
+                padding: 12px 25px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Preguntas Frecuentes - <span class="highlight">BORCELLE</span></h1>
+        <h1>Preguntas Frecuentes <span class="highlight"></span></h1>
         
         <div class="section">
-            <h2>¿Qué es <span class="highlight">BORCELLE</span>?</h2>
+            <h2>¿Qué es <span class="highlight">Borcelle</span>?</h2>
             <p>Es una plataforma en línea que permite diseñar y encargar pasteles personalizados para eventos exclusivos como bodas, quince años y celebraciones especiales.</p>
         </div>
 
         <div class="section">
-            <h2>¿Cómo funciona <span class="highlight">BORCELLE</span>?</h2>
+            <h2>¿Cómo funciona <span class="highlight"></span>?</h2>
             <p>Los usuarios pueden crear un pastel único, eligiendo desde los sabores hasta las decoraciones, y ver el diseño en tiempo real mientras eligen las opciones.</p>
         </div>
 
         <div class="section">
-            <h2>¿Qué problemas resuelve <span class="highlight">BORCELLE</span>?</h2>
+            <h2>¿Qué problemas resuelve <span class="highlight"></span>?</h2>
             <p>Soluciona las dificultades que enfrentan las personas al no encontrar proveedores que ofrezcan pasteles con la calidad, sabor y diseño deseados.</p>
         </div>
 
@@ -142,9 +168,6 @@
             <p>La plataforma permite coordinar todos los detalles con el pastelero para asegurar que el pastel sea exactamente lo que buscas. Si hay algún problema, trabajamos para solucionarlo.</p>
         </div>
 
-        <div class="section">
-            <a href="registro.html" class="cta-button">Comienza ahora</a>
-        </div>
     </div>
 </body>
 </html>

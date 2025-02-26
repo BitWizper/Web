@@ -1,0 +1,80 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f2f2;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    background: #d78fa4;
+    color: white;
+    padding: 30px 20px;
+}
+
+.sidebar h3 {
+    text-align: left;
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.option {
+    padding: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.option:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.orders-container {
+    flex: 1;
+    padding: 20px;
+}
+
+h4 {
+    color: #d78fa4;
+    font-weight: 600;
+}
+
+.order {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+.order-info p {
+    margin: 0;
+}
+
+.details-btn {
+    background-color: #d78fa4;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.details-btn:hover {
+    background-color: #c77490;
+}

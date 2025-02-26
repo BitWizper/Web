@@ -10,8 +10,12 @@
         .content-section {
             display: none; /* Ocultar las secciones por defecto */
         }
+        .active-tab {
+            font-weight: bold;
+        }
+        /* Añadimos un estilo para ocultar el perfil */
         .hidden {
-            display: none; /* Para ocultar elementos */
+            display: none;
         }
     </style>
 </head>
@@ -19,18 +23,18 @@
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-          <span class="back-btn" onclick="window.location.href='home.html'">&#8592;</span>
+            <span class="back-btn" onclick="window.location.href='home.html'">&#8592;</span>
             <h3>Mi Perfil</h3>
-            <div class="option" onclick="showContent('editarPerfil')">
+            <div class="option" onclick="showContent('editarPerfil', this)">
                 <span>Editar Perfil</span>
             </div>
-            <div class="option" onclick="showContent('notificaciones')">
+            <div class="option" onclick="showContent('notificaciones', this)">
                 <span>Notificaciones</span>
             </div>
-            <div class="option" onclick="showContent('miTarjeta')">
+            <div class="option" onclick="showContent('miTarjeta', this)">
                 <span>Mi tarjeta</span>
             </div>
-            <div class="option" onclick="showContent('configuracion')">
+            <div class="option" onclick="showContent('configuracion', this)">
                 <span>Configuración</span>
             </div>
         </div>
@@ -68,14 +72,41 @@
             <div id="notificaciones" class="content-section">
                 <h4>Notificaciones</h4>
                 <p>Recibe alertas sobre actividades importantes y actualizaciones.</p>
+                <ul>
+                    <li><strong>Nuevo mensaje</strong>: Has recibido un mensaje de tu amigo Juan.</li>
+                    <li><strong>Actualización de cuenta</strong>: Tu contraseña fue cambiada recientemente.</li>
+                    <li><strong>Recordatorio</strong>: No olvides actualizar tu información de pago.</li>
+                </ul>
             </div>
+
             <div id="miTarjeta" class="content-section">
                 <h4>Mi Tarjeta</h4>
                 <p>Gestiona tus métodos de pago y tarjetas de crédito aquí.</p>
+                <ul>
+                    <li><strong>Visa **** 1234</strong>: Vencimiento: 12/24</li>
+                    <li><strong>Mastercard **** 5678</strong>: Vencimiento: 05/23</li>
+                </ul>
+                <button onclick="alert('Agrega una nueva tarjeta aquí.')">Añadir nueva tarjeta</button>
             </div>
+
             <div id="configuracion" class="content-section">
                 <h4>Configuración</h4>
                 <p>Ajusta tus preferencias de cuenta y configuración general.</p>
+                <form>
+                    <label for="emailNotifications">Notificaciones por correo electrónico:</label>
+                    <input type="checkbox" id="emailNotifications" checked><br><br>
+
+                    <label for="smsNotifications">Notificaciones por SMS:</label>
+                    <input type="checkbox" id="smsNotifications"><br><br>
+
+                    <label for="privacy">Privacidad de la cuenta:</label>
+                    <select id="privacy">
+                        <option value="publico">Público</option>
+                        <option value="privado">Privado</option>
+                    </select><br><br>
+
+                    <button type="submit">Guardar cambios</button>
+                </form>
             </div>
         </div>
     </div>

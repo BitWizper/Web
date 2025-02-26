@@ -1,5 +1,6 @@
+/* Global styles */
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito',sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f7f2f2;
@@ -10,38 +11,36 @@ body {
   max-width: 1200px;
   margin: 20px auto;
   background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   overflow: hidden;
+  height: 100vh; /* Para asegurar que la altura cubra toda la ventana */
 }
 
-/* Sidebar */
-.sidebar {
-  position: relative;  /* Asegura que la barra lateral se comporta como un contenedor */
-}
-
+/* Sidebar styles */
 .sidebar {
   width: 250px;
   background: #d78fa4;
   color: white;
-  padding: 20px;
+  padding: 30px 20px;
+  height: 100vh; /* Asegura que la barra lateral ocupe toda la altura de la ventana */
+  position: sticky;
+  top: 0;
 }
 
 .sidebar h3 {
   text-align: left;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: relative;  /* Para que el h3 esté en su propio espacio */
-  z-index: 2;  /* Eleva el z-index del h3 para que no se superponga con las opciones */
+  font-size: 24px;
+  margin-bottom: 20px;
 }
+
 .back-btn {
   font-size: 24px;
   cursor: pointer;
-  color: white;  /* Mantiene el color blanco para que se vea bien sobre el fondo rosado */
+  color: white;
+  margin-bottom: 20px;
 }
-
 
 .option {
   padding: 15px;
@@ -50,28 +49,23 @@ body {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   text-align: center;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
 }
 
 .option:hover {
   background: rgba(255, 255, 255, 0.4);
 }
 
-/* Perfil */
+.option.active-tab {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Profile container styles */
 .profile-container {
   flex: 1;
-  padding: 20px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-}
-
-.back-btn {
-  font-size: 24px;
-  cursor: pointer;
-  color: white;
+  padding: 30px;
+  height: 100%; /* Para que el contenedor ocupe todo el espacio disponible */
+  overflow-y: auto; /* Para permitir desplazarse en caso de contenido largo */
 }
 
 .profile {
@@ -80,24 +74,27 @@ body {
 }
 
 .profile-img img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
   border: 5px solid #d78fa4;
+  margin-bottom: 15px;
 }
 
 .profile-info h3 {
-  margin: 10px 0 5px;
+  margin: 10px 0;
   font-weight: 600;
   color: #d78fa4;
+  font-size: 24px;
 }
 
 .profile-info p {
   color: gray;
+  font-size: 14px;
 }
 
-/* Secciones */
+/* Content section styles */
 .content-section {
   display: none;
   margin-top: 20px;
@@ -106,13 +103,49 @@ body {
 button {
   background: #d78fa4;
   color: white;
-  padding: 10px;
+  padding: 12px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
+  font-size: 16px;
 }
 
 button:hover {
   background: #c77490;
+}
+
+/* Form fields */
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+label {
+  font-weight: bold;
+  color: #444;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+/* Error message styles */
+#errorMessage {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  display: none;
 }

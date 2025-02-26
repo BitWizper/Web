@@ -22,13 +22,42 @@
 
         <!-- Contenido -->
         <div class="orders-container">
+            <!-- Pedidos Activos -->
             <div id="pedidosActivos" class="content-section">
                 <h4>Pedidos Activos</h4>
-                <p>Aquí aparecerán los pedidos en curso.</p>
+                <div class="order">
+                    <div class="order-info">
+                        <p><strong>Pedido #1</strong></p>
+                        <p>Fecha: 2025-02-25</p>
+                    </div>
+                    <button class="details-btn" onclick="showDetails(1)">Ver detalles</button>
+                </div>
+                <div class="order">
+                    <div class="order-info">
+                        <p><strong>Pedido #2</strong></p>
+                        <p>Fecha: 2025-02-26</p>
+                    </div>
+                    <button class="details-btn" onclick="showDetails(2)">Ver detalles</button>
+                </div>
             </div>
+
+            <!-- Historial de Pedidos -->
             <div id="historialPedidos" class="content-section" style="display: none;">
                 <h4>Historial de Pedidos</h4>
-                <p>Aquí se mostrarán tus pedidos anteriores.</p>
+                <div class="order">
+                    <div class="order-info">
+                        <p><strong>Pedido #3</strong></p>
+                        <p>Fecha: 2025-01-15</p>
+                    </div>
+                    <button class="details-btn" onclick="showDetails(3)">Ver detalles</button>
+                </div>
+                <div class="order">
+                    <div class="order-info">
+                        <p><strong>Pedido #4</strong></p>
+                        <p>Fecha: 2025-01-10</p>
+                    </div>
+                    <button class="details-btn" onclick="showDetails(4)">Ver detalles</button>
+                </div>
             </div>
         </div>
     </div>
@@ -39,6 +68,10 @@
                 section.style.display = 'none';
             });
             document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function showDetails(orderId) {
+            alert("Detalles del Pedido #" + orderId);
         }
     </script>
 </body>
