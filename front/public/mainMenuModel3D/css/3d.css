@@ -1,8 +1,8 @@
 /* 🔹 ESTILOS GENERALES 🔹 */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8e8eb; /* Fondo en tono pastel rosa */
-    color: #4a4a4a;
+    background-color: #ffffff; /* Fondo oscuro elegante */
+    color: #ffc3c3; /* Texto claro para contraste */
     margin: 0;
     display: flex;
     justify-content: center;
@@ -17,29 +17,29 @@ body {
     flex-direction: row;
     width: 95%;
     max-width: 1400px;
-    background: rgba(255, 240, 245, 0.9); /* Fondo en tono rosado suave */
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
+    background: rgba(218, 182, 217, 0.9); /* Fondo semi-transparente oscuro */
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     overflow: hidden;
-    padding: 10px;
+    padding: 15px;
 }
 
 /* 🔹 BARRA LATERAL 🔹 */
 .sidebar {
     width: 250px;
     padding: 20px;
-    background: #ffe4e1;
+    background: #ffffff; /* Azul oscuro sofisticado */
     flex-shrink: 0;
 }
 
 /* Botón de regresar */
 .back-button {
-    background: #ff80a0;
+    background: #4a4e69;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    padding: 10px;
-    border: 2px solid #ff3366;
+    padding: 12px;
+    border: 2px solid #9a998c;
     border-radius: 8px;
     cursor: pointer;
     width: 100%;
@@ -49,14 +49,14 @@ body {
 
 /* Efecto hover */
 .back-button:hover {
-    background: #ff3366;
-    box-shadow: 0 0 10px #ff3366;
+    background: #83486a;
+    box-shadow: 0 0 10px #9a8c98;
 }
 
 /* 🔹 TÍTULOS DE OPCIONES 🔹 */
 .sidebar h2 {
     font-size: 18px;
-    border-bottom: 2px solid #ff80a0;
+    border-bottom: 2px solid #c9ada7;
     padding-bottom: 5px;
     margin-bottom: 10px;
 }
@@ -66,8 +66,8 @@ button {
     width: 100%;
     padding: 12px;
     margin: 8px 0;
-    background: #ffb6c1;
-    border: 2px solid #ff3366;
+    background: #7c4057;
+    border: 2px solid #c9ada7;
     color: white;
     cursor: pointer;
     border-radius: 5px;
@@ -78,9 +78,9 @@ button {
 
 /* Efecto de brillo en hover */
 button:hover {
-    background: #ff3366;
+    background: #edb8cc;
     color: white;
-    box-shadow: 0 0 10px #ff3366;
+    box-shadow: 0 0 10px #c9ada7;
 }
 
 /* 🔹 CONTENEDOR DEL PASTEL 🔹 */
@@ -89,7 +89,7 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #efbccd;
+    background: #e0d0f6;
     position: relative;
     min-height: 500px;
 }
@@ -111,16 +111,16 @@ canvas {
 
 .controls button {
     padding: 10px 15px;
-    background: #ffb6c1;
-    border: 2px solid #ff3366;
+    background: #7c4057;
+    border: 2px solid #c9ada7;
     border-radius: 8px;
 }
 
 /* Efecto en botones de control */
 .controls button:hover {
-    background: #ff3366;
+    background:  #edb8cc;
     color: white;
-    box-shadow: 0 0 10px #ff3366;
+    box-shadow: 0 0 10px #c9ada7;
 }
 
 /* 🔹 RESPONSIVIDAD 🔹 */
