@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Principal</title>
+    <style>
+        @font-face {
+            font-family: 'KenaFont';
+            src: url('https://github.com/google/fonts/raw/main/ofl/imfellenglishsc/IMFellEnglishSC-Regular.ttf');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background: url('../img/golden.jpg') no-repeat center center/cover;
+            color: white;
+            font-family: 'KenaFont', serif;
+            overflow: hidden;
+            padding-left: 5%;
+        }
+
+        .menu-container {
+            text-align: left;
+            position: absolute;
+            left: 5%;
+            top: 30%;
+        }
+
+        .title {
+            font-size: 50px;
+            text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu a {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+            display: block;
+            width: fit-content;
+            position: relative;
+        }
+
+        .menu a:hover {
+            text-shadow: 0px 0px 15px white;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <h1 class="title">BORCELLE</h1>
+
+        <div class="menu">
+            <a href="Menu3D.html">Crear Pastel</a>
+            <a href="#">Pasteles Guardados</a>
+            <a href="#">Opciones</a>
+            <a href="../components/home.html">Salir</a>
+        </div>
+    </div>
+
+</body>
+</html>

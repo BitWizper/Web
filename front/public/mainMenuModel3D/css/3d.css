@@ -1,0 +1,182 @@
+/* 🔹 ESTILOS GENERALES 🔹 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8e8eb; /* Fondo en tono pastel rosa */
+    color: #4a4a4a;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+/* 🔹 CONTENEDOR PRINCIPAL 🔹 */
+.ui-container {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    max-width: 1400px;
+    background: rgba(255, 240, 245, 0.9); /* Fondo en tono rosado suave */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
+    overflow: hidden;
+    padding: 10px;
+}
+
+/* 🔹 BARRA LATERAL 🔹 */
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    background: #ffe4e1;
+    flex-shrink: 0;
+}
+
+/* Botón de regresar */
+.back-button {
+    background: #ff80a0;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    border: 2px solid #ff3366;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efecto hover */
+.back-button:hover {
+    background: #ff3366;
+    box-shadow: 0 0 10px #ff3366;
+}
+
+/* 🔹 TÍTULOS DE OPCIONES 🔹 */
+.sidebar h2 {
+    font-size: 18px;
+    border-bottom: 2px solid #ff80a0;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+/* 🔹 BOTONES GENERALES 🔹 */
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #ffb6c1;
+    border: 2px solid #ff3366;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efecto de brillo en hover */
+button:hover {
+    background: #ff3366;
+    color: white;
+    box-shadow: 0 0 10px #ff3366;
+}
+
+/* 🔹 CONTENEDOR DEL PASTEL 🔹 */
+.cake-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #efbccd;
+    position: relative;
+    min-height: 500px;
+}
+
+/* Ajustes del lienzo */
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* 🔹 CONTROLES 🔹 */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.controls button {
+    padding: 10px 15px;
+    background: #ffb6c1;
+    border: 2px solid #ff3366;
+    border-radius: 8px;
+}
+
+/* Efecto en botones de control */
+.controls button:hover {
+    background: #ff3366;
+    color: white;
+    box-shadow: 0 0 10px #ff3366;
+}
+
+/* 🔹 RESPONSIVIDAD 🔹 */
+
+/* 📌 Laptop y PC */
+@media (max-width: 1366px) {
+    .ui-container {
+        width: 90%;
+    }
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .cake-container {
+        min-height: 450px;
+    }
+}
+
+/* 📌 Tablets */
+@media (max-width: 1024px) {
+    .ui-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .controls {
+        position: relative;
+        margin-top: 10px;
+    }
+}
+
+/* 📌 Celulares */
+@media (max-width: 768px) {
+    .ui-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cake-container {
+        min-height: 400px;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+}
