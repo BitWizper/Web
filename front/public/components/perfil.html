@@ -17,13 +17,57 @@
         .hidden {
             display: none;
         }
+
+        /* Estilo para la flecha dentro del sidebar */
+        .back-btn {
+            font-size: 2rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .back-btn:hover {
+            color: #882f2d;
+        }
+
+        /* Estilo para el botón de guardar cambios */
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #882f2d;
+        }
+
+        /* Estilo para el mensaje de confirmación */
+        .confirmation-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Estilo para el mensaje de error */
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <span class="back-btn" onclick="window.location.href='home.html'">&#8592;</span>
+            <!-- Flecha de retroceso utilizando el símbolo '↩' -->
+            <span class="back-btn" onclick="window.location.href='home.html'">
+                ↩ <!-- Flecha personalizada -->
+            </span>
             <h3>Mi Perfil</h3>
             <div class="option" onclick="showContent('editarPerfil', this)">
                 <span>Editar Perfil</span>
@@ -66,7 +110,8 @@
 
                     <button type="submit">Actualizar Información</button>
                 </form>
-                <p id="errorMessage" style="color: red; display: none;">Por favor, completa todos los campos.</p>
+                <p id="errorMessage" class="error-message" style="display: none;">Por favor, completa todos los campos.</p>
+                <p id="successMessage" class="confirmation-message" style="display: none;">Información actualizada correctamente.</p>
             </div>
             
             <div id="notificaciones" class="content-section">
@@ -92,7 +137,7 @@
             <div id="configuracion" class="content-section">
                 <h4>Configuración</h4>
                 <p>Ajusta tus preferencias de cuenta y configuración general.</p>
-                <form>
+                <form id="configForm">
                     <label for="emailNotifications">Notificaciones por correo electrónico:</label>
                     <input type="checkbox" id="emailNotifications" checked><br><br>
 
@@ -107,11 +152,56 @@
 
                     <button type="submit">Guardar cambios</button>
                 </form>
+                <p id="configSuccessMessage" class="confirmation-message" style="display: none;">Cambios guardados correctamente.</p>
             </div>
         </div>
     </div>
 
-    <!-- Enlazar el archivo JS externo -->
+    <script>
+        // Función para mostrar la sección correspondiente
+        function showContent(sectionId, element) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Eliminar la clase 'active-tab' de todas las opciones
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('active-tab');
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).style.display = 'block';
+
+            // Agregar clase 'active-tab' a la opción seleccionada
+            element.classList.add('active-tab');
+        }
+
+        // Función para validar y actualizar el perfil
+        document.getElementById('editForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('editName').value;
+            const bio = document.getElementById('editBio').value;
+
+            if (name === '' || bio === '') {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'none';
+            } else {
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            }
+        });
+
+        // Función para guardar cambios en la configuración
+        document.getElementById('configForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('configSuccessMessage').style.display = 'block';
+        });
+    </script>
+
     <script src="../js/perfil.js"></script>
 </body>
 </html>

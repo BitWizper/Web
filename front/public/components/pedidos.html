@@ -5,74 +5,210 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Pedidos</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/mis_pedidos.css">
+    <link rel="stylesheet" href="../css/perfil.css">
+    <style>
+        .content-section {
+            display: none; /* Ocultar las secciones por defecto */
+        }
+        .active-tab {
+            font-weight: bold;
+        }
+        /* Añadimos un estilo para ocultar el perfil */
+        .hidden {
+            display: none;
+        }
+
+        /* Estilo para la flecha dentro del sidebar */
+        .back-btn {
+            font-size: 2rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .back-btn:hover {
+            color: #882f2d;
+        }
+
+        /* Estilo para el botón de guardar cambios */
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #882f2d;
+        }
+
+        /* Estilo para el mensaje de confirmación */
+        .confirmation-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Estilo para el mensaje de error */
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Estilos adicionales para la tabla de pedidos */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
 </head>
-<body style="background-color: #f7f2f2;">
+<body>
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <h3 onclick="window.location.href='home.html'" style="cursor: pointer;">&#8592; Mis Pedidos</h3>
-            <div class="option" onclick="showContent('pedidosActivos')">
-                <span>Pedidos Activos</span>
+            <!-- Flecha de retroceso utilizando el símbolo '↩' -->
+            <span class="back-btn" onclick="window.location.href='home.html'">
+                ↩ <!-- Flecha personalizada -->
+            </span>
+            <h3>Mis Pedidos</h3>
+            <div class="option" onclick="showContent('verPedidos', this)">
+                <span>Ver Pedidos</span>
             </div>
-            <div class="option" onclick="showContent('historialPedidos')">
+            <div class="option" onclick="showContent('nuevoPedido', this)">
+                <span>Nuevo Pedido</span>
+            </div>
+            <div class="option" onclick="showContent('historialPedidos', this)">
                 <span>Historial de Pedidos</span>
             </div>
         </div>
 
-        <!-- Contenido -->
-        <div class="orders-container">
-            <!-- Pedidos Activos -->
-            <div id="pedidosActivos" class="content-section">
-                <h4>Pedidos Activos</h4>
-                <div class="order">
-                    <div class="order-info">
-                        <p><strong>Pedido #1</strong></p>
-                        <p>Fecha: 2025-02-25</p>
-                    </div>
-                    <button class="details-btn" onclick="showDetails(1)">Ver detalles</button>
-                </div>
-                <div class="order">
-                    <div class="order-info">
-                        <p><strong>Pedido #2</strong></p>
-                        <p>Fecha: 2025-02-26</p>
-                    </div>
-                    <button class="details-btn" onclick="showDetails(2)">Ver detalles</button>
-                </div>
+        <!-- Contenedor de pedidos -->
+        <div class="profile-container">
+            <div id="verPedidos" class="content-section">
+                <h4>Ver Pedidos</h4>
+                <p>Consulta los pedidos realizados y su estado.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Pedido</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Total</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#12345</td>
+                            <td>2025-03-01</td>
+                            <td>En proceso</td>
+                            <td>$150.00</td>
+                            <td><button>Ver detalles</button></td>
+                        </tr>
+                        <tr>
+                            <td>#12346</td>
+                            <td>2025-03-02</td>
+                            <td>Enviado</td>
+                            <td>$250.00</td>
+                            <td><button>Ver detalles</button></td>
+                        </tr>
+                        <tr>
+                            <td>#12347</td>
+                            <td>2025-03-03</td>
+                            <td>Entregado</td>
+                            <td>$300.00</td>
+                            <td><button>Ver detalles</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!-- Historial de Pedidos -->
-            <div id="historialPedidos" class="content-section" style="display: none;">
+            <div id="nuevoPedido" class="content-section">
+                <h4>Nuevo Pedido</h4>
+                <form id="newOrderForm">
+                    <label for="pedidoProducto">Producto:</label>
+                    <input type="text" id="pedidoProducto" name="pedidoProducto" placeholder="Producto a pedir"><br><br>
+
+                    <label for="pedidoCantidad">Cantidad:</label>
+                    <input type="number" id="pedidoCantidad" name="pedidoCantidad" value="1"><br><br>
+
+                    <label for="pedidoDireccion">Dirección de Envío:</label><br>
+                    <textarea id="pedidoDireccion" name="pedidoDireccion" rows="4" cols="50" placeholder="Dirección de envío"></textarea><br><br>
+
+                    <button type="submit">Realizar Pedido</button>
+                </form>
+                <p id="orderErrorMessage" class="error-message" style="display: none;">Por favor, completa todos los campos.</p>
+                <p id="orderSuccessMessage" class="confirmation-message" style="display: none;">Pedido realizado correctamente.</p>
+            </div>
+
+            <div id="historialPedidos" class="content-section">
                 <h4>Historial de Pedidos</h4>
-                <div class="order">
-                    <div class="order-info">
-                        <p><strong>Pedido #3</strong></p>
-                        <p>Fecha: 2025-01-15</p>
-                    </div>
-                    <button class="details-btn" onclick="showDetails(3)">Ver detalles</button>
-                </div>
-                <div class="order">
-                    <div class="order-info">
-                        <p><strong>Pedido #4</strong></p>
-                        <p>Fecha: 2025-01-10</p>
-                    </div>
-                    <button class="details-btn" onclick="showDetails(4)">Ver detalles</button>
-                </div>
+                <p>Aquí puedes revisar los pedidos anteriores que ya han sido entregados.</p>
+                <ul>
+                    <li><strong>#12345</strong> - Fecha: 2025-02-15 - Estado: Entregado - Total: $150.00</li>
+                    <li><strong>#12344</strong> - Fecha: 2025-02-10 - Estado: Entregado - Total: $200.00</li>
+                </ul>
             </div>
         </div>
     </div>
 
     <script>
-        function showContent(sectionId) {
-            document.querySelectorAll('.content-section').forEach(section => {
+        // Función para mostrar la sección correspondiente
+        function showContent(sectionId, element) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
                 section.style.display = 'none';
             });
+
+            // Eliminar la clase 'active-tab' de todas las opciones
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('active-tab');
+            });
+
+            // Mostrar la sección seleccionada
             document.getElementById(sectionId).style.display = 'block';
+
+            // Agregar clase 'active-tab' a la opción seleccionada
+            element.classList.add('active-tab');
         }
 
-        function showDetails(orderId) {
-            alert("Detalles del Pedido #" + orderId);
-        }
+        // Función para validar y realizar el pedido
+        document.getElementById('newOrderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const producto = document.getElementById('pedidoProducto').value;
+            const cantidad = document.getElementById('pedidoCantidad').value;
+            const direccion = document.getElementById('pedidoDireccion').value;
+
+            if (producto === '' || cantidad === '' || direccion === '') {
+                document.getElementById('orderErrorMessage').style.display = 'block';
+                document.getElementById('orderSuccessMessage').style.display = 'none';
+            } else {
+                document.getElementById('orderErrorMessage').style.display = 'none';
+                document.getElementById('orderSuccessMessage').style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
