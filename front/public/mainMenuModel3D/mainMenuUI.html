@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Principal</title>
+    <title>Menú</title>
+    
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+
     <style>
         @font-face {
             font-family: 'KenaFont';
@@ -19,13 +24,67 @@
         body {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: flex-start;
             align-items: center;
             background: url('../img/Elegant.jpg') no-repeat center center/cover;
             color: white;
             font-family: 'KenaFont', serif;
             overflow: hidden;
-            padding-left: 5%;
+        }
+
+        /* Header Section */
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .logo {
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            text-shadow: 0px 0px 10px white;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-bar input {
+            padding: 5px;
         }
 
         .menu-container {
@@ -65,17 +124,32 @@
     </style>
 </head>
 <body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="left-section">
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
+            <a href="#" class="logo"><i class="fas fa-cake"></i> Borcelle</a> 
+        </div>
+        <nav class="navbar">
+            <a href="home.html" class="active">Home</a>
+            <a href="categorias.html">Pasteles</a>
+            <a href="reposteros.html">Reposteros</a>
+            <a href="loadingCake.html">Crear Pastel</a>
+        </nav>
+        <div class="header-right">
+            <a href="#" title="Notificaciones"><i class="fas fa-bell fa-lg"></i></a>
+            <a href="carrito.html" title="Carrito"><i class="fas fa-shopping-cart fa-lg"></i></a>
+        </div>
+    </header>
 
+    <!-- Main Content -->
     <div class="menu-container">
         <h1 class="title">BORCELLE</h1>
-
         <div class="menu">
             <a href="Menu3D.html">Crear Pastel</a>
             <a href="#">Pasteles Guardados</a>
-            
             <a href="../components/home.html">Salir</a>
         </div>
     </div>
-
 </body>
 </html>
