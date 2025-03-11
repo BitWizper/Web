@@ -1,11 +1,12 @@
 const express = require('express');
 const path = require('path');
 
+
 const app = express();
 
-// Ruta principal para home.html (antes de servir archivos estáticos)
+// Ruta principal para index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'components', 'home.html'));
+  res.sendFile(path.join(__dirname, 'public', 'components','home.html'));
 });
 
 // Servir archivos estáticos (HTML, CSS, JS) desde la carpeta "public"
