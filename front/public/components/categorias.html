@@ -1,40 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo</title>
-    <!-- fontawesome cdn link -->
+    <title>Catálogo de Pasteles</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-
-    <!-- custom css link -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/categorias.css">
 </head>
-<body>z
-    
-    <!-- header section starts -->
+<body>
+
+    <!-- Header -->
     <header class="header">
         <div class="left-section">
-            <!-- Menú hamburguesa -->
             <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
-            
-            <!-- Logo -->
             <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
         </div>
 
-        <!-- Menú desplegable de opciones de usuario -->
-        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
-            <ul>
-                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
-                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
-                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
-                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
-                <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
-            </ul>
-        </div>
-        
         <nav class="navbar">
             <a href="home.html" class="active">Home</a>
             <a href="categorias.html">Pasteles</a>
@@ -44,7 +27,7 @@
 
         <div class="header-right">
             <div class="search-bar">
-                <input type="text" placeholder="Search here..." class="search-input">
+                <input type="text" placeholder="Buscar aquí..." class="search-input">
                 <button class="search-btn"><i class="fas fa-search"></i></button>
             </div>
             <div class="profile-section">
@@ -53,114 +36,69 @@
                 </a>
             </div>
             <div class="cart-section">
-                <a href="#" id="cart-icon" title="Shopping Cart">
+                <a href="#" id="cart-icon" title="Carrito de Compras">
                     <i class="fas fa-shopping-cart fa-lg"></i>
                 </a>
             </div>
         </div>
     </header>
-    <!-- header section ends -->
 
-    <!-- heading section starts -->
+    <!-- Sección de título -->
     <div class="heading-title" style="background: url(https://static.vecteezy.com/system/resources/previews/040/459/837/non_2x/ai-generated-a-birthday-cake-in-pink-adorned-with-golden-candles-and-balloons-free-photo.jpg) no-repeat;">
         <h1>Catálogo</h1>
     </div>
-    <!-- heading section ends -->
 
-    <!-- category section starts -->
+    <!-- Sección de Categorías -->
     <section class="category">
         <div class="categorias">
-            <div class="categoria">
+            <button class="categoria" data-categoria="1">
                 <img src="../img/xv añoss.jpg" alt="XV Años">
                 <p>XV Años</p>
-            </div>
-            <div class="categoria">
-                <img src="../img/boda.jpg" alt="Boda">
-                <p>Boda</p>
-            </div>
-            <div class="categoria">
-                <img src="../img/boda.jpg" alt="Babyshower">
-                <p>Babyshower</p>
-            </div>
-            <div class="categoria">
+            </button>
+            <button class="categoria" data-categoria="2">
                 <img src="../img/cumpleaños.jpg" alt="Cumpleaños">
                 <p>Cumpleaños</p>
-            </div>
-            <div class="categoria">
+            </button>
+            <button class="categoria" data-categoria="3">
+                <img src="../img/boda.jpg" alt="Baby Shower">
+                <p>Baby Shower</p>
+            </button>
+            <button class="categoria" data-categoria="4">
+                <img src="../img/boda.jpg" alt="Boda">
+                <p>Boda</p>
+            </button>
+            <button class="categoria" data-categoria="5">
                 <img src="../img/boda.jpg" alt="Bautizo">
                 <p>Bautizo</p>
-            </div>
+            </button>
         </div>
     </section>
-    <!-- category section ends -->
 
-    <!-- menu section starts -->
-    <!-- menu section starts -->
-     <!-- menu section starts -->
-        <section class="menu">
-            <h1 class="heading">Pasteles</h1>
-            <div class="pasteles-container" id="pastelesContainer">
-                <!-- Pasteles visibles inicialmente -->
-                <div class="pastel">
-                    <img src="https://i.pinimg.com/474x/8f/70/28/8f7028351967ad5f08d565519240ba44.jpg" alt="Pastel de Chocolate">
-                    <p>Pastel de Boda</p>
-                    <div class="icons">
-                        <i class="fas fa-edit"></i> <!-- Icono de editar -->
-                        <i class="fas fa-heart"></i> <!-- Icono de favoritos -->
-                    </div>
-                </div>
-                <div class="pastel">
-                    <img src="https://i.pinimg.com/736x/3b/e3/f2/3be3f26ae0f4ddf705fdd8c9fadb4da1.jpg" alt="Pastel de xv años">
-                    <p>Pastel de XV años</p>
-                    <div class="icons">
-                        <i class="fas fa-edit"></i>
-                        <i class="fas fa-heart"></i>
-                    </div>
-                </div>
-                <div class="pastel">
-                    <img src="https://i.pinimg.com/736x/71/f2/2e/71f22ea80e9fb07868c9f6d485356004.jpg" alt="Pastel de Vainilla">
-                    <p>Pastel de Vainilla</p>
-                    <div class="icons">
-                        <i class="fas fa-edit"></i>
-                        <i class="fas fa-heart"></i>
-                    </div>
-                </div>
-                <div class="pastel">
-                    <img src="https://i.pinimg.com/736x/e5/d3/9e/e5d39eb15478548f432bd2419ba8cbbf.jpg" alt="Pastel Red Velvet">
-                    <p>Pastel de Bautizo</p>
-                    <div class="icons">
-                        <i class="fas fa-edit"></i>
-                        <i class="fas fa-heart"></i>
-                    </div>
-                </div>
-                
-            </div>
-            <button id="mostrarMas" class="mostrar-mas">Mostrar más</button>
-        </section>
-        <!-- menu section ends -->
-
-
-<!-- menu section ends -->
-
-      
-    <!-- menu section ends -->
-
+    <!-- Sección de Pasteles -->
+    <section class="menu">
+        <h1 class="heading">Pasteles</h1>
+        <div class="pasteles-container" id="pastelesContainer">
+            <!-- Aquí se cargarán los pasteles dinámicamente -->
+        </div>
+        <button id="mostrarMas" class="mostrar-mas" style="display: none;">Mostrar más</button>
+        <button id="mostrarMenos" class="mostrar-mas" style="display: none;">Mostrar menos</button>
+    </section>
     <!-- footer section starts -->
     <section class="footer">
         <div class="box-container">
             <div class="box">
                 <h3>quick links</h3>
-                <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
-                <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
-                <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
-                <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
+                <a href="/components/home.html"> <i class="fas fa-arrow-right"></i> Home</a>
+                <a href="/components/reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
+                <a href="components/categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
+                <a href="components/ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
             </div>
             <div class="box">
                 <h3>extra links</h3>
                 <a href="#"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
                 <a href="#"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
                 <a href="#"> <i class="fas fa-arrow-right"></i> mi carrito</a>
-                <a href="perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
+                <a href="/components/perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
                 <a href="#"> <i class="fas fa-arrow-right"></i> política y privacidad</a>
             </div>
             <div class="box">
@@ -171,13 +109,13 @@
                 <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
                 <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
             </div>
+            
         </div>
     </section>
     <section class="credit"></section>
     <!-- footer section ends -->
 
     <script src="../js/categoria.js"></script>
-    <script src="../js/menu.js"></script>
 
 </body>
 </html>
