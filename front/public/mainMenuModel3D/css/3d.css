@@ -1,13 +1,8 @@
-:root {
-    --main-color: #e5c8b7; /* Rosa muy suave */
-    --primary-color: #d48f7d; /* Rosa suave neutral */
-}
-
 /* 🔹 ESTILOS GENERALES 🔹 */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Fondo gris claro para la página */
-    color: #333; /* Color de texto oscuro */
+    background-color: #f5ebe0; /* Fondo beige elegante */
+    color: #6d4c41; /* Texto marrón oscuro para contraste */
     margin: 0;
     display: flex;
     justify-content: center;
@@ -22,46 +17,29 @@ body {
     flex-direction: row;
     width: 95%;
     max-width: 1400px;
-    background: #fff; /* Fondo blanco fuera del área pastel */
-    border-radius: 10px;
+    background: #e8c1a0; /* Fondo crema cálido */
+    border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    overflow: hidden;
+    padding: 15px;
 }
 
 /* 🔹 BARRA LATERAL 🔹 */
 .sidebar {
     width: 250px;
     padding: 20px;
-    background: #f8f8f8; /* Fondo muy suave gris para la barra lateral */
+    background: #ffffff; /* Fondo blanco */
     flex-shrink: 0;
-}
-
-/* 🔹 CONTENEDOR DEL PASTEL 🔹 */
-.cake-container {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--main-color); /* Rosa muy suave solo dentro del área del pastel */
-    position: relative;
-    min-height: 500px;
-    border-radius: 10px;
-}
-
-/* Ajustes del lienzo */
-canvas {
-    width: 100%;
-    height: 100%;
 }
 
 /* Botón de regresar */
 .back-button {
-    background: var(--primary-color); /* Rosa suave neutral */
+    background: #d6a692;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    padding: 10px;
-    border: 2px solid #d48f7d; /* Rosa suave neutral */
+    padding: 12px;
+    border: 2px solid #9a998c;
     border-radius: 8px;
     cursor: pointer;
     width: 100%;
@@ -71,14 +49,14 @@ canvas {
 
 /* Efecto hover */
 .back-button:hover {
-    background: #c47e66; /* Rosa suave al pasar el cursor */
-    box-shadow: 0 0 10px #c47e66;
+    background: #c08474;
+    box-shadow: 0 0 10px #9a8c98;
 }
 
 /* 🔹 TÍTULOS DE OPCIONES 🔹 */
 .sidebar h2 {
     font-size: 18px;
-    border-bottom: 2px solid var(--primary-color); /* Rosa suave neutral */
+    border-bottom: 2px solid #c9ada7;
     padding-bottom: 5px;
     margin-bottom: 10px;
 }
@@ -88,9 +66,9 @@ button {
     width: 100%;
     padding: 12px;
     margin: 8px 0;
-    background: var(--main-color); /* Rosa suave */
-    border: 2px solid #d48f7d; /* Rosa suave neutral */
-    color: #333; /* Texto oscuro para contraste */
+    background: #d6a692;
+    border: 2px solid #c9ada7;
+    color: white;
     cursor: pointer;
     border-radius: 5px;
     font-size: 16px;
@@ -100,9 +78,26 @@ button {
 
 /* Efecto de brillo en hover */
 button:hover {
-    background: #c47e66; /* Rosa suave al pasar el cursor */
+    background: #c08474;
     color: white;
-    box-shadow: 0 0 10px #c47e66;
+    box-shadow: 0 0 10px #c9ada7;
+}
+
+/* 🔹 CONTENEDOR DEL PASTEL 🔹 */
+.cake-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #dab49d; /* Color de fondo del pastel */
+    position: relative;
+    min-height: 500px;
+}
+
+/* Ajustes del lienzo */
+canvas {
+    width: 100%;
+    height: 100%;
 }
 
 /* 🔹 CONTROLES 🔹 */
@@ -116,16 +111,16 @@ button:hover {
 
 .controls button {
     padding: 10px 15px;
-    background: var(--main-color); /* Rosa muy suave */
-    border: 2px solid #d48f7d; /* Rosa suave neutral */
+    background: #d6a692;
+    border: 2px solid #c9ada7;
     border-radius: 8px;
 }
 
 /* Efecto en botones de control */
 .controls button:hover {
-    background: #c47e66; /* Rosa suave al pasar el cursor */
+    background:  #c08474;
     color: white;
-    box-shadow: 0 0 10px #c47e66;
+    box-shadow: 0 0 10px #c9ada7;
 }
 
 /* 🔹 RESPONSIVIDAD 🔹 */
