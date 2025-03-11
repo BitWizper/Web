@@ -13,7 +13,7 @@
     box-sizing: border-box;
     outline: none; border: none;
     text-decoration: none;
-    text-transform: capitalize;
+    text-transform: none;
     list-style: none;
     transition: all .2s linear;
 }
@@ -63,8 +63,8 @@ section{
     color: #000; /* Texto en negro */
     line-height: 1.2; /* Espaciado entre líneas */
     letter-spacing: 0.4rem; /* Espaciado de letras */
-    text-transform: uppercase; /* Todo en mayúsculas */
-    -webkit-text-stroke: 2px #000000; /* Bordes blancos alrededor del texto (más delgados) */
+    text-transform: uppercase; 
+    
     
 }
 
@@ -155,15 +155,15 @@ section{
 }
 
 .dropdown-menu ul li a:hover {
-    color: #ff4081; /* Color de texto cuando se pasa el ratón */
+    color: #ff4081; 
 }
 
-/* Ajustar el ícono del menú hamburguesa */
+
 .menu-icon {
-    font-size: 2rem; /* Ajustar el tamaño del icono de la hamburguesa */
+    font-size: 2rem; 
 }
 
-/* Asegurarse de que el contenedor del menú hamburguesa esté alineado correctamente */
+
 .left-section {
     display: flex;
     align-items: center;
@@ -215,7 +215,7 @@ section{
 .header .header-right {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Espaciado entre elementos */
+    gap: 1rem; 
 }
 
 .header .search-bar {
@@ -264,7 +264,7 @@ section{
 /* Catálogo de Reposteros */
 #catalogo-reposteros {
     padding: 3rem 7%;
-    background-color: var(--main-color);
+    
     border-radius: 10px;
     box-shadow: var(--box-shadow);
     margin: 3rem auto;
