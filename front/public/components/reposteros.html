@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -87,104 +87,113 @@
     <div class="heading-title" style="background: url(https://static.vecteezy.com/system/resources/previews/040/459/837/non_2x/ai-generated-a-birthday-cake-in-pink-adorned-with-golden-candles-and-balloons-free-photo.jpg) no-repeat;">
         <h1>Reposteros</h1>
     </div>
-
+    
     <section id="catalogo-reposteros" class="section">
-        <div class="reposteros-container" id="reposteros"></div>
+        <div class="reposteros-container">
+            <!-- Repostero 1 -->
+            <div class="repostero-card">
+                <img src="../img/repostera1.jpg" alt="Ana Martínez">
+                <h3>Ana Martínez</h3>
+                <a href="perfil-repostero.html?id=0">
+                    <button class="ver-perfil" data-index="0">Ver Perfil</button>
+                </a>
+            </div>
+    
+            <!-- Repostero 2 -->
+            <div class="repostero-card">
+                <img src="../img/repostero3.jpg" alt="Mario Pérez">
+                <h3>Mario Pérez</h3>
+                <a href="perfil-repostero.html?id=1">
+                    <button class="ver-perfil" data-index="1">Ver Perfil</button>
+                </a>
+            </div>
+    
+            <!-- Repostero 3 -->
+            <div class="repostero-card">
+                <img src="https://i.pinimg.com/736x/da/b9/77/dab977e27d0b6b36404ecb63b7c2fc07.jpg" alt="Carlos Ramírez">
+                <h3>Carlos Ramírez</h3>
+                <a href="perfil-repostero.html?id=2">
+                    <button class="ver-perfil" data-index="2">Ver Perfil</button>
+                </a>
+            </div>
+    
+            <!-- Repostero 4 -->
+            <div class="repostero-card">
+                <img src="https://i.pinimg.com/736x/29/5f/53/295f53aa078b641602dc788b938d9aec.jpg" alt="Rachel Morgan">
+                <h3>Rachel Morgan</h3>
+                <a href="perfil-repostero.html?id=3">
+                    <button class="ver-perfil" data-index="3">Ver Perfil</button>
+                </a>
+            </div>
+    
+            <!-- Repostero 5 -->
+            <div class="repostero-card">
+                <img src="https://i.pinimg.com/736x/c8/eb/51/c8eb51b65def8b5e3ee851e3f3d1008b.jpg" alt="Emma Ross">
+                <h3>Emma Ross</h3>
+                <a href="perfil-repostero.html?id=4">
+                    <button class="ver-perfil" data-index="4">Ver Perfil</button>
+                </a>
+            </div>
+    
+            <!-- Repostero 6 -->
+            <div class="repostero-card">
+                <img src="https://i.pinimg.com/736x/a7/f1/72/a7f172e638da2d2cb36650e004042218.jpg" alt="Cristina">
+                <h3>Cristina</h3>
+                <a href="perfil-repostero.html?id=5">
+                    <button class="ver-perfil" data-index="5">Ver Perfil</button>
+                </a>
+            </div>
+    
+            <!-- Repostero 7 -->
+            <div class="repostero-card">
+                <img src="https://i.pinimg.com/474x/95/16/59/951659b7bea768bd5475ca7e598ef46b.jpg" alt="Sofia García">
+                <h3>Sofia García</h3>
+                <a href="perfil-repostero.html?id=6">
+                    <button class="ver-perfil" data-index="6">Ver Perfil</button>
+                </a>
+            </div>
+    
+            <!-- Repostero 8 -->
+            <div class="repostero-card">
+                <img src="https://i.pinimg.com/736x/fb/8c/a8/fb8ca837542e302967cb6d909fe70e29.jpg" alt="Luis Fernández">
+                <h3>Luis Fernández</h3>
+                <a href="perfil-repostero.html?id=7">
+                    <button class="ver-perfil" data-index="7">Ver Perfil</button>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>quick links</h3>
+                <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
+                <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
+                <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
+                <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
+            </div>
+            <div class="box">
+                <h3>extra links</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> mi carrito</a>
+                <a href="perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> política y privacidad</a>
+            </div>
+            <div class="box">
+                <h3>Síguenos</h3>
+                <a href="#"> <i class="fab fa-facebook-f"></i> facebook</a>
+                <a href="#"> <i class="fab fa-twitter"></i> twitter</a>
+                <a href="#"> <i class="fab fa-instagram"></i> instagram</a>
+                <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
+                <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
+            </div>
+        </div>
     </section>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const reposteros = [
-                {nombre: "Ana Martínez", imagen: "../img/repostera1.jpg", descripcion: "Especialista en pasteles fondant.", estrellas: 5, reseñas: ["Excelentes pasteles!", "Muy recomendable."], puntaje: 4.9},
-                {nombre: "Mario Pérez", imagen: "../img/repostero3.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
-                {nombre: "Carlos Ramírez", imagen: "https://i.pinimg.com/736x/da/b9/77/dab977e27d0b6b36404ecb63b7c2fc07.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
-                {nombre: "Rachel Morgan", imagen: "https://i.pinimg.com/736x/29/5f/53/295f53aa078b641602dc788b938d9aec.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
-                {nombre: "Emma Ross", imagen: "https://i.pinimg.com/736x/c8/eb/51/c8eb51b65def8b5e3ee851e3f3d1008b.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
-                {nombre: "Cristina", imagen: "https://i.pinimg.com/736x/a7/f1/72/a7f172e638da2d2cb36650e004042218.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
-                {nombre: "Lucía Gómez ", imagen: "https://i.pinimg.com/474x/38/6c/30/386c304c0e60a96c0d310eff0eca3feb.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
-                {nombre: "Javier Domínguez", imagen: "https://i.pinimg.com/736x/d2/35/47/d2354797cfb995122e8bf0248cb1fd76.jpg", descripcion: "Experto en repostería francesa.", estrellas: 4, reseñas: ["Deliciosos croissants!"], puntaje: 4.5},
-            ];
-
-            const container = document.getElementById("reposteros");
-            let activeProfile = null;
-            
-            reposteros.forEach((repostero, index) => {
-                const card = document.createElement("div");
-                card.classList.add("repostero-card");
-                
-                card.innerHTML = `
-                    <img src="${repostero.imagen}" alt="${repostero.nombre}">
-                    <h3>${repostero.nombre}</h3>
-                    <button class="ver-perfil" data-index="${index}">Ver Perfil</button>
-                    <div class="profile-popup" id="profile-popup-${index}">
-                        <div class="popup-content">
-                            <button class="close-btn" data-index="${index}">Cerrar</button>
-                            <h3>${repostero.nombre}</h3>
-                            <p>${repostero.descripcion}</p>
-                            <div class="stars">${"★".repeat(repostero.estrellas) + "☆".repeat(5 - repostero.estrellas)}</div>
-                            <h3>Reseñas</h3>
-                            <ul>${repostero.reseñas.map(r => `<li>${r}</li>`).join("")}</ul>
-                            <p><strong>Puntaje:</strong> ${repostero.puntaje}</p>
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(card);
-            });
-            
-            document.querySelectorAll(".ver-perfil").forEach(button => {
-                button.addEventListener("click", function() {
-                    const index = this.getAttribute("data-index");
-                    const popup = document.getElementById(`profile-popup-${index}`);
-                    
-                    // Mostrar la pestaña emergente
-                    popup.style.display = "block";
-                });
-            });
-
-            document.querySelectorAll(".close-btn").forEach(button => {
-                button.addEventListener("click", function() {
-                    const index = this.getAttribute("data-index");
-                    const popup = document.getElementById(`profile-popup-${index}`);
-                    
-                    // Ocultar la pestaña emergente
-                    popup.style.display = "none";
-                });
-            });
-        });
-    </script>
-
-<section class="footer">
-    <div class="box-container">
-        <div class="box">
-            <h3>quick links</h3>
-            <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
-            <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
-            <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
-            <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
-        </div>
-        <div class="box">
-            <h3>extra links</h3>
-            <a href="#"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> mi carrito</a>
-            <a href="perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> política y privacidad</a>
-        </div>
-        <div class="box">
-            <h3>Síguenos</h3>
-            <a href="#"> <i class="fab fa-facebook-f"></i> facebook</a>
-            <a href="#"> <i class="fab fa-twitter"></i> twitter</a>
-            <a href="#"> <i class="fab fa-instagram"></i> instagram</a>
-            <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
-            <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
-        </div>
-        
-    </div>
-</section>
-
+    <script src="../js/categoria.js"></script>
+    <script src="../js/menu.js"></script>
 </body>
-<script src="../js/categoria.js"></script>
-<script src="../js/menu.js"></script>
-
 </html>

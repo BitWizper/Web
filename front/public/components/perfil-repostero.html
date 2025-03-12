@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Repostero</title>
+    <link rel="stylesheet" href="../css/perfil-repostero.css"> <!-- Vincula tu archivo CSS aquí -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- FontAwesome para iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet"> <!-- Google Fonts -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- Header section (navegador) -->
+    <header class="header">
+        <div class="left-section">
+            <!-- Menú hamburguesa -->
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a>
+            <!-- Logo -->
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a>
+        </div>
+
+        <!-- Menú desplegable de opciones de usuario -->
+        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+            <ul>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+        
+        <nav class="navbar">
+            <a href="home.html" class="active">Home</a>
+            <a href="categorias.html">Pasteles</a>
+            <a href="reposteros.html">Reposteros</a>
+            <a href="loadingCake.html">Crear Pastel</a>
+        </nav>
+
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search here..." class="search-input">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="profile-section">
+                <a href="#" title="Notificaciones">
+                    <i class="fas fa-bell fa-lg"></i> 
+                </a>
+            </div>
+            <div class="cart-section">
+                <a href="#" id="cart-icon" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Header section ends -->
+
+    <div class="profile-container" id="perfil-contenido">
+        <!-- El contenido se cargará aquí dinámicamente -->
+    </div>
+
+    <script>
+        // Función para obtener el id de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        const reposteros = [
+        {
+    nombre: 'Ana Martínez',
+    especialidad: 'Especialista en pasteles fondant.',
+    foto: '../img/repostera1.jpg',
+    puntaje: 4.9,
+    reseñas: ['Excelentes pasteles!', 'Muy recomendable.'],
+    publicaciones: 120,
+    seguidores: 2500,
+    seguidos: 180
+},
+{
+    nombre: 'Mario Pérez',
+    especialidad: 'Especialista en tortas personalizadas.',
+    foto: '../img/repostero3.jpg',
+    puntaje: 4.7,
+    reseñas: ['Muy creativo y detallista.', 'Recomiendo sus tortas para eventos especiales.'],
+    publicaciones: 95,
+    seguidores: 2000,
+    seguidos: 160
+},
+{
+    nombre: 'Carlos Ramírez',
+    especialidad: 'Pastelero clásico y moderno.',
+    foto: 'https://i.pinimg.com/736x/da/b9/77/dab977e27d0b6b36404ecb63b7c2fc07.jpg',
+    puntaje: 4.8,
+    reseñas: ['El mejor pastel de chocolate que he probado.', 'El sabor es increíble.'],
+    publicaciones: 210,
+    seguidores: 3000,
+    seguidos: 220
+},
+{
+    nombre: 'Rachel Morgan',
+    especialidad: 'Especialista en postres sin gluten.',
+    foto: 'https://i.pinimg.com/736x/29/5f/53/295f53aa078b641602dc788b938d9aec.jpg',
+    puntaje: 4.6,
+    reseñas: ['Increíbles opciones para personas celíacas.', 'Todo delicioso y saludable.'],
+    publicaciones: 180,
+    seguidores: 1500,
+    seguidos: 130
+},
+{
+    nombre: 'Emma Ross',
+    especialidad: 'Repostería vegana y sin azúcar.',
+    foto: 'https://i.pinimg.com/736x/c8/eb/51/c8eb51b65def8b5e3ee851e3f3d1008b.jpg',
+    puntaje: 4.9,
+    reseñas: ['El pastel de zanahoria es divino.', 'Completamente vegano y delicioso.'],
+    publicaciones: 145,
+    seguidores: 2200,
+    seguidos: 170
+},
+{
+    nombre: 'Cristina',
+    especialidad: 'Repostería creativa y artística.',
+    foto: 'https://i.pinimg.com/736x/a7/f1/72/a7f172e638da2d2cb36650e004042218.jpg',
+    puntaje: 4.8,
+    reseñas: ['Los pasteles son una obra de arte.', 'La decoración es espectacular.'],
+    publicaciones: 130,
+    seguidores: 1900,
+    seguidos: 150
+},
+{
+    nombre: 'Sofia García',
+    especialidad: 'Repostería de bodas y eventos especiales.',
+    foto: 'https://i.pinimg.com/474x/95/16/59/951659b7bea768bd5475ca7e598ef46b.jpg',
+    puntaje: 4.7,
+    reseñas: ['Muy profesional y excelente calidad.', 'El pastel de boda fue perfecto.'],
+    publicaciones: 100,
+    seguidores: 1800,
+    seguidos: 160
+},
+{
+    nombre: 'Luis Fernández',
+    especialidad: 'Pastelería de autor con ingredientes premium.',
+    foto: 'https://i.pinimg.com/736x/fb/8c/a8/fb8ca837542e302967cb6d909fe70e29.jpg',
+    puntaje: 5.0,
+    reseñas: ['La mejor calidad de ingredientes.', 'Un toque único en cada pastel.'],
+    publicaciones: 250,
+    seguidores: 3300,
+    seguidos: 270
+}
+
+        ];
+
+        // Si el id es válido, cargamos el perfil
+        if (id >= 0 && id < reposteros.length) {
+            const repostero = reposteros[id];
+            const perfilContenido = document.getElementById('perfil-contenido');
+            perfilContenido.innerHTML = `
+                <!-- Imagen de perfil -->
+                <img class="profile-photo" src="${repostero.foto}" alt="${repostero.nombre}">
+
+                <!-- Nombre y especialidad -->
+                <div class="profile-info">
+                    <h1>${repostero.nombre}</h1>
+                    <p class="specialty">${repostero.especialidad}</p>
+                </div>
+
+                <!-- Estadísticas del perfil -->
+                <div class="statistics">
+                    <div class="stat">
+                        <h3>${repostero.publicaciones}</h3>
+                        <p>Publicaciones</p>
+                    </div>
+                    <div class="stat">
+                        <h3>${repostero.seguidores}</h3>
+                        <p>Seguidores</p>
+                    </div>
+                    <div class="stat">
+                        <h3>${repostero.seguidos}</h3>
+                        <p>Seguidos</p>
+                    </div>
+                </div>
+
+                <!-- Puntaje -->
+                <div class="stars">
+                    ${'★'.repeat(Math.floor(repostero.puntaje))}${'☆'.repeat(5 - Math.floor(repostero.puntaje))}
+                </div>
+
+                <!-- Reseñas -->
+                <div class="reseñas-container">
+                    <h3>Reseñas</h3>
+                    <ul>
+                        ${repostero.reseñas.map(reseña => `<li>${reseña}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <!-- Botón de acción -->
+                <div class="action-btns">
+                    <button class="follow-btn">Seguir</button>
+                </div>
+            `;
+        } else {
+            document.getElementById('perfil-contenido').innerHTML = '<p>Repostero no encontrado.</p>';
+        }
+    </script>
+
+<section class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
+            <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
+            <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
+            <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
+        </div>
+        <div class="box">
+            <h3>extra links</h3>
+            <a href="#"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> mi carrito</a>
+            <a href="perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> política y privacidad</a>
+        </div>
+        <div class="box">
+            <h3>Síguenos</h3>
+            <a href="#"> <i class="fab fa-facebook-f"></i> facebook</a>
+            <a href="#"> <i class="fab fa-twitter"></i> twitter</a>
+            <a href="#"> <i class="fab fa-instagram"></i> instagram</a>
+            <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
+            <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
+        </div>
+    </div>
+</section>
+<section class="credit"></section> 
+
+    <script src="../js/menu.js"></script>
+</body>
+</html>

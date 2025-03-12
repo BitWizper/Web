@@ -253,6 +253,18 @@ section{
     color: var(--main-color);
 }
 
+.header .profile-icon-section a {
+    font-size: 2rem; /* Tamaño de letra igual al de los otros iconos */
+    color: var(--black); /* Color del icono */
+}
+
+.header .profile-icon-section a:hover {
+    color: var(--main-color); /* Color cuando el mouse pasa por encima */
+}
+
+
+
+
 /* end */
 
 /* home */

@@ -1,0 +1,263 @@
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Aseguramos que el body ocupe al menos toda la altura de la ventana */
+html, body {
+    height: 100%; /* Esto asegura que el body ocupe el 100% de la pantalla */
+    display: flex;
+    flex-direction: column; /* Apilar el header, el main y el footer */
+}
+
+/* Estilos para el header */
+header {
+    background-color: #333; /* Color de fondo oscuro */
+    color: #fff; /* Texto blanco */
+    padding: 20px 0; /* Espaciado interno */
+    text-align: center; /* Centrado de texto */
+    width: 100%; /* Asegura que el header ocupe el ancho completo de la ventana */
+    box-sizing: border-box; /* Asegura que padding no afecte el ancho total */
+    position: relative; /* Si se requiere posicionamiento */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+header h1 {
+    font-size: 36px; /* Tamaño grande de fuente para el título */
+    font-weight: bold;
+    margin: 0; /* Elimina margen para evitar que se corte */
+}
+
+/* Contenedor principal del contenido */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    margin-top: 50px;
+    flex-grow: 1; /* Esto hace que el contenido ocupe el espacio disponible */
+    overflow-y: auto;
+}
+
+/* Contenedor del perfil */
+.profile-container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin: 0 auto;
+    overflow-y: auto;
+}
+
+/* Imagen de perfil */
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Información del perfil */
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-info h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.specialty {
+    font-size: 18px;
+    color: #777;
+}
+
+/* Estadísticas del perfil */
+.statistics {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.stat {
+    text-align: center;
+    flex: 1;
+}
+
+.stat h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.stat p {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Estrellas del puntaje */
+.stars {
+    margin-bottom: 20px;
+}
+
+.stars::before {
+    content: '★ ★ ★ ★ ★';
+    font-size: 24px;
+    color: gold;
+}
+
+/* Reseñas */
+.reseñas-container {
+    margin-bottom: 20px;
+    text-align: left;
+    max-width: 600px;
+}
+
+.reseñas-container h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.reseñas-container ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.reseñas-container ul li {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Botones de acción */
+.action-btns {
+    margin-top: 20px;
+}
+
+.follow-btn {
+    background-color: #0095f6;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    max-width: 600px;
+    transition: background-color 0.3s;
+}
+
+.follow-btn:hover {
+    background-color: #007bb5;
+}
+
+/* Pie de página */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;  /* Esto asegura que el pie de página se quede al fondo */
+}
+
+/* Media Queries para Responsividad */
+
+/* Pantallas pequeñas, como dispositivos móviles */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .profile-container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .profile-photo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-info h1 {
+        font-size: 22px;
+    }
+
+    .specialty {
+        font-size: 14px;
+    }
+
+    .statistics {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat {
+        margin-bottom: 10px;
+    }
+
+    .stars::before {
+        font-size: 20px;
+    }
+
+    .reseñas-container h3 {
+        font-size: 18px;
+    }
+
+    .reseñas-container ul li {
+        font-size: 14px;
+    }
+
+    .follow-btn {
+        font-size: 16px;
+    }
+}
+
+/* Pantallas muy pequeñas, como dispositivos más pequeños o teléfonos muy compactos */
+@media (max-width: 480px) {
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-info h1 {
+        font-size: 18px;
+    }
+
+    .statistics {
+        display: block;
+    }
+
+    .stat {
+        margin-bottom: 15px;
+    }
+
+    .stars::before {
+        font-size: 18px;
+    }
+
+    .reseñas-container ul li {
+        font-size: 12px;
+    }
+
+    .follow-btn {
+        font-size: 14px;
+    }
+}
