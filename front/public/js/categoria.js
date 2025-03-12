@@ -1,114 +1,58 @@
-// Inicializar carrito en localStorage si no existe
-if (!localStorage.getItem('carrito')) {
-    localStorage.setItem('carrito', JSON.stringify([]));
-}
+        let categoriaSeleccionada = null;
+        let todosLosPasteles = []; // Guardará todos los pasteles de la categoría seleccionada
 
-// Función para añadir un producto al carrito
-function agregarAlCarrito(pastel) {
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        async function cargarPastelesPorCategoria(id_categoria) {
+            try {
+                const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
+                const data = await response.json();
 
-    // Verificar si el producto ya está en el carrito
-    const existente = carrito.find(item => item.id === pastel.id);
+                categoriaSeleccionada = id_categoria;
+                todosLosPasteles = data.filter(pastel => pastel.id_categoria == id_categoria);
+                mostrarPrimerosCuatroPasteles();
 
-    if (existente) {
-        existente.cantidad += 1; // Incrementar cantidad si ya existe
-    } else {
-        carrito.push({ ...pastel, cantidad: 1 }); // Agregar nuevo producto
-    }
-
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-    alert('Producto añadido al carrito');
-}
-
-// Función para mostrar los pasteles en el HTML (con funcionalidad de carrito)
-function mostrarPasteles(pasteles, containerSelector) {
-    const container = document.querySelector(containerSelector);
-    container.innerHTML = ''; // Limpiar el contenedor
-
-    pasteles.forEach(pastel => {
-        const pastelElemento = document.createElement('div');
-        pastelElemento.classList.add('box');
-
-        pastelElemento.innerHTML = `
-            <div class="image">
-                <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
-            </div>
-            <div class="content">
-                <h3>${pastel.nombre}</h3>
-                <p>${pastel.descripcion}</p>
-                <div class="price">$${pastel.precio} MXN</div>
-                <div class="stars">
-                    ${getStarsHTML(pastel.popularidad)}
-                </div>
-                <button class="btn add-to-cart">Añadir al Carrito</button>
-            </div>
-        `;
-
-        // Añadir funcionalidad al botón "Add to Cart"
-        pastelElemento.querySelector('.add-to-cart').addEventListener('click', (event) => {
-            event.preventDefault(); // Prevenir comportamiento por defecto del enlace
-            agregarAlCarrito({
-                id: pastel.id,
-                nombre: pastel.nombre,
-                descripcion: pastel.descripcion,
-                precio: pastel.precio,
-                imagen_url: pastel.imagen_url,
-                popularidad: pastel.popularidad
-            });
-        });
-
-        container.appendChild(pastelElemento);
-    });
-}
-
-// Helper function para generar estrellas de popularidad
-function getStarsHTML(popularidad) {
-    const fullStars = Math.floor(popularidad);
-    const halfStar = popularidad % 1 !== 0;
-    const emptyStars = Math.max(0, 5 - fullStars - (halfStar ? 1 : 0));
-
-    return (
-        '<i class="fas fa-star"></i>'.repeat(fullStars) +
-        (halfStar ? '<i class="fas fa-star-half-alt"></i>' : '') +
-        '<i class="far fa-star"></i>'.repeat(emptyStars)
-    );
-}
-
-// Función para cargar los pasteles según la categoría
-async function cargarPastelesPorCategoria(categoria) {
-    try {
-        const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
-        const pasteles = await response.json();
-        
-        let pastelesFiltrados = [];
-        
-        switch (categoria) {
-            case 'destacados':
-                pastelesFiltrados = pasteles.filter(pastel => pastel.popularidad >= 4.2);
-                break;
-            case 'novedades':
-                pastelesFiltrados = pasteles.filter(pastel => pastel.popularidad <= 4.0);
-                break;
-            case 'recomendados':
-                pastelesFiltrados = pasteles.sort((a, b) => b.popularidad - a.popularidad);
-                break;
-            default:
-                pastelesFiltrados = pasteles;
-                break;
+            } catch (error) {
+                console.error("Error al obtener los pasteles:", error);
+            }
         }
 
-        mostrarPasteles(pastelesFiltrados, '.menu .box-container');
-    } catch (error) {
-        console.error(`Error al obtener los pasteles de la categoría ${categoria}:`, error);
-    }
-}
+        function mostrarPrimerosCuatroPasteles() {
+            // Mostrar solo los primeros 4 pasteles populares
+            const pasteles = todosLosPasteles.slice(0, 4);
+            mostrarPasteles(pasteles);
 
-// Event listener para cargar pasteles recomendados por defecto al cargar la página
-document.addEventListener('DOMContentLoaded', () => cargarPastelesPorCategoria('recomendados'));
+            // Botones
+            document.getElementById("mostrarMas").style.display = todosLosPasteles.length > 4 ? "block" : "none";
+            document.getElementById("mostrarMenos").style.display = "none";
+        }
 
-// Agregar funcionalidad a los botones de categorías
-document.querySelector('.categoria.xv').addEventListener('click', () => cargarPastelesPorCategoria('destacados'));
-document.querySelector('.categoria.boda').addEventListener('click', () => cargarPastelesPorCategoria('novedades'));
-document.querySelector('.categoria.babyshower').addEventListener('click', () => cargarPastelesPorCategoria('recomendados'));
-document.querySelector('.categoria.cumpleaños').addEventListener('click', () => cargarPastelesPorCategoria('destacados'));
-document.querySelector('.categoria.bautizo').addEventListener('click', () => cargarPastelesPorCategoria('novedades'));
+        function mostrarTodosLosPasteles() {
+            mostrarPasteles(todosLosPasteles);
+
+            // Botones
+            document.getElementById("mostrarMas").style.display = "none";
+            document.getElementById("mostrarMenos").style.display = "block";
+        }
+
+        function mostrarPasteles(pasteles) {
+            const container = document.getElementById("pastelesContainer");
+            container.innerHTML = pasteles.map(pastel => `
+                <div class="pastel">
+                    <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
+                    <p>${pastel.nombre}</p>
+                    <div class="icons">
+                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Eventos
+        document.querySelectorAll(".categoria").forEach(boton => 
+            boton.addEventListener("click", function () { 
+                cargarPastelesPorCategoria(this.getAttribute("data-categoria")); 
+            })
+        );
+
+        document.getElementById("mostrarMas").addEventListener("click", mostrarTodosLosPasteles);
+        document.getElementById("mostrarMenos").addEventListener("click", mostrarPrimerosCuatroPasteles);
