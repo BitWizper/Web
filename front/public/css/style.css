@@ -275,7 +275,7 @@ section{
     align-items: center;
     justify-content: center;
     background: url(../css/banner_princ.jpg) no-repeat center center;
-    background-size: auto; /* Mantiene el tamaño original de la imagen */
+    background-size: auto; 
     background-attachment: fixed;
     image-rendering: high-quality;
 }
@@ -286,21 +286,23 @@ section{
 }
 
 .home .content h3 {
-    font-family: Poppins; /* Usar Poppins */
-    color: #000; /* Texto en negro */
-    font-size: 8rem; /* Letras más grandes */
-    line-height: 1.2; /* Espaciado entre líneas */
-    letter-spacing: 0.4rem; /* Espaciado de letras */
-    font-weight: 600; /* Peso medio */
-    
+    font-family: Poppins;
+    color: #000; 
+    font-size: 8rem; 
+    line-height: 1.2; 
+    letter-spacing: 0.4rem; 
+    font-weight: 600;     
     padding-bottom: 2rem;
-    -webkit-text-stroke: 2px #fff; /* Bordes blancos alrededor del texto (más delgados) */
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); /* Sombra suave para contraste */
+    -webkit-text-stroke: 2px #fff; 
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); 
 }
 
 /* end */
 
-/* categorias*/
+/* son los logos de las categoria*/
+.categorias, .categoria, .categoria img {
+    background: transparent !important;
+}
 
 .categorias {
     display: flex;
@@ -335,12 +337,9 @@ section{
     transform: scale(1.1);
 }
 
+/* termina aqui la parte de los logos de categoria*/
 
 
-
-
-
-/* end */
 
 /* home-menu */
 
