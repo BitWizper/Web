@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,42 +8,40 @@
     <!-- fontawesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-
-
     <!-- custom css link -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
-    
+
     <!-- header section starts -->
     <header class="header">
         <div class="left-section">
             <!-- Menú hamburguesa -->
-            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
-            
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a>
             <!-- Logo -->
-            <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a>
         </div>
-    
+
         <!-- Menú desplegable de opciones de usuario -->
         <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
             <ul>
                 <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
                 <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="favoritos.html"><i class="fas fa-heart"></i> Favoritos</a></li>
                 <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
                 <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
                 <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
             </ul>
         </div>
-        
-    
+
         <nav class="navbar">
             <a href="/components/home.html" class="active">Home</a>
             <a href="/components/categorias.html">Pasteles</a>
             <a href="/components/reposteros.html">Reposteros</a>
             <a href="/components/loadingCake.html">Crear Pastel</a>
         </nav>
-    
+
         <div class="header-right">
             <div class="search-bar">
                 <input type="text" placeholder="Buscar..." class="search-input">
@@ -50,26 +49,40 @@
             </div>
             <div class="profile-section">
                 <a href="#" title="Notificaciones">
-                    <i class="fas fa-bell fa-lg"></i> 
-                </a>
-            </div>            
-            <div class="cart-section">
-                <a href="carrito.html" id="cart-icon" title="Shopping Cart">
-                    <i class="fas fa-shopping-cart fa-lg"></i>
+                    <i class="fas fa-bell fa-lg"></i>
                 </a>
             </div>
-            
+            <!-- Icono del carrito -->
+            <!-- Icono del carrito -->
+        <div class="cart-section">
+            <a href="javascript:void(0);" id="cart-icon" title="Carrito de compras">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+            </a>
+        </div>
+
+        <!-- Cuadro emergente del carrito -->
+        <div id="cart-popup" class="cart-popup" style="display: none;">
+            <div class="cart-popup-content">
+                <span id="close-cart" class="close">&times;</span>
+                <h3>Tu Carrito</h3>
+                <div id="cart-items" class="cart-items">
+                    <!-- Aquí se agregarán los productos del carrito -->
+                </div>
+                <div class="cart-total">
+                    <p><strong>Total: </strong><span id="cart-total">0</span></p>
+                    <a href="carrito.html" class="btn">Ir al carrito</a>
+                </div>
+            </div>
+        </div>
+
+
             <div class="profile-icon-section">
                 <a href="../index.html" title="Registro">
-                    <i class="fas fa-user-plus fa-lg"></i> 
+                    <i class="fas fa-user-plus fa-lg"></i>
                 </a>
             </div>
         </div>
-        
-            
     </header>
-    
-    
     <!-- header section ends -->
 
     <!-- home section starts -->
@@ -80,14 +93,12 @@
         </div>
     </section>
     <!-- home section ends -->
-   
-
-    <!-- banner section ends -->
 
     <!-- home-menu section starts -->
     <section class="home-menu">
         <h3 class="heading"> Destacado</h3>
         <div class="box-container">
+            <!-- Primer producto -->
             <div class="box">
                 <div class="image">
                     <img src="https://i.pinimg.com/736x/8d/4d/20/8d4d20b75a8d8b13e3d2907c5c58e633.jpg" alt="">
@@ -108,6 +119,7 @@
                     <a href="#" class="btn add-to-cart-btn">Añadir al carrito</a>
                 </div>
             </div>
+            <!-- Segundo producto -->
             <div class="box">
                 <div class="image">
                     <img src="https://i.pinimg.com/736x/b6/88/36/b6883674cc788b69b906325c759649e6.jpg" alt="">
@@ -128,13 +140,13 @@
                     <a href="#" class="btn add-to-cart-btn">Añadir al carrito</a>
                 </div>
             </div>
+            <!-- Tercer producto -->
             <div class="box">
                 <div class="image">
                     <img src="https://i.pinimg.com/736x/e4/0a/c1/e40ac17c01d11140ca7439dc1f01b236.jpg" alt="">
                     <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-eye"></a>
                 </div>
-                
                 <div class="content">
                     <h3>Pastel "feliz vida pollito"</h3>
                     <p>Este pastel es la opción perfecta para celebrar una nueva etapa llena de alegría y dulzura.</p>
@@ -151,7 +163,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- footer section starts -->
     <section class="footer">
         <div class="box-container">
@@ -160,32 +172,32 @@
                 <a href="/components/home.html"> <i class="fas fa-arrow-right"></i> Home</a>
                 <a href="/components/reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
                 <a href="components/categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
-                <a href="components/ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
+                <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
             </div>
             <div class="box">
-                <h3>extra links</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mi carrito</a>
-                <a href="/components/perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> política y privacidad</a>
+                <h3>Extra links</h3>
+                <a href="pedidos.html"> <i class="fas fa-arrow-right"></i> Mis pedidos</a>
+                <a href="favoritos.html"> <i class="fas fa-arrow-right"></i> Mis favoritos</a>
+                <a href="carrito.html"> <i class="fas fa-arrow-right"></i> Mi carrito</a>
+                <a href="/components/perfil.html"> <i class="fas fa-arrow-right"></i> Mi perfil</a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> Política y privacidad</a>
             </div>
             <div class="box">
                 <h3>Síguenos</h3>
-                <a href="#"> <i class="fab fa-facebook-f"></i> facebook</a>
-                <a href="#"> <i class="fab fa-twitter"></i> twitter</a>
-                <a href="#"> <i class="fab fa-instagram"></i> instagram</a>
-                <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
-                <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
+                <a href="#"> <i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"> <i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"> <i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"> <i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="#"> <i class="fab fa-pinterest"></i> Pinterest</a>
             </div>
-            
         </div>
     </section>
     <section class="credit"></section>
     <!-- footer section ends -->
 
     <script src="../js/menu.js"></script>
-
+    <script src="../js/carrito.js"></script>
 
 </body>
+
 </html>

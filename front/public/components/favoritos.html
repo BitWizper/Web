@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - BORCELLE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos básicos */
+        .home-menu {
+            padding: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            width: 30%;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 20px;
+            margin: 10px 0;
+            color: #ff8c00;
+        }
+
+        .stars i {
+            color: #ff8c00;
+        }
+
+        .fas.fa-heart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #bbb;
+            cursor: pointer;
+        }
+
+        .fas.fa-heart.liked {
+            color: #e60000;
+        }
+
+        /* Estilos para la sección de favoritos */
+        .favorites-section {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .favorites-section .box-container {
+            justify-content: flex-start;
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <!-- Sección de Favoritos -->
+    <section class="favorites-section">
+        <h3 class="heading">Mis Favoritos</h3>
+        <div class="box-container" id="favoritesContainer">
+            <!-- Los pasteles favoritos se cargarán aquí -->
+        </div>
+    </section>
+
+    <script>
+        // Función para agregar o quitar pasteles favoritos
+        function toggleFavorite(button, pastelId) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            // Verificar si el pastel ya está en los favoritos
+            if (favorites.includes(pastelId)) {
+                // Eliminarlo de los favoritos
+                favorites = favorites.filter(id => id !== pastelId);
+                button.classList.remove('liked');
+            } else {
+                // Agregarlo a los favoritos
+                favorites.push(pastelId);
+                button.classList.add('liked');
+            }
+
+            // Guardar la lista de favoritos en localStorage
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+
+            // Actualizar la sección de favoritos
+            updateFavorites();
+        }
+
+        // Función para cargar y mostrar los favoritos guardados
+        function updateFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const favoritesContainer = document.getElementById('favoritesContainer');
+            favoritesContainer.innerHTML = '';  // Limpiar el contenedor de favoritos
+
+            // Recorrer los favoritos y mostrarlos
+            favorites.forEach(pastelId => {
+                const pastelElement = document.querySelector(`.box[data-id="${pastelId}"]`);
+                if (pastelElement) {
+                    const clone = pastelElement.cloneNode(true); // Clonar el pastel para mostrarlo en la sección de favoritos
+                    favoritesContainer.appendChild(clone);
+                }
+            });
+        }
+
+        // Cargar los favoritos al iniciar la página
+        window.onload = function() {
+            updateFavorites();
+        };
+    </script>
+
+</body>
+</html>

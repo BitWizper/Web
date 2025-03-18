@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito</title>
-    <!-- fontawesome cdn link -->
+    <title>Borcelle - Carrito</title>
+    <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- custom css link -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <style>
         /* Estilos para el panel lateral */
@@ -75,23 +75,53 @@
 
     <!-- header section starts -->
     <header class="header">
-        <a href="#" class="logo"> <i class="fas fa-cake"></i> Borcelle</a>
+        <div class="left-section">
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a> 
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a> 
+        </div>
+
+        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+            <ul>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="favoritos.html"><i class="fas fa-heart"></i> Favoritos</a></li>
+                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
         <nav class="navbar">
-            <a href="../index.html">home</a>
+            <a href="home.html" class="active">Home</a>
+            <a href="categorias.html">Pasteles</a>
             <a href="reposteros.html">Reposteros</a>
-            <a href="categorias.html">Catalogo</a>
-            <a href="ayuda.html">Centro de ayuda</a>
-            <a href="login.html">login</a>
-            <a href="register.html">register</a>
+            <a href="loadingCake.html">Crear Pastel</a>
         </nav>
+
         <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar aquí..." class="search-input">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
             <div class="profile-section">
-                <a href="perfil.html" title="Profile">
-                    <i class="fas fa-user-circle fa-lg"></i>
+                <a href="#" title="Notificaciones">
+                    <i class="fas fa-bell fa-lg"></i> 
+                </a>
+            </div>
+            <div class="cart-section">
+                <a href="#" id="cart-icon" title="Carrito de Compras">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                </a>
+            </div>
+
+            <div class="profile-icon-section">
+                <a href="../index.html" title="Registro">
+                    <i class="fas fa-user-plus fa-lg"></i> 
                 </a>
             </div>
         </div>
-        <div id="menu" class="fas fa-bars"></div>
+
+
     </header>
     <!-- header section ends -->
 
@@ -102,27 +132,36 @@
     <!-- carrito section starts -->
     <section class="carrito">
         <div class="carrito-container">
-            <!-- Products will be dynamically added here -->
+            <!-- Aquí se agregarán los productos dinámicamente -->
         </div>
     </section>
     <!-- carrito section ends -->
 
-    <!-- footer section starts -->
+    <!-- Carrito Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <button class="close-btn" onclick="closeCart()">&times;</button>
+        <h2>Tu Carrito</h2>
+        <div id="cart-items">
+            <!-- Aquí se mostrarán los productos del carrito sin ejemplos previos -->
+        </div>
+    </div>
+
+    <!-- Footer Section Starts -->
     <section class="footer">
         <div class="box-container">
             <div class="box">
                 <h3>quick links</h3>
-                <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
-                <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
-                <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
+                <a href="/components/home.html"> <i class="fas fa-arrow-right"></i> Home</a>
+                <a href="/components/reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
+                <a href="components/categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
                 <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
             </div>
             <div class="box">
                 <h3>extra links</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> mi carrito</a>
-                <a href="perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
+                <a href="pedidos.html"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
+                <a href="favoritos.html"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
+                <a href="carrito.html"> <i class="fas fa-arrow-right"></i> mi carrito</a>
+                <a href="/components/perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
                 <a href="#"> <i class="fas fa-arrow-right"></i> política y privacidad</a>
             </div>
             <div class="box">
@@ -133,23 +172,11 @@
                 <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
                 <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
             </div>
+            
         </div>
     </section>
     <section class="credit"></section>
     <!-- footer section ends -->
-
-    <!-- Carrito Sidebar -->
-    <div id="cartSidebar" class="cart-sidebar">
-        <button class="close-btn" onclick="closeCart()">&times;</button>
-        <h2>Tu Carrito</h2>
-        <div id="cart-items">
-            <!-- Aquí se mostrarán los productos del carrito -->
-            <p>No hay productos en el carrito.</p>
-        </div>
-    </div>
-
-    <!-- custom js link -->
-    <script src="../js/carrito.js"></script>
 
     <!-- JS para abrir y cerrar el carrito -->
     <script>
@@ -163,5 +190,11 @@
             document.getElementById('cartSidebar').style.width = '0';
         }
     </script>
+
+    <!-- custom js link -->
+    <script src="../js/carrito.js"></script>
+    <script src="../js/menu.js"></script>
+
+
 </body>
 </html>
