@@ -98,16 +98,6 @@
         </div>
 
         <div class="profile-container">
-            <div class="profile" id="profileSection">
-                <div class="profile-img">
-                    <img id="profileImage" src="user-placeholder.jpg" alt="Foto de perfil">
-                </div>
-                <div class="profile-info">
-                    <h3 id="profileName"></h3>
-                    <p id="profileBio"></p>
-                </div>
-            </div>
-
             <!-- Editar perfil -->
             <div id="editarPerfil" class="content-section">
                 <h4>Editar Perfil</h4>
@@ -237,8 +227,6 @@
             } else {
                 document.getElementById('errorMessage').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('profileName').textContent = name;
-                document.getElementById('profileBio').textContent = bio;
             }
         });
 
