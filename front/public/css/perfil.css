@@ -1,9 +1,9 @@
 /* Global styles */
 body {
-  font-family: 'Nunito',sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7f2f2;
+  background-color: #F2F0E4; /* Color de fondo claro */
 }
 
 .container {
@@ -20,7 +20,7 @@ body {
 /* Sidebar styles */
 .sidebar {
   width: 250px;
-  background: #d78fa4;
+  background: #8C1B2F; /* Color de fondo principal */
   color: white;
   padding: 30px 20px;
   height: 100vh; /* Asegura que la barra lateral ocupe toda la altura de la ventana */
@@ -33,12 +33,13 @@ body {
   font-weight: 600;
   font-size: 24px;
   margin-bottom: 20px;
+  color: #F2F0E4;
 }
 
 .back-btn {
   font-size: 24px;
   cursor: pointer;
-  color: white;
+  color: #F2F0E4;
   margin-bottom: 20px;
 }
 
@@ -50,6 +51,7 @@ body {
   border-radius: 5px;
   text-align: center;
   transition: background 0.3s ease;
+  border-bottom: 3px solid #A65168; /* Borde inferior color de la paleta */
 }
 
 .option:hover {
@@ -78,19 +80,21 @@ body {
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 5px solid #d78fa4;
+  border: 5px solid #A65168; /* Color para el borde de la imagen */
   margin-bottom: 15px;
 }
 
 .profile-info h3 {
   margin: 10px 0;
   font-weight: 600;
-  color: #d78fa4;
+  color: #8C1B2F; /* Color de nombre */
   font-size: 24px;
+  border-bottom: 2px solid #A65168; /* Borde inferior en el nombre */
+  padding-bottom: 5px;
 }
 
 .profile-info p {
-  color: gray;
+  color: #731D3C; /* Color de la biografía */
   font-size: 14px;
 }
 
@@ -101,7 +105,7 @@ body {
 }
 
 button {
-  background: #d78fa4;
+  background: #A65168; /* Color de fondo de los botones */
   color: white;
   padding: 12px 20px;
   border: none;
@@ -109,10 +113,11 @@ button {
   cursor: pointer;
   transition: background 0.3s ease;
   font-size: 16px;
+  border-bottom: 3px solid #731D3C; /* Borde inferior en botones */
 }
 
 button:hover {
-  background: #c77490;
+  background: #731D3C; /* Color de fondo del botón al pasar el mouse */
 }
 
 /* Form fields */
@@ -121,8 +126,9 @@ input[type="text"], textarea, select {
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #D9B9AD; /* Color de borde de los inputs */
   font-size: 14px;
+  border-bottom: 2px solid #A65168; /* Borde inferior en inputs */
 }
 
 textarea {
@@ -149,3 +155,4 @@ ul li {
   margin-top: 10px;
   display: none;
 }
+

@@ -7,18 +7,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/perfil.css">
     <style>
+        /* Estilos adicionales para los botones */
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Estilos generales */
         .content-section {
             display: none; /* Ocultar las secciones por defecto */
         }
         .active-tab {
             font-weight: bold;
         }
-        /* Añadimos un estilo para ocultar el perfil */
         .hidden {
             display: none;
         }
-
-        /* Estilo para la flecha dentro del sidebar */
         .back-btn {
             font-size: 2rem;
             color: var(--primary-color);
@@ -26,12 +40,9 @@
             text-decoration: none;
             padding: 10px;
         }
-
         .back-btn:hover {
             color: #882f2d;
         }
-
-        /* Estilo para el botón de guardar cambios */
         button[type="submit"] {
             background-color: var(--primary-color);
             color: white;
@@ -40,19 +51,14 @@
             cursor: pointer;
             border-radius: 5px;
         }
-
         button[type="submit"]:hover {
             background-color: #882f2d;
         }
-
-        /* Estilo para el mensaje de confirmación */
         .confirmation-message {
             color: green;
             font-weight: bold;
             margin-top: 10px;
         }
-
-        /* Estilo para el mensaje de error */
         .error-message {
             color: red;
             font-weight: bold;
@@ -62,12 +68,8 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Flecha de retroceso utilizando el símbolo '↩' -->
-            <span class="back-btn" onclick="window.location.href='home.html'">
-                ↩ <!-- Flecha personalizada -->
-            </span>
+            <span class="back-btn" onclick="window.location.href='home.html'">↩</span>
             <h3>Mi Perfil</h3>
             <div class="option" onclick="showContent('editarPerfil', this)">
                 <span>Editar Perfil</span>
@@ -81,127 +83,190 @@
             <div class="option" onclick="showContent('configuracion', this)">
                 <span>Configuración</span>
             </div>
+            <div class="option" onclick="showContent('cambiarContrasena', this)">
+                <span>Cambiar Contraseña</span>
+            </div>
+            <div class="option" onclick="showContent('historialActividades', this)">
+                <span>Historial de Actividades</span>
+            </div>
+            <div class="option" onclick="showContent('seguridad', this)">
+                <span>Seguridad</span>
+            </div>
+            <div class="option" onclick="showContent('eliminarCuenta', this)">
+                <span>Eliminar Cuenta</span>
+            </div>
         </div>
 
-        <!-- Perfil -->
         <div class="profile-container">
             <div class="profile" id="profileSection">
                 <div class="profile-img">
                     <img id="profileImage" src="user-placeholder.jpg" alt="Foto de perfil">
                 </div>
                 <div class="profile-info">
-                    <h3 id="profileName">Nombre del Usuario</h3>
-                    <p id="profileBio">Descripción breve del usuario.</p>
+                    <h3 id="profileName"></h3>
+                    <p id="profileBio"></p>
                 </div>
             </div>
 
-            <!-- Secciones -->
+            <!-- Editar perfil -->
             <div id="editarPerfil" class="content-section">
                 <h4>Editar Perfil</h4>
                 <form id="editForm">
                     <label for="editName">Nombre:</label>
-                    <input type="text" id="editName" name="editName" value="Nombre del Usuario"><br><br>
-
+                    <input type="text" id="editName" name="editName"><br><br>
                     <label for="editBio">Biografía:</label><br>
-                    <textarea id="editBio" name="editBio" rows="4" cols="50">Descripción breve del usuario.</textarea><br><br>
-
+                    <textarea id="editBio" name="editBio" rows="4" cols="50"></textarea><br><br>
                     <label for="editImage">Cambiar Imagen de Perfil:</label>
                     <input type="file" id="editImage" name="editImage" accept="image/*"><br><br>
-
                     <button type="submit">Actualizar Información</button>
                 </form>
                 <p id="errorMessage" class="error-message" style="display: none;">Por favor, completa todos los campos.</p>
                 <p id="successMessage" class="confirmation-message" style="display: none;">Información actualizada correctamente.</p>
             </div>
-            
+
+            <!-- Notificaciones -->
             <div id="notificaciones" class="content-section">
                 <h4>Notificaciones</h4>
                 <p>Recibe alertas sobre actividades importantes y actualizaciones.</p>
-                <ul>
+                <ul id="notificationsList">
                     <li><strong>Nuevo mensaje</strong>: Has recibido un mensaje de tu amigo Juan.</li>
                     <li><strong>Actualización de cuenta</strong>: Tu contraseña fue cambiada recientemente.</li>
                     <li><strong>Recordatorio</strong>: No olvides actualizar tu información de pago.</li>
                 </ul>
             </div>
 
+            <!-- Mi tarjeta -->
             <div id="miTarjeta" class="content-section">
                 <h4>Mi Tarjeta</h4>
                 <p>Gestiona tus métodos de pago y tarjetas de crédito aquí.</p>
-                <ul>
-                    <li><strong>Visa **** 1234</strong>: Vencimiento: 12/24</li>
-                    <li><strong>Mastercard **** 5678</strong>: Vencimiento: 05/23</li>
+                <ul id="cardList">
+                    <!-- Aquí se irán agregando las tarjetas -->
                 </ul>
-                <button onclick="alert('Agrega una nueva tarjeta aquí.')">Añadir nueva tarjeta</button>
+                <form id="addCardForm">
+                    <label for="cardNumber">Número de tarjeta:</label>
+                    <input type="text" id="cardNumber" name="cardNumber" required><br><br>
+                    <label for="expiryDate">Fecha de expiración:</label>
+                    <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/AA" required><br><br>
+                    <button type="submit">Añadir tarjeta</button>
+                </form>
             </div>
 
+            <!-- Configuración -->
             <div id="configuracion" class="content-section">
                 <h4>Configuración</h4>
                 <p>Ajusta tus preferencias de cuenta y configuración general.</p>
                 <form id="configForm">
                     <label for="emailNotifications">Notificaciones por correo electrónico:</label>
                     <input type="checkbox" id="emailNotifications" checked><br><br>
-
                     <label for="smsNotifications">Notificaciones por SMS:</label>
                     <input type="checkbox" id="smsNotifications"><br><br>
-
                     <label for="privacy">Privacidad de la cuenta:</label>
                     <select id="privacy">
                         <option value="publico">Público</option>
                         <option value="privado">Privado</option>
                     </select><br><br>
-
                     <button type="submit">Guardar cambios</button>
                 </form>
                 <p id="configSuccessMessage" class="confirmation-message" style="display: none;">Cambios guardados correctamente.</p>
+            </div>
+
+            <!-- Cambiar contraseña -->
+            <div id="cambiarContrasena" class="content-section">
+                <h4>Cambiar Contraseña</h4>
+                <form id="changePasswordForm">
+                    <label for="oldPassword">Contraseña Actual:</label>
+                    <input type="password" id="oldPassword" name="oldPassword" required><br><br>
+                    <label for="newPassword">Nueva Contraseña:</label>
+                    <input type="password" id="newPassword" name="newPassword" required><br><br>
+                    <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+                    <button type="submit">Cambiar Contraseña</button>
+                </form>
+            </div>
+
+            <!-- Eliminar cuenta -->
+            <div id="eliminarCuenta" class="content-section">
+                <h4>Eliminar Cuenta</h4>
+                <p>Si deseas eliminar tu cuenta, por favor confirma la acción.</p>
+                <button onclick="confirmarEliminacion()">Eliminar Cuenta</button>
+            </div>
+
+            <!-- Historial de actividades -->
+            <div id="historialActividades" class="content-section">
+                <h4>Historial de Actividades</h4>
+                <ul id="activityList">
+                    <li><strong>Actualización de Perfil:</strong> Cambiaste tu nombre el 10/03/2025.</li>
+                    <li><strong>Cambio de Contraseña:</strong> Cambiaste tu contraseña el 15/03/2025.</li>
+                    <li><strong>Inicio de sesión:</strong> Iniciaste sesión el 18/03/2025 a las 08:00 AM.</li>
+                </ul>
+            </div>
+
+            <!-- Seguridad -->
+            <div id="seguridad" class="content-section">
+                <h4>Seguridad</h4>
+                <p>Gestiona la seguridad de tu cuenta.</p>
+                <ul>
+                    <li><strong>Dispositivos conectados:</strong> 2 dispositivos conectados.</li>
+                    <li><strong>Última sesión:</strong> 18/03/2025 08:00 AM.</li>
+                </ul>
+                <button onclick="alert('Verifica la seguridad de tu cuenta.')">Verificar seguridad</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Función para mostrar la sección correspondiente
         function showContent(sectionId, element) {
-            // Ocultar todas las secciones
             const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
+            sections.forEach(section => section.style.display = 'none');
 
-            // Eliminar la clase 'active-tab' de todas las opciones
             const options = document.querySelectorAll('.option');
-            options.forEach(option => {
-                option.classList.remove('active-tab');
-            });
+            options.forEach(option => option.classList.remove('active-tab'));
 
-            // Mostrar la sección seleccionada
             document.getElementById(sectionId).style.display = 'block';
-
-            // Agregar clase 'active-tab' a la opción seleccionada
             element.classList.add('active-tab');
         }
 
-        // Función para validar y actualizar el perfil
+        // Función para cambiar el perfil
         document.getElementById('editForm').addEventListener('submit', function(event) {
             event.preventDefault();
-
-            const name = document.getElementById('editName').value;
-            const bio = document.getElementById('editBio').value;
-
+            const name = document.getElementById('editName').value.trim();
+            const bio = document.getElementById('editBio').value.trim();
             if (name === '' || bio === '') {
                 document.getElementById('errorMessage').style.display = 'block';
                 document.getElementById('successMessage').style.display = 'none';
             } else {
                 document.getElementById('errorMessage').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('profileName').textContent = name;
+                document.getElementById('profileBio').textContent = bio;
             }
         });
 
-        // Función para guardar cambios en la configuración
-        document.getElementById('configForm').addEventListener('submit', function(event) {
+        // Función para añadir tarjeta
+        document.getElementById('addCardForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            document.getElementById('configSuccessMessage').style.display = 'block';
-        });
-    </script>
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cardList = document.getElementById('cardList');
 
-    <script src="../js/perfil.js"></script>
+            const listItem = document.createElement('li');
+            listItem.textContent = `Tarjeta: ${cardNumber}, Expiración: ${expiryDate}`;
+            cardList.appendChild(listItem);
+            document.getElementById('cardNumber').value = '';
+            document.getElementById('expiryDate').value = '';
+        });
+
+        function cerrarSesion() {
+            alert('Has cerrado sesión correctamente.');
+            window.location.href = 'login.html';
+        }
+
+        function confirmarEliminacion() {
+            if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no puede deshacerse.')) {
+                alert('Tu cuenta ha sido eliminada.');
+                window.location.href = 'home.html'; // Redirigir a la página principal después de eliminar la cuenta
+            }
+        }
+    </script>
 </body>
 </html>
