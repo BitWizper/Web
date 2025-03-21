@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Usuario = require('./Usuario');
+const Categoria = require('./Categoria');
 
 const Repostero = sequelize.define('Repostero', {
   id_repostero: {
@@ -16,6 +17,14 @@ const Repostero = sequelize.define('Repostero', {
     },
     onDelete: 'CASCADE',
   },
+  id_categoria: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Categoria,
+      key: 'id_categoria',
+    },
+    onDelete: 'SET NULL',
+  },
   NombreNegocio: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -23,6 +32,7 @@ const Repostero = sequelize.define('Repostero', {
   Ubicacion: DataTypes.STRING,
   Especialidades: DataTypes.TEXT,
   PortafolioURL: DataTypes.STRING,
+  imagen_url: DataTypes.STRING,
 }, {
   tableName: 'repostero',
 });
