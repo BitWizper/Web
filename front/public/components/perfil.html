@@ -101,9 +101,17 @@
             <!-- Editar perfil -->
             <div id="editarPerfil" class="content-section">
                 <h4>Editar Perfil</h4>
+                <!-- Mostrar nombre y foto solo en la sección de editar perfil -->
+                <div class="perfil-info">
+                    <h5>Nombre:</h5>
+                    <p id="nombrePerfil">Juan Pérez</p> <!-- Aquí puedes insertar el nombre dinámicamente si es necesario -->
+                    <h5>Foto de Perfil:</h5>
+                    <img id="fotoPerfil" src="ruta-de-la-imagen.jpg" alt="Foto de perfil" width="150" height="150">
+                </div>
+                
                 <form id="editForm">
-                    <label for="editName">Nombre:</label>
-                    <input type="text" id="editName" name="editName"><br><br>
+                    <label for="editName">Nuevo Nombre:</label>
+                    <input type="text" id="editName" name="editName" value="Juan Pérez"><br><br>
                     <label for="editBio">Biografía:</label><br>
                     <textarea id="editBio" name="editBio" rows="4" cols="50"></textarea><br><br>
                     <label for="editImage">Cambiar Imagen de Perfil:</label>
@@ -113,7 +121,7 @@
                 <p id="errorMessage" class="error-message" style="display: none;">Por favor, completa todos los campos.</p>
                 <p id="successMessage" class="confirmation-message" style="display: none;">Información actualizada correctamente.</p>
             </div>
-
+            
             <!-- Notificaciones -->
             <div id="notificaciones" class="content-section">
                 <h4>Notificaciones</h4>

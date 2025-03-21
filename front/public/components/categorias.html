@@ -94,13 +94,18 @@
 
     <!-- Sección de Pasteles -->
     <section class="menu">
-        <h1 class="heading">Pasteles</h1>
+        <h1 class="heading">
+            <h1 class="heading" id="pastelesLink">Pasteles</h1>
+        </h1>       
+        
+        
         <div class="pasteles-container" id="pastelesContainer">
             <!-- Aquí se cargarán los pasteles dinámicamente -->
         </div>
         <button id="mostrarMas" class="mostrar-mas" style="display: none;">Mostrar más</button>
         <button id="mostrarMenos" class="mostrar-mas" style="display: none;">Mostrar menos</button>
     </section>
+    
     <!-- footer section starts -->
     <section class="footer">
         <div class="box-container">
@@ -132,6 +137,28 @@
     </section>
     <section class="credit"></section>
     <!-- footer section ends -->
+   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pastelesContainer = document.getElementById("pastelesContainer");
+            
+            // Verifica si ya hay contenido de ejemplo cargado
+            if (pastelesContainer.innerHTML.trim() !== "") {
+                var pastelesEjemplo = pastelesContainer.innerHTML; // Guarda los pasteles de ejemplo originales
+            }
+    
+            document.getElementById("pastelesLink").addEventListener("click", function (event) {
+                event.preventDefault(); // Evita que se recargue la página
+    
+                // Verifica que haya pasteles de ejemplo guardados
+                if (pastelesEjemplo) {
+                    pastelesContainer.innerHTML = pastelesEjemplo; // Restaura los pasteles originales
+                }
+            });
+        });
+    </script>
+    
+        
 
     <script src="../js/categoria.js"></script>
     <script src="../js/menu.js"></script>
