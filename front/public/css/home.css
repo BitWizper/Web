@@ -1,0 +1,184 @@
+/* Estilos de los recuadros del home*/
+.signature-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.signature-title {
+    font-family: 'Nunito', sans-serif; /* Asignar fuente explícita */
+    font-size: 3rem; /* Personaliza el tamaño si lo deseas */
+    color: var(--primary-color); /* Si quieres personalizar el color */
+}
+
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-box-container {
+    display: flex;
+    gap: 20px;
+    scroll-behavior: smooth;
+    width: 80%;
+    padding: 20px 0;
+    overflow-x: hidden; /* Se oculta la barra de desplazamiento horizontal */
+}
+
+/* Estilos para los recuadros */
+.carousel-box {
+    min-width: 300px; /* Aumentado de 250px a 280px */
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 40px; /* Aumentado el padding */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Ajustar las imágenes para que sean del mismo tamaño dentro de los recuadros */
+.carousel-box img {
+    width: 100%; /* Hace que la imagen ocupe el 100% del ancho del recuadro */
+    height: 180px; /* Establece una altura fija para todas las imágenes */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+    border-radius: 10px;
+}
+
+
+.carousel-box h3 {
+    font-size: 18px;
+    color: #5a3e36;
+    margin-top: 10px;
+}
+
+.carousel-box p {
+    font-size: 14px;
+    color: #7a6c63;
+}
+
+/* Ocultar barra de desplazamiento */
+.carousel-box-container::-webkit-scrollbar {
+    display: none; /* Para navegadores basados en WebKit (Chrome, Safari) */
+}
+
+.carousel-box-container {
+    -ms-overflow-style: none; /* Para Internet Explorer y Edge */
+    scrollbar-width: none; /* Para Firefox */
+}
+
+/* Botones de desplazamiento */
+.slider-btn {
+    background-color: #5a3e36;
+    color: white;
+    border: none;
+    font-size: 18px; /* Reduce el tamaño de la flecha */
+    padding: 6px; /* Reduce el padding */
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#prevBtn {
+    left: 10px;
+}
+
+#nextBtn {
+    right: 10px;
+}
+
+
+/* fin */
+
+/* Banner Pequeño Inspirador */
+.mini-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    background-color: #f8ebe6;
+}
+
+.mini-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 900px;
+    padding: 15px;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.mini-banner-content img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.mini-banner-text h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #5a3e36;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+}
+
+
+
+
+/* Sección de Reposteros Destacados */
+.reposteros-destacados {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff6f0;
+}
+
+.reposteros-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #5a3e36;
+    margin-bottom: 20px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.reposteros-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.repostero-card {
+    background: white;
+    padding: 25px; /* Aumentado el padding */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.repostero-card h3 {
+    font-size: 20px; /* Aumentado el tamaño de la fuente */
+}
+
+.repostero-card p {
+    font-size: 16px; /* Aumentado el tamaño de la fuente */
+}
+
+.repostero-card:hover {
+    transform: translateY(-5px);
+}
+
+.repostero-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+

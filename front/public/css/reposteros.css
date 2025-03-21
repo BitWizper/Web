@@ -347,3 +347,75 @@ section{
 .favorite.active i {
     color: red;
 }
+
+/* Reposteros Populares */
+
+#reposteros-populares {
+    padding: 3rem 7%;
+    background-color: var(--main-color);
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    margin: 3rem auto;
+    text-align: center;
+}
+
+#reposteros-populares .heading {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.reposteros-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+/* Cada Repostero */
+.repostero {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.repostero:hover {
+    transform: translateY(-1rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.repostero img {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.repostero h3 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    padding: 1rem 0;
+}
+
+.repostero p {
+    font-size: 1.6rem;
+    color: var(--black);
+    padding: 0 1rem 1rem;
+}
+
+.repostero .btn {
+    margin: 1rem auto;
+    display: inline-block;
+    padding: 0.8rem 3rem;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    background: var(--primary-color);
+    color: #fff;
+    box-shadow: var(--box-shadow);
+}
+
+.repostero .btn:hover {
+    background: var(--main-color);
+    color: var(--primary-color);
+}

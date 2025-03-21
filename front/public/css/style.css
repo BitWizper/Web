@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
-:root{
-    --main-color:#dfd090;
-    --primary-color: #CA7373;
-    --black:#13131a;
-    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+:root {
+    --main-color: #8C1B2F;
+    --primary-color: #A65168;
+    --black: #731D3C;
+    --box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
 }
 
-*{
-    font-family: 'Nunito',sans-serif;
+* {
+    font-family: 'Nunito', sans-serif;
     margin: 0; padding: 0;
     box-sizing: border-box;
     outline: none; border: none;
@@ -19,31 +19,30 @@
     transition: all .2s linear;
 }
 
-
-html{
+html {
     font-size: 62.5%;
     overflow-x: hidden;
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
 }
 
-html::-webkit-scrollbar{
+html::-webkit-scrollbar {
     width: .6rem;
 }
 
-html::-webkit-scrollbar-track{
+html::-webkit-scrollbar-track {
     background-color: #fff;
 }
 
-html::-webkit-scrollbar-thumb{
+html::-webkit-scrollbar-thumb {
     background: var(--primary-color);
 }
 
-section{
+section {
     padding: 3rem 7%;
 }
 
-.heading{
+.heading {
     text-align: center;
     color: var(--primary-color);
     margin-bottom: 3rem;
@@ -51,7 +50,7 @@ section{
     margin-top: 4rem;
 }
 
-.heading-title{
+.heading-title {
     background-size: cover !important;
     background-position: cover !important;
     padding-top: 10rem;
@@ -61,7 +60,7 @@ section{
     justify-content: center;
 }
 
-.heading-title h1{
+.heading-title h1 {
     padding-top: 5rem;
     font-size: 8rem;
     text-transform: uppercase;
@@ -71,16 +70,16 @@ section{
 .btn {
     display: inline-block;
     margin-top: 1rem;
-    padding: 1.5rem 5rem; /* Aumenta el tamaño del botón */
-    font-size: 2rem; /* Hace el texto más grande */
+    padding: 1.5rem 5rem;
+    font-size: 2rem;
     border-radius: 1rem;
-    color: #fff; /* Letras blancas */
-    background: #ca7373; /* Rosa fuerte */
+    color: #fff;
+    background: var(--primary-color);
     position: relative;
     box-shadow: var(--box-shadow);
     z-index: 0;
-     /* Dorado fuerte y más delgado */
 }
+
 
 /* header */
 
@@ -109,7 +108,7 @@ section{
     cursor: pointer;
 }
 
-/* Estilo del menú desplegable */
+
 /* Menú de hamburguesa */
 .dropdown-menu {
     display: none; /* Menú oculto inicialmente */
@@ -163,7 +162,7 @@ section{
     justify-content: flex-start;
     flex-grow: 1;
 }
-
+/* Fin menú hamburguesa */
 
 
 
@@ -208,7 +207,7 @@ section{
 .header .header-right {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Espaciado entre elementos */
+    gap: 1rem; 
 }
 
 .header .search-bar {
@@ -261,11 +260,9 @@ section{
 .header .profile-icon-section a:hover {
     color: var(--main-color); /* Color cuando el mouse pasa por encima */
 }
-
-
 /* end */
 
-/* Estilo del cuadro emergente del carrito */
+
 /* Estilo del cuadro emergente del carrito */
 .cart-popup {
     position: fixed;
@@ -360,10 +357,9 @@ section{
     -webkit-text-stroke: 2px #fff; 
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); 
 }
+/* fin del home*/
 
-/* end */
-
-/* son los logos de las categoria*/
+/* son los logos de categoria*/
 .categorias, .categoria, .categoria img {
     background: transparent !important;
 }
@@ -495,7 +491,7 @@ section{
     color: var(--main-color);
 }
 
-/* end */
+/* fin home-menu*/
 
 /* about */
 
@@ -558,7 +554,7 @@ section{
     color: #666;
 }
 
-/* end */
+/* fin about */
 
 /* gallery */
 
@@ -578,7 +574,7 @@ section{
 }
 
 
-/* end */
+/* fin gallery */
 
 /* category */
 
@@ -606,10 +602,10 @@ section{
 .category .box-container .box:hover h3{
     color: var(--primary-color);
 }
+/* end category*/
 
-/* end */
 
-/* son los cuadros del menu principal, los destacados*/
+/* son los cuadros del menu principal, los destacados
 
 .menu .box-container{
     display: grid;
@@ -699,10 +695,174 @@ section{
     display: inline-block;
 }
 
-/* end */
+Aqui termina*/
+
+/* -------------------------------------------- */
+/* Estilos de los recuadros del home basados en Reposteros Destacados */
+/* -------------------------------------------- */
+
+.signature-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.signature-title {
+    font-family: 'Nunito', sans-serif; /* Asignar fuente explícita */
+    font-size: 3rem; /* Personaliza el tamaño si lo deseas */
+    color: var(--primary-color); /* Si quieres personalizar el color */
+    font-weight: bold; /* Igual que en los reposteros */
+    letter-spacing: 2px; /* Añadido para mejorar la legibilidad */
+    margin-bottom: 2rem; /* Espaciado similar al de los reposteros */
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-box-container {
+    display: flex;
+    gap: 2rem;
+    scroll-behavior: smooth;
+    width: 80%;
+    padding: 20px 0;
+    overflow-x: hidden;
+}
+
+/* Estilos para los recuadros (cambiado a similar a los reposteros) */
+.carousel-box {
+    min-width: 280px; /* Aumentado a 280px */
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+    padding: 2rem; /* Ajustado el padding para mayor consistencia */
+    box-shadow: var(--box-shadow); /* Usando box-shadow común */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Efecto hover similar al de los reposteros */
+.carousel-box:hover {
+    transform: translateY(-1rem);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.carousel-box img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 4px solid var(--primary-color); /* Coincide con el borde de los reposteros */
+}
+
+.carousel-box h3 {
+    font-size: 2.5rem;
+    color: var(--black);
+    margin: 1rem 0;
+    font-weight: bold; /* Igual que en los reposteros */
+}
+
+.carousel-box p {
+    font-size: 1.6rem;
+    color: var(--black);
+    padding: 0 1rem 1rem;
+}
+
+/* Botón dentro de la tarjeta */
+.carousel-box .btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 3rem;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    color: #fff;
+    background: var(--primary-color);
+    box-shadow: var(--box-shadow);
+    text-decoration: none;
+}
+
+/* Efecto hover en el botón */
+.carousel-box .btn:hover {
+    background: var(--black);
+}
+
+/* Ocultar barra de desplazamiento */
+.carousel-box-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-box-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Botones de desplazamiento (con el mismo estilo) */
+.slider-btn {
+    background-color: #5a3e36;
+    color: white;
+    border: none;
+    font-size: 18px;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slider-btn:hover {
+    background-color: #3e2c1c;
+}
+
+#prevBtn {
+    left: 10px;
+}
+
+#nextBtn {
+    right: 10px;
+/* Fin de los recuadros del home basados en Reposteros Destacados */
+}
+
+/* Banner Pequeño Inspirador */
+.mini-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    background-color: #f8ebe6;
+}
+
+.mini-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 900px;
+    padding: 15px;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.mini-banner-content img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.mini-banner-text h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #5a3e36;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+}
+/* aqui termina el banner del home */
+
 
 /* blog */
-
 .blogs .box-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
@@ -767,7 +927,7 @@ section{
     line-height: 2;
     color: var(--black);
 }
-/* end */
+/* fin blog*/
 
 /* booking */
 
@@ -819,7 +979,7 @@ section{
     color: var(--main-color);
 }
 
-/* end */
+/* aqui termina booking */
 
 /* footer */
 
@@ -887,127 +1047,95 @@ section{
     font-size: 2rem;
 }
 
-/* end */
+/* fin footer*/
 
+/* -------------------------------------------- */
+/* Reposteros Destacados - Nueva Sección */
+/* -------------------------------------------- */
 
-/* media query */
-
-@media (max-width:991px){
-    html{
-        font-size: 55%;
-    }
-
-    section{
-        padding: 3rem;
-    }
-}
-
-@media (max-width:768px){
-
-    #menu{
-        display: inline-block;
-    }
-
-    .header .navbar{
-        position: absolute;
-        top: 110%; right: -110%;
-        width: 30rem;
-        box-shadow: var(--box-shadow);
-        border-radius: .5rem;
-        background: #fff;
-    }
-
-    .header .navbar.active{
-        right: 2rem;
-        transition: .4s linear;
-    }
-
-    .header .navbar a{
-        font-size: 2rem;
-        margin: 2rem 2.5rem;
-        display: block;
-    }
-    
-}
-
-@media (max-width:450px){
-    html{
-        font-size: 50%;
-    }
-}
-
-
-/* Reposteros Populares */
-
-#reposteros-populares {
+.reposteros-destacados {
     padding: 3rem 7%;
-    background-color: var(--main-color);
     border-radius: 10px;
     box-shadow: var(--box-shadow);
     margin: 3rem auto;
     text-align: center;
 }
 
-#reposteros-populares .heading {
+.reposteros-title {
     font-size: 4rem;
     color: var(--primary-color);
     margin-bottom: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 .reposteros-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    justify-content: center;
 }
 
-/* Cada Repostero */
-.repostero {
+.repostero-card {
     background: #fff;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
     overflow: hidden;
     text-align: center;
+    padding: 1.5rem;
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
 }
 
-.repostero:hover {
+.repostero-card:hover {
     transform: translateY(-1rem);
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 }
 
-.repostero img {
+.repostero-card img {
     width: 100%;
-    height: auto;
-    border-bottom: 2px solid var(--primary-color);
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 4px solid var(--primary-color);
+    border-radius: 10px 10px 0 0;
 }
 
-.repostero h3 {
+.repostero-card h3 {
     font-size: 2.5rem;
-    color: var(--primary-color);
-    padding: 1rem 0;
+    color: var(--black);
+    margin: 1rem 0;
+    font-weight: bold;
 }
 
-.repostero p {
+.repostero-card p {
     font-size: 1.6rem;
     color: var(--black);
     padding: 0 1rem 1rem;
 }
 
-.repostero .btn {
-    margin: 1rem auto;
+/* Botón dentro de la tarjeta */
+.repostero-card .btn {
     display: inline-block;
+    margin-top: 1rem;
     padding: 0.8rem 3rem;
     font-size: 1.6rem;
     border-radius: 5px;
-    background: var(--primary-color);
     color: #fff;
+    background: var(--primary-color);
     box-shadow: var(--box-shadow);
+    text-decoration: none;
 }
 
-.repostero .btn:hover {
-    background: var(--main-color);
-    color: var(--primary-color);
+.repostero-card .btn:hover {
+    background: var(--black);
 }
+
+/* -------------------------------------------- */
+/* Fin de Reposteros Destacados */
+/* -------------------------------------------- */
+
+
 
 /* Estilo Responsivo */
 @media (max-width: 768px) {
@@ -1068,3 +1196,53 @@ section{
 }
 
 }
+
+
+
+/* media query */
+
+@media (max-width:991px){
+    html{
+        font-size: 55%;
+    }
+
+    section{
+        padding: 3rem;
+    }
+}
+
+@media (max-width:768px){
+
+    #menu{
+        display: inline-block;
+    }
+
+    .header .navbar{
+        position: absolute;
+        top: 110%; right: -110%;
+        width: 30rem;
+        box-shadow: var(--box-shadow);
+        border-radius: .5rem;
+        background: #fff;
+    }
+
+    .header .navbar.active{
+        right: 2rem;
+        transition: .4s linear;
+    }
+
+    .header .navbar a{
+        font-size: 2rem;
+        margin: 2rem 2.5rem;
+        display: block;
+    }
+    
+}
+
+@media (max-width:450px){
+    html{
+        font-size: 50%;
+    }
+}
+
+

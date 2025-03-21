@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const pastelesContainer = document.getElementById("pastelesContainer");
     let pastelesEjemplo = "";
-    
+
     if (pastelesContainer.innerHTML.trim() !== "") {
         pastelesEjemplo = pastelesContainer.innerHTML;
     }
@@ -59,68 +59,98 @@ function cargarImagenesEjemplo() {
             <p>${pastel.nombre}</p>
             <div class="icons">
                 <i class="fas fa-edit"></i>
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart favorito-icon"></i>
             </div>
         </div>
     `).join('');
+
+    asignarEventosFavoritos();
 }
 
-
 let categoriaSeleccionada = null;
-        let todosLosPasteles = []; // Guardará todos los pasteles de la categoría seleccionada
+let todosLosPasteles = [];
 
-        async function cargarPastelesPorCategoria(id_categoria) {
-            try {
-                const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
-                const data = await response.json();
+async function cargarPastelesPorCategoria(id_categoria) {
+    try {
+        const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
+        const data = await response.json();
 
-                categoriaSeleccionada = id_categoria;
-                todosLosPasteles = data.filter(pastel => pastel.id_categoria == id_categoria);
-                mostrarPrimerosCuatroPasteles();
+        categoriaSeleccionada = id_categoria;
+        todosLosPasteles = data.filter(pastel => pastel.id_categoria == id_categoria);
+        mostrarPrimerosCuatroPasteles();
 
-            } catch (error) {
-                console.error("Error al obtener los pasteles:", error);
-            }
-        }
+    } catch (error) {
+        console.error("Error al obtener los pasteles:", error);
+    }
+}
 
-        function mostrarPrimerosCuatroPasteles() {
-            // Mostrar solo los primeros 4 pasteles populares
-            const pasteles = todosLosPasteles.slice(0, 4);
-            mostrarPasteles(pasteles);
+function mostrarPrimerosCuatroPasteles() {
+    const pasteles = todosLosPasteles.slice(0, 4);
+    mostrarPasteles(pasteles);
 
-            // Botones
-            document.getElementById("mostrarMas").style.display = todosLosPasteles.length > 4 ? "block" : "none";
-            document.getElementById("mostrarMenos").style.display = "none";
-        }
+    document.getElementById("mostrarMas").style.display = todosLosPasteles.length > 4 ? "block" : "none";
+    document.getElementById("mostrarMenos").style.display = "none";
+}
 
-        function mostrarTodosLosPasteles() {
-            mostrarPasteles(todosLosPasteles);
+function mostrarTodosLosPasteles() {
+    mostrarPasteles(todosLosPasteles);
 
-            // Botones
-            document.getElementById("mostrarMas").style.display = "none";
-            document.getElementById("mostrarMenos").style.display = "block";
-        }
+    document.getElementById("mostrarMas").style.display = "none";
+    document.getElementById("mostrarMenos").style.display = "block";
+}
 
-        function mostrarPasteles(pasteles) {
-            const container = document.getElementById("pastelesContainer");
-            container.innerHTML = pasteles.map(pastel => `
-                <div class="pastel">
-                    <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
-                    <p>${pastel.nombre}</p>
-                    <div class="icons">
-                        <i class="fas fa-edit"></i>
-                        <i class="fas fa-heart"></i>
-                    </div>
-                </div>
-            `).join('');
-        }
+function mostrarPasteles(pasteles) {
+    const container = document.getElementById("pastelesContainer");
+    container.innerHTML = pasteles.map(pastel => `
+        <div class="pastel">
+            <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
+            <p>${pastel.nombre}</p>
+            <div class="icons">
+                <i class="fas fa-edit"></i>
+                <i class="fas fa-heart favorito-icon"></i>
+            </div>
+        </div>
+    `).join('');
 
-        // Eventos
-        document.querySelectorAll(".categoria").forEach(boton => 
-            boton.addEventListener("click", function () { 
-                cargarPastelesPorCategoria(this.getAttribute("data-categoria")); 
-            })
-        );
+    asignarEventosFavoritos();
+}
 
-        document.getElementById("mostrarMas").addEventListener("click", mostrarTodosLosPasteles);
-        document.getElementById("mostrarMenos").addEventListener("click", mostrarPrimerosCuatroPasteles);
+function asignarEventosFavoritos() {
+    document.querySelectorAll(".favorito-icon").forEach(icono => {
+        icono.addEventListener("click", function () {
+            const pastelDiv = this.closest(".pastel");
+            const pastel = {
+                nombre: pastelDiv.querySelector("p").innerText,
+                imagen_url: pastelDiv.querySelector("img").src
+            };
+
+            toggleFavorito(this, pastel);
+        });
+    });
+}
+
+function toggleFavorito(icono, pastel) {
+    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+    const index = favoritos.findIndex(fav => fav.nombre === pastel.nombre);
+    if (index === -1) {
+        favoritos.push(pastel);
+        localStorage.setItem("favoritos", JSON.stringify(favoritos));
+        icono.classList.add("favorito");
+        alert("Pastel agregado a favoritos 🎂❤️");
+    } else {
+        favoritos.splice(index, 1);
+        localStorage.setItem("favoritos", JSON.stringify(favoritos));
+        icono.classList.remove("favorito");
+        alert("Pastel eliminado de favoritos ❌");
+    }
+}
+
+document.querySelectorAll(".categoria").forEach(boton => 
+    boton.addEventListener("click", function () { 
+        cargarPastelesPorCategoria(this.getAttribute("data-categoria")); 
+    })
+);
+
+document.getElementById("mostrarMas").addEventListener("click", mostrarTodosLosPasteles);
+document.getElementById("mostrarMenos").addEventListener("click", mostrarPrimerosCuatroPasteles);
