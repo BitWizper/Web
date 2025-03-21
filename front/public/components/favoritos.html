@@ -4,29 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favoritos</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/favoritos.css">
 </head>
 <body>
     <h1>Mis Pasteles Favoritos 🎂</h1>
     <div id="favoritosContainer"></div>
-    <a href="index.html">Volver a Inicio</a>
+    <a href="home.html" class="volver-btn">Volver a Inicio</a>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const favoritosContainer = document.getElementById("favoritosContainer");
-            const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+            let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
-            if (favoritos.length === 0) {
-                favoritosContainer.innerHTML = "<p>No tienes pasteles favoritos aún.</p>";
-                return;
+            function mostrarFavoritos() {
+                if (favoritos.length === 0) {
+                    favoritosContainer.innerHTML = "<p class='mensaje'>No tienes pasteles favoritos aún.</p>";
+                    return;
+                }
+
+                favoritosContainer.innerHTML = favoritos.map((pastel, index) => `
+                    <div class="pastel">
+                        <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
+                        <p>${pastel.nombre}</p>
+                        <button class="eliminar-btn" data-index="${index}">Eliminar</button>
+                    </div>
+                `).join('');
+
+                document.querySelectorAll(".eliminar-btn").forEach(btn => {
+                    btn.addEventListener("click", function () {
+                        eliminarFavorito(this.getAttribute("data-index"));
+                    });
+                });
             }
 
-            favoritosContainer.innerHTML = favoritos.map(pastel => `
-                <div class="pastel">
-                    <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
-                    <p>${pastel.nombre}</p>
-                </div>
-            `).join('');
+            function eliminarFavorito(index) {
+                favoritos.splice(index, 1);
+                localStorage.setItem("favoritos", JSON.stringify(favoritos));
+                mostrarFavoritos();
+            }
+
+            mostrarFavoritos();
         });
     </script>
 </body>

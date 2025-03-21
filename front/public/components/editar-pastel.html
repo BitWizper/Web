@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Pasteles</title>
+    <!-- FontAwesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <!-- Custom CSS link -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/editar-pastel.css">
+</head>
+
+<body>
+
+    <!-- header section starts -->
+    <header class="header">
+        <div class="left-section">
+            <!-- Menú hamburguesa -->
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a>
+            <!-- Logo -->
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a>
+        </div>
+
+        <!-- Menú desplegable de opciones de usuario -->
+        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+            <ul>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="favoritos.html"><i class="fas fa-heart"></i> Favoritos</a></li>
+                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <nav class="navbar">
+            <a href="/components/home.html" class="active">Home</a>
+            <a href="/components/categorias.html">Pasteles</a>
+            <a href="/components/reposteros.html">Reposteros</a>
+            <a href="/components/loadingCake.html">Crear Pastel</a>
+        </nav>
+
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar..." class="search-input">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="profile-section">
+                <a href="#" title="Notificaciones">
+                    <i class="fas fa-bell fa-lg"></i>
+                </a>
+            </div>
+            <!-- Icono del carrito -->
+            <!-- Icono del carrito -->
+        <div class="cart-section">
+            <a href="javascript:void(0);" id="cart-icon" title="Carrito de compras">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+            </a>
+        </div>
+
+        <!-- Cuadro emergente del carrito -->
+        <div id="cart-popup" class="cart-popup" style="display: none;">
+            <div class="cart-popup-content">
+                <span id="close-cart" class="close">&times;</span>
+                <h3>Tu Carrito</h3>
+                <div id="cart-items" class="cart-items">
+                    <!-- Aquí se agregarán los productos del carrito -->
+                </div>
+                <div class="cart-total">
+                    <p><strong>Total: </strong><span id="cart-total">0</span></p>
+                    <a href="carrito.html" class="btn">Ir al carrito</a>
+                </div>
+            </div>
+        </div>
+
+
+            <div class="profile-icon-section">
+                <a href="../index.html" title="Registro">
+                    <i class="fas fa-user-plus fa-lg"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Cake Editor Section -->
+    <section class="cake-editor">
+        <h1>Editor de Pasteles</h1>
+        <div class="cake-image">
+            <img src="https://i.pinimg.com/736x/8d/4d/20/8d4d20b75a8d8b13e3d2907c5c58e633.jpg" alt="Pastel Personalizado">
+        </div>
+        <div class="cake-options">
+            <form id="cake-form">
+                <label for="size">Tamaño del pastel:</label>
+                <select id="size" name="size">
+                    <option value="pequeño">Pequeño</option>
+                    <option value="mediano">Mediano</option>
+                    <option value="grande">Grande</option>
+                </select>
+                <br>
+                <label for="flavor">Sabor del pastel:</label>
+                <select id="flavor" name="flavor">
+                    <option value="chocolate">Chocolate</option>
+                    <option value="vainilla">Vainilla</option>
+                    <option value="fresa">Fresa</option>
+                    <option value="red velvet">Red Velvet</option>
+                </select>
+                <br>
+                <label for="decoration">Decoración especial:</label>
+                <input type="text" id="decoration" name="decoration" placeholder="Escribe tu decoración...">
+                <br>
+                <label for="message">Mensaje en el pastel:</label>
+                <input type="text" id="message" name="message" placeholder="Escribe el mensaje...">
+                <br>
+                <button type="button" class="btn" onclick="addToCart()">Añadir al carrito</button>
+            </form>
+        </div>
+
+        <!-- Agenda cita -->
+        <div class="schedule-section">
+            <h2>Agenda tu cita</h2>
+            <form id="schedule-form">
+                <label for="date">Fecha de entrega:</label>
+                <input type="date" id="date" name="date">
+                <br>
+                <label for="time">Hora de entrega:</label>
+                <input type="time" id="time" name="time">
+                <br>
+                <button type="button" class="btn" onclick="scheduleAppointment()">Agendar cita</button>
+            </form>
+        </div>
+    </section>
+
+
+     <!-- footer section starts -->
+     <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>quick links</h3>
+                <a href="/components/home.html"> <i class="fas fa-arrow-right"></i> Home</a>
+                <a href="/components/reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
+                <a href="components/categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
+                <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
+            </div>
+            <div class="box">
+                <h3>Extra links</h3>
+                <a href="pedidos.html"> <i class="fas fa-arrow-right"></i> Mis pedidos</a>
+                <a href="favoritos.html"> <i class="fas fa-arrow-right"></i> Mis favoritos</a>
+                <a href="carrito.html"> <i class="fas fa-arrow-right"></i> Mi carrito</a>
+                <a href="/components/perfil.html"> <i class="fas fa-arrow-right"></i> Mi perfil</a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> Política y privacidad</a>
+            </div>
+            <div class="box">
+                <h3>Síguenos</h3>
+                <a href="#"> <i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"> <i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"> <i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"> <i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="#"> <i class="fab fa-pinterest"></i> Pinterest</a>
+            </div>
+        </div>
+    </section>
+    <section class="credit"></section>
+    <!-- footer section ends -->
+
+    <script>
+        function addToCart() {
+            const size = document.getElementById('size').value;
+            const flavor = document.getElementById('flavor').value;
+            const decoration = document.getElementById('decoration').value;
+            const message = document.getElementById('message').value;
+
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            const item = document.createElement('div');
+            item.innerHTML = `<p>Pastel ${flavor} ${size} con mensaje: "${message}" y decoración: "${decoration}"</p>`;
+            cartItems.appendChild(item);
+
+            let currentTotal = parseFloat(cartTotal.textContent || 0);
+            cartTotal.textContent = (currentTotal + 1).toFixed(2);  // Example increment
+            document.getElementById('cart-popup').style.display = 'block';
+        }
+
+        function scheduleAppointment() {
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            alert(`Cita agendada para el ${date} a las ${time}`);
+        }
+    </script>
+
+    <script src="../js/menu.js"></script>
+    <script src="../js/carrito.js"></script>
+
+</body>
+
+</html>

@@ -36,6 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("mostrarMas").addEventListener("click", mostrarTodosLosPasteles);
         document.getElementById("mostrarMenos").addEventListener("click", mostrarPrimerosCuatroPasteles);
     }
+
+    // Añadir eventos al icono de editar
+    document.querySelectorAll(".fa-edit").forEach(icono => {
+        icono.addEventListener("click", function () {
+            const pastelId = this.closest('.pastel').getAttribute('data-id');  // Obtener el ID del pastel
+            window.location.href = `editar-pastel.html?id=${pastelId}`;  // Redirigir con el ID del pastel
+        });
+    });
 });
 
 function cargarImagenesEjemplo() {
@@ -43,32 +51,30 @@ function cargarImagenesEjemplo() {
     if (!container) return;
 
     const ejemplos = [
-        { imagen_url: "https://i.pinimg.com/736x/bd/23/db/bd23db3a27a42689661b3654bb7b3ab3.jpg", nombre: "Pastel Arcoíris" },
-        { imagen_url: "https://i.pinimg.com/736x/ac/eb/4d/aceb4d7bc6a0c3ccca161b9490414b5d.jpg", nombre: "Pastel de Chocolate Clásico" },
-        { imagen_url: "https://i.pinimg.com/736x/ec/b6/ec/ecb6ecb46df6a57fc7efc86d6b18f284.jpg", nombre: "Pastel Tres Leches" },
-        { imagen_url: "https://i.pinimg.com/736x/41/a1/42/41a142ca5d382be2ef2901fb124ddfc1.jpg", nombre: "Pastel de Frutas Tropicales" },
-        { imagen_url: "https://i.pinimg.com/736x/a0/5a/4e/a05a4e09865d6b8d9a1b0d070495b9ad.jpg", nombre: "Pastel de Rosas de Azúcar" },
-        { imagen_url: "https://i.pinimg.com/736x/b0/8f/6f/b08f6fd110b3888c13ad13c7a787de44.jpg", nombre: "Pastel de Osos" },
-        { imagen_url: "https://i.pinimg.com/736x/b3/12/6c/b3126c02d3d2837f676e77d75431ea7c.jpg", nombre: "Pastel XV años de Vainilla" },
-        { imagen_url: "https://i.pinimg.com/736x/2e/f1/11/2ef111518f4ad650ab07baf4f461510e.jpg", nombre: "Pastel de Barbie" }
+        { id: 1, imagen_url: "https://i.pinimg.com/736x/bd/23/db/bd23db3a27a42689661b3654bb7b3ab3.jpg", nombre: "Pastel Arcoíris" },
+        { id: 2, imagen_url: "https://i.pinimg.com/736x/ac/eb/4d/aceb4d7bc6a0c3ccca161b9490414b5d.jpg", nombre: "Pastel de Chocolate Clásico" },
+        { id: 3, imagen_url: "https://i.pinimg.com/736x/ec/b6/ec/ecb6ecb46df6a57fc7efc86d6b18f284.jpg", nombre: "Pastel Tres Leches" },
+        { id: 4, imagen_url: "https://i.pinimg.com/736x/41/a1/42/41a142ca5d382be2ef2901fb124ddfc1.jpg", nombre: "Pastel de Frutas Tropicales" },
+        { id: 5, imagen_url: "https://i.pinimg.com/736x/a0/5a/4e/a05a4e09865d6b8d9a1b0d070495b9ad.jpg", nombre: "Pastel de Rosas de Azúcar" },
+        { id: 6, imagen_url: "https://i.pinimg.com/736x/b0/8f/6f/b08f6fd110b3888c13ad13c7a787de44.jpg", nombre: "Pastel de Osos" },
+        { id: 7, imagen_url: "https://i.pinimg.com/736x/b3/12/6c/b3126c02d3d2837f676e77d75431ea7c.jpg", nombre: "Pastel XV años de Vainilla" },
+        { id: 8, imagen_url: "https://i.pinimg.com/736x/2e/f1/11/2ef111518f4ad650ab07baf4f461510e.jpg", nombre: "Pastel de Barbie" }
     ];
 
     container.innerHTML = ejemplos.map(pastel => `
-        <div class="pastel">
+        <div class="pastel" data-id="${pastel.id}">
             <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
             <p>${pastel.nombre}</p>
             <div class="icons">
                 <i class="fas fa-edit"></i>
-                <i class="fas fa-heart favorito-icon"></i>
+                <i class="fas fa-heart"></i>
             </div>
         </div>
     `).join('');
-
-    asignarEventosFavoritos();
 }
 
 let categoriaSeleccionada = null;
-let todosLosPasteles = [];
+let todosLosPasteles = []; // Guardará todos los pasteles de la categoría seleccionada
 
 async function cargarPastelesPorCategoria(id_categoria) {
     try {
@@ -85,9 +91,11 @@ async function cargarPastelesPorCategoria(id_categoria) {
 }
 
 function mostrarPrimerosCuatroPasteles() {
+    // Mostrar solo los primeros 4 pasteles populares
     const pasteles = todosLosPasteles.slice(0, 4);
     mostrarPasteles(pasteles);
 
+    // Botones
     document.getElementById("mostrarMas").style.display = todosLosPasteles.length > 4 ? "block" : "none";
     document.getElementById("mostrarMenos").style.display = "none";
 }
@@ -95,6 +103,7 @@ function mostrarPrimerosCuatroPasteles() {
 function mostrarTodosLosPasteles() {
     mostrarPasteles(todosLosPasteles);
 
+    // Botones
     document.getElementById("mostrarMas").style.display = "none";
     document.getElementById("mostrarMenos").style.display = "block";
 }
@@ -102,50 +111,18 @@ function mostrarTodosLosPasteles() {
 function mostrarPasteles(pasteles) {
     const container = document.getElementById("pastelesContainer");
     container.innerHTML = pasteles.map(pastel => `
-        <div class="pastel">
+        <div class="pastel" data-id="${pastel.id}">
             <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
             <p>${pastel.nombre}</p>
             <div class="icons">
                 <i class="fas fa-edit"></i>
-                <i class="fas fa-heart favorito-icon"></i>
+                <i class="fas fa-heart"></i>
             </div>
         </div>
     `).join('');
-
-    asignarEventosFavoritos();
 }
 
-function asignarEventosFavoritos() {
-    document.querySelectorAll(".favorito-icon").forEach(icono => {
-        icono.addEventListener("click", function () {
-            const pastelDiv = this.closest(".pastel");
-            const pastel = {
-                nombre: pastelDiv.querySelector("p").innerText,
-                imagen_url: pastelDiv.querySelector("img").src
-            };
-
-            toggleFavorito(this, pastel);
-        });
-    });
-}
-
-function toggleFavorito(icono, pastel) {
-    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
-
-    const index = favoritos.findIndex(fav => fav.nombre === pastel.nombre);
-    if (index === -1) {
-        favoritos.push(pastel);
-        localStorage.setItem("favoritos", JSON.stringify(favoritos));
-        icono.classList.add("favorito");
-        alert("Pastel agregado a favoritos 🎂❤️");
-    } else {
-        favoritos.splice(index, 1);
-        localStorage.setItem("favoritos", JSON.stringify(favoritos));
-        icono.classList.remove("favorito");
-        alert("Pastel eliminado de favoritos ❌");
-    }
-}
-
+// Eventos
 document.querySelectorAll(".categoria").forEach(boton => 
     boton.addEventListener("click", function () { 
         cargarPastelesPorCategoria(this.getAttribute("data-categoria")); 

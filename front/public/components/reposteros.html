@@ -78,9 +78,24 @@
                 </a>
             </div>
             <div class="cart-section">
-                <a href="#" id="cart-icon" title="Shopping Cart">
+                <a href="javascript:void(0);" id="cart-icon" title="Carrito de compras">
                     <i class="fas fa-shopping-cart fa-lg"></i>
                 </a>
+            </div>
+    
+            <!-- Cuadro emergente del carrito -->
+            <div id="cart-popup" class="cart-popup" style="display: none;">
+                <div class="cart-popup-content">
+                    <span id="close-cart" class="close">&times;</span>
+                    <h3>Tu Carrito</h3>
+                    <div id="cart-items" class="cart-items">
+                        <!-- Aquí se agregarán los productos del carrito -->
+                    </div>
+                    <div class="cart-total">
+                        <p><strong>Total: </strong><span id="cart-total">0</span></p>
+                        <a href="carrito.html" class="btn">Ir al carrito</a>
+                    </div>
+                </div>
             </div>
 
             <div class="profile-icon-section">
@@ -202,5 +217,6 @@
 
     <script src="../js/categoria.js"></script>
     <script src="../js/menu.js"></script>
+     <script src="../js/carrito.js"></script>
 </body>
 </html>
