@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const pastelesContainer = document.getElementById("pastelesContainer");
     let pastelesEjemplo = "";
-
+    
     if (pastelesContainer.innerHTML.trim() !== "") {
         pastelesEjemplo = pastelesContainer.innerHTML;
     }
@@ -36,14 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("mostrarMas").addEventListener("click", mostrarTodosLosPasteles);
         document.getElementById("mostrarMenos").addEventListener("click", mostrarPrimerosCuatroPasteles);
     }
-
-    // Añadir eventos al icono de editar
-    document.querySelectorAll(".fa-edit").forEach(icono => {
-        icono.addEventListener("click", function () {
-            const pastelId = this.closest('.pastel').getAttribute('data-id');  // Obtener el ID del pastel
-            window.location.href = `editar-pastel.html?id=${pastelId}`;  // Redirigir con el ID del pastel
-        });
-    });
 });
 
 function cargarImagenesEjemplo() {
@@ -51,14 +43,14 @@ function cargarImagenesEjemplo() {
     if (!container) return;
 
     const ejemplos = [
-        { id: 1, imagen_url: "https://i.pinimg.com/736x/bd/23/db/bd23db3a27a42689661b3654bb7b3ab3.jpg", nombre: "Pastel Arcoíris" },
-        { id: 2, imagen_url: "https://i.pinimg.com/736x/ac/eb/4d/aceb4d7bc6a0c3ccca161b9490414b5d.jpg", nombre: "Pastel de Chocolate Clásico" },
-        { id: 3, imagen_url: "https://i.pinimg.com/736x/ec/b6/ec/ecb6ecb46df6a57fc7efc86d6b18f284.jpg", nombre: "Pastel Tres Leches" },
-        { id: 4, imagen_url: "https://i.pinimg.com/736x/41/a1/42/41a142ca5d382be2ef2901fb124ddfc1.jpg", nombre: "Pastel de Frutas Tropicales" },
-        { id: 5, imagen_url: "https://i.pinimg.com/736x/a0/5a/4e/a05a4e09865d6b8d9a1b0d070495b9ad.jpg", nombre: "Pastel de Rosas de Azúcar" },
-        { id: 6, imagen_url: "https://i.pinimg.com/736x/b0/8f/6f/b08f6fd110b3888c13ad13c7a787de44.jpg", nombre: "Pastel de Osos" },
-        { id: 7, imagen_url: "https://i.pinimg.com/736x/b3/12/6c/b3126c02d3d2837f676e77d75431ea7c.jpg", nombre: "Pastel XV años de Vainilla" },
-        { id: 8, imagen_url: "https://i.pinimg.com/736x/2e/f1/11/2ef111518f4ad650ab07baf4f461510e.jpg", nombre: "Pastel de Barbie" }
+        { imagen_url: "https://i.pinimg.com/736x/bd/23/db/bd23db3a27a42689661b3654bb7b3ab3.jpg", nombre: "Pastel Arcoíris", id: 1 },
+        { imagen_url: "https://i.pinimg.com/736x/ac/eb/4d/aceb4d7bc6a0c3ccca161b9490414b5d.jpg", nombre: "Pastel de Chocolate Clásico", id: 2 },
+        { imagen_url: "https://i.pinimg.com/736x/ec/b6/ec/ecb6ecb46df6a57fc7efc86d6b18f284.jpg", nombre: "Pastel Tres Leches", id: 3 },
+        { imagen_url: "https://i.pinimg.com/736x/41/a1/42/41a142ca5d382be2ef2901fb124ddfc1.jpg", nombre: "Pastel de Frutas Tropicales", id: 4 },
+        { imagen_url: "https://i.pinimg.com/736x/a0/5a/4e/a05a4e09865d6b8d9a1b0d070495b9ad.jpg", nombre: "Pastel de Rosas de Azúcar", id: 5 },
+        { imagen_url: "https://i.pinimg.com/736x/b0/8f/6f/b08f6fd110b3888c13ad13c7a787de44.jpg", nombre: "Pastel de Osos", id: 6 },
+        { imagen_url: "https://i.pinimg.com/736x/b3/12/6c/b3126c02d3d2837f676e77d75431ea7c.jpg", nombre: "Pastel XV años de Vainilla", id: 7 },
+        { imagen_url: "https://i.pinimg.com/736x/2e/f1/11/2ef111518f4ad650ab07baf4f461510e.jpg", nombre: "Pastel de Barbie", id: 8 }
     ];
 
     container.innerHTML = ejemplos.map(pastel => `
@@ -67,10 +59,38 @@ function cargarImagenesEjemplo() {
             <p>${pastel.nombre}</p>
             <div class="icons">
                 <i class="fas fa-edit"></i>
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart ${isFavorito(pastel.id) ? 'favorito' : ''}" data-id="${pastel.id}"></i>
             </div>
         </div>
     `).join('');
+
+    // Agregar evento para favoritos
+    document.querySelectorAll(".fa-heart").forEach(icono => {
+        icono.addEventListener("click", function () {
+            const pastelId = parseInt(this.getAttribute("data-id"));
+            toggleFavorito(pastelId);
+            this.classList.toggle('favorito');
+        });
+    });
+}
+
+// Verificar si un pastel está en favoritos
+function isFavorito(id) {
+    const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+    return favoritos.includes(id);
+}
+
+// Agregar o quitar de favoritos
+function toggleFavorito(id) {
+    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+    if (favoritos.includes(id)) {
+        favoritos = favoritos.filter(favId => favId !== id);
+    } else {
+        favoritos.push(id);
+    }
+
+    localStorage.setItem("favoritos", JSON.stringify(favoritos));
 }
 
 let categoriaSeleccionada = null;
@@ -111,18 +131,26 @@ function mostrarTodosLosPasteles() {
 function mostrarPasteles(pasteles) {
     const container = document.getElementById("pastelesContainer");
     container.innerHTML = pasteles.map(pastel => `
-        <div class="pastel" data-id="${pastel.id}">
+        <div class="pastel">
             <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
             <p>${pastel.nombre}</p>
             <div class="icons">
                 <i class="fas fa-edit"></i>
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart ${isFavorito(pastel.id) ? 'favorito' : ''}" data-id="${pastel.id}"></i>
             </div>
         </div>
     `).join('');
+
+    // Agregar evento para favoritos
+    document.querySelectorAll(".fa-heart").forEach(icono => {
+        icono.addEventListener("click", function () {
+            const pastelId = parseInt(this.getAttribute("data-id"));
+            toggleFavorito(pastelId);
+            this.classList.toggle('favorito');
+        });
+    });
 }
 
-// Eventos
 document.querySelectorAll(".categoria").forEach(boton => 
     boton.addEventListener("click", function () { 
         cargarPastelesPorCategoria(this.getAttribute("data-categoria")); 
