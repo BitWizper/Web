@@ -35,7 +35,7 @@ body {
 }
 
 .header .navbar a.active {
-    color: #ff6347; /* Color de la opción activa */
+    color: #8C1B2F; /* Color de la opción activa */
 }
 
 /* Contenedor del perfil */
@@ -89,7 +89,7 @@ body {
 /* Puntaje */
 .stars {
     font-size: 20px;
-    color: #ffcc00;
+    color: #FFCC00; /* Color de las estrellas */
     margin-top: 10px;
 }
 
@@ -115,7 +115,7 @@ body {
 
 /* Botón de seguir */
 .follow-btn {
-    background-color: #ff6347;
+    background-color: #A65168; /* Color de fondo del botón */
     color: white;
     padding: 10px 20px;
     font-size: 16px;
@@ -128,9 +128,13 @@ body {
     text-align: center;
 }
 
+.follow-btn:hover {
+    background-color: #8C1B2F; /* Color de fondo del botón en hover */
+}
+
 /* Pie de página */
 .footer {
-    background-color: #333;
+    background-color: #8C1B2F; /* Color de fondo del pie de página */
     color: white;
     padding: 40px 0;
     margin-top: 40px;

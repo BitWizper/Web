@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
 
-:root{
-    --main-color:#ffec9cb3;
-    --primary-color: #c68f8f;
-    --black:#13131a;
-    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+:root {
+    --main-color: #8C1B2F; /* Color principal */
+    --primary-color: #A65168; /* Color secundario */
+    --black: #731D3C; /* Color oscuro para texto */
+    --box-shadow: 0 .5rem 1rem rgba(0,0,0,.1); /* Sombra */
 }
 
-*{
-    font-family: 'Nunito',sans-serif;
+* {
+    font-family: 'Nunito', sans-serif;
     margin: 0; padding: 0;
     box-sizing: border-box;
     outline: none; border: none;
@@ -18,31 +18,30 @@
     transition: all .2s linear;
 }
 
-
-html{
+html {
     font-size: 62.5%;
     overflow-x: hidden;
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
 }
 
-html::-webkit-scrollbar{
+html::-webkit-scrollbar {
     width: .6rem;
 }
 
-html::-webkit-scrollbar-track{
+html::-webkit-scrollbar-track {
     background-color: #fff;
 }
 
-html::-webkit-scrollbar-thumb{
+html::-webkit-scrollbar-thumb {
     background: var(--primary-color);
 }
 
-section{
+section {
     padding: 3rem 7%;
 }
 
-.heading{
+.heading {
     text-align: center;
     color: var(--primary-color);
     margin-bottom: 3rem;
@@ -50,7 +49,7 @@ section{
     margin-top: 4rem;
 }
 
-.heading-title{
+.heading-title {
     background-size: cover !important;
     background-position: cover !important;
     padding-top: 10rem;
@@ -58,17 +57,14 @@ section{
     display: flex;
     align-items: center;
     justify-content: center;
-
-    font-family: Poppins; /* Usar Poppins */
-    color: #000; /* Texto en negro */
-    line-height: 1.2; /* Espaciado entre líneas */
-    letter-spacing: 0.4rem; /* Espaciado de letras */
-    text-transform: uppercase; 
-    
-    
+    font-family: Poppins;
+    color: #000;
+    line-height: 1.2;
+    letter-spacing: 0.4rem;
+    text-transform: uppercase;
 }
 
-.heading-title h1{
+.heading-title h1 {
     padding-top: 5rem;
     font-size: 8rem;
     text-transform: uppercase;
@@ -78,19 +74,18 @@ section{
 .btn {
     display: inline-block;
     margin-top: 1rem;
-    padding: 1.5rem 5rem; /* Aumenta el tamaño del botón */
-    font-size: 2rem; /* Hace el texto más grande */
+    padding: 1.5rem 5rem;
+    font-size: 2rem;
     border-radius: 1rem;
-    color: #fff; /* Letras blancas */
-    background: #E91E63; /* Rosa fuerte */
+    color: #fff;
+    background: #E91E63;
     position: relative;
     box-shadow: var(--box-shadow);
     z-index: 0;
-    border: 2px solid #DAA520; /* Dorado fuerte y más delgado */
+    border: 2px solid #DAA520;
 }
 
 /* header */
-
 .header {
     position: fixed;
     top: 0;
@@ -107,115 +102,61 @@ section{
 
 .left-section {
     display: flex;
-    align-items: center; /* Alinea el icono del menú y el logo en la misma línea */
-    gap: 1.5rem; /* Espacio entre el icono de menú y el logo */
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .menu-icon {
-    font-size: 2.4rem; /* Tamaño del icono de menú */
+    font-size: 2.4rem;
     cursor: pointer;
 }
 
 /* Estilo del menú desplegable */
-/* Menú de hamburguesa */
 .dropdown-menu {
-    display: none; /* Menú oculto inicialmente */
+    display: none;
     position: absolute;
-    top: 60px; /* Ajusta la distancia desde el borde superior si es necesario */
+    top: 60px;
     left: 0;
-    width: 300px; /* Aumenta el ancho del menú */
+    width: 300px;
     background: #fff;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Aumenta la sombra */
-    padding: 2rem; /* Aumenta el padding para mayor tamaño interno */
-    border-radius: 10px; /* Bordes redondeados */
-    font-size: 1.6rem; /* Aumenta aún más el tamaño de la fuente */
-    z-index: 100; /* Asegura que el menú esté por encima */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    font-size: 1.6rem;
+    z-index: 100;
     display: flex;
     flex-direction: column;
 }
 
 .dropdown-menu ul {
-    list-style: none; /* Eliminar los puntos de la lista */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .dropdown-menu ul li {
-    padding: 15px 0; /* Aumentar el espacio entre los elementos */
-    border-bottom: 1px solid #eee; /* Línea separadora entre los elementos */
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .dropdown-menu ul li a {
-    color: #333; /* Color de texto */
-    text-decoration: none; /* Sin subrayado */
+    color: #333;
+    text-decoration: none;
     display: flex;
     align-items: center;
-    font-size: 1.6rem; /* Tamaño de fuente de los enlaces, más grande */
-    gap: 10px; /* Espacio entre el icono y el texto */
+    font-size: 1.6rem;
+    gap: 10px;
 }
 
 .dropdown-menu ul li a:hover {
-    color: #ff4081; 
-}
-
-
-.menu-icon {
-    font-size: 2rem; 
-}
-
-
-.left-section {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-grow: 1;
-}
-
-
-
-
-.header .logo {
-    font-size: 2.5rem;
-    font-weight: bolder;
-    color: var(--black);
-}
-
-.header .logo i {
-    color: var(--main-color);
-    padding-right: .5rem;
-}
-
-.header .navbar {
-    display: flex;
-    justify-content: center; /* Centra los elementos dentro del contenedor */
-    align-items: center; /* Asegura que los elementos estén centrados verticalmente */
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
-}
-
-.header .navbar a {
-    font-size: 2rem;
-    color: black;
-    text-align: center; /* Asegura que el texto esté centrado en su contenedor */
-    margin: 0 20px; /* Agrega espacio horizontal entre los elementos */
-}
-
-.header .navbar a:hover {
-    color: #ff69b4; /* Un rosa intermedio al pasar el cursor */
-}
-
-
-#menu {
-    font-size: 2.5rem;
-    cursor: pointer;
-    color: var(--black);
-    display: block;
+    color: #ff4081;
 }
 
 /* Ajuste para la barra de búsqueda, perfil y carrito */
 .header .header-right {
     display: flex;
     align-items: center;
-    gap: 1rem; 
+    gap: 1rem;
 }
 
 .header .search-bar {
@@ -260,11 +201,9 @@ section{
     color: var(--main-color);
 }
 
-
 /* Catálogo de Reposteros */
 #catalogo-reposteros {
     padding: 3rem 7%;
-    
     border-radius: 10px;
     box-shadow: var(--box-shadow);
     margin: 3rem auto;
@@ -349,7 +288,6 @@ section{
 }
 
 /* Reposteros Populares */
-
 #reposteros-populares {
     padding: 3rem 7%;
     background-color: var(--main-color);

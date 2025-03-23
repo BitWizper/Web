@@ -1,65 +1,123 @@
+:root {
+    --main-color: #8C1B2F; /* Color principal */
+    --primary-color: #A65168; /* Color primario */
+    --black: #731D3C; /* Color negro */
+    --box-shadow: 0 .5rem 1rem rgba(0,0,0,.1); /* Sombra suave */
+}
+
+.otro-heading {
+    color: var(--main-color); /* Color principal */
+    font-size: 4rem; /* Tamaño del texto */
+    font-weight: bold; /* Hacer el texto más grueso */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra sutil al texto */
+    letter-spacing: 1px; /* Espaciado entre las letras */
+    text-align: center; /* Centrar el texto */
+    display: block; /* Asegura que el contenedor ocupe todo el espacio disponible */
+    width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+}
+
+/* Opcional: Efecto hover */
+.otro-heading:hover {
+    color: var(--black); /* Cambio de color en hover */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Sombra más fuerte en hover */
+}
+
+/* Estilo del contenedor de "Pasteles" */
 .catalogo-pasteles {
     text-align: center;
     padding: 20px;
+    background-color: var(--main-color); /* Fondo con el color principal */
+    border-radius: 12px;
+    box-shadow: var(--box-shadow); /* Sombra suave */
+    max-width: 600px;
+    margin: 0 auto; /* Centrado en la pantalla */
 }
 
+/* Estilo para el título de la categoría */
+.catalogo-pasteles h1 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Estilos para los pasteles */
 .pasteles-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 20px;
+    padding: 0; /* Eliminado padding extra */
+    margin: 0; /* Elimina margen extra */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
 }
 
-/* Diseño mejorado de la tarjeta */
+/* Diseño de cada pastel similar al estilo de los recuadros */
 .pastel {
-    background: linear-gradient(to bottom, #fff, #f9f9f9);
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    min-width: 280px; /* Tamaño mínimo para cada pastel */
+    background: #fff; /* Fondo blanco */
+    border-radius: 10px; /* Bordes redondeados */
     text-align: center;
-    position: relative;
-    padding: 15px;
-    width: 300px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
+    padding: 2rem; /* Espaciado interno */
+    box-shadow: var(--box-shadow); /* Sombra similar a la de los recuadros */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transición suave */
+    margin: 0; /* Elimina márgenes innecesarios */
 }
 
+/* Efecto hover similar a los recuadros */
 .pastel:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1rem); /* Levanta el pastel al pasar el mouse */
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hacer hover */
 }
 
-/* Imagen del pastel con borde sutil */
+/* Imagen del pastel */
 .pastel img {
     width: 100%;
     height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 3px solid rgba(0, 0, 0, 0.05);
+    object-fit: cover; /* Ajusta la imagen para que cubra el área sin deformarse */
+    border-radius: 10px 10px 0 0; /* Bordes redondeados solo en la parte superior */
+    border-bottom: 4px solid var(--primary-color); /* Borde inferior con el color primario */
 }
 
-/* Estilo del título */
+/* Estilo del nombre del pastel */
 .pastel h3 {
-    margin-top: 10px;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
-    text-transform: uppercase;
+    font-size: 2.5rem; /* Tamaño de la fuente del nombre */
+    color: var(--black); /* Color del texto */
+    margin: 1rem 0;
+    font-weight: bold; /* Negrita en el nombre */
 }
 
-/* Descripción con mejor espaciado */
+/* Descripción del pastel */
 .pastel p {
-    font-size: 1em;
-    color: #555;
-    margin: 8px 15px;
-    line-height: 1.4;
+    font-size: 1.6rem;
+    color: var(--black);
+    padding: 0 1rem 1rem;
 }
 
-/* Precio resaltado */
+/* Botón dentro de la tarjeta */
+.pastel .btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 3rem;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    color: #fff;
+    background: var(--primary-color);
+    box-shadow: var(--box-shadow);
+    text-decoration: none;
+}
+
+/* Efecto hover en el botón */
+.pastel .btn:hover {
+    background: var(--black);
+}
+
+
+/* Precio */
 .precio {
     font-size: 1.4em;
     font-weight: bold;
-    color: #d9534f;
+    color: var(--primary-color);
     margin: 12px 0;
 }
 
@@ -69,38 +127,12 @@
     font-size: 1.3em;
 }
 
-/* Iconos flotantes mejorados */
-.icons {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    display: flex;
-    gap: 8px;
-}
-
-.icons i {
-    background: white;
-    padding: 8px;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    font-size: 1.2em;
-    color: #555;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.icons i:hover {
-    background: #ff5e5e;
-    color: white;
-    transform: scale(1.1);
-}
-
-/* Botón Añadir al carrito mejorado */
+/* Botón para agregar al carrito */
 .boton-carrito {
     display: inline-block;
     margin-top: 12px;
     padding: 12px 22px;
-    background: #e91e63;
+    background: var(--primary-color);
     color: white;
     font-size: 1.1em;
     font-weight: bold;
@@ -108,7 +140,7 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--box-shadow);
 }
 
 .boton-carrito:hover {
@@ -116,12 +148,12 @@
     transform: scale(1.08);
 }
 
-/* Botón Mostrar Más centrado */
+/* Botón "Mostrar más" */
 .mostrar-mas {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 24px;
-    background: #CA7373;
+    background: var(--primary-color);
     color: white;
     font-size: 1.1em;
     font-weight: bold;
@@ -139,4 +171,49 @@
     background: #a85b5b;
     transform: scale(1.05);
 }
+
+/* Estilo para el pastel */
+.pastel {
+    position: relative; /* Necesario para posicionar los iconos absolutamente */
+    background: linear-gradient(to bottom, #fff, #f9f9f9);
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    padding: 15px;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+/* Contenedor de los iconos en la parte superior */
+.pastel .icons-container {
+    position: absolute;  /* Posicionamos los iconos de manera absoluta */
+    top: 10px;  /* Distancia desde el borde superior */
+    left: 50%;  /* Centrado horizontal */
+    transform: translateX(-50%);  /* Centrado horizontal exacto */
+    display: flex;
+    justify-content: space-between;
+    width: 90%;  /* Ancho para que los iconos no toquen los bordes */
+    padding: 0 15px;
+    z-index: 1; /* Asegura que los iconos estén por encima de la imagen */
+}
+
+/* Estilo para los iconos */
+.icons i {
+    font-size: 2rem;
+    color: var(--black);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.icons i:hover {
+    color: var(--main-color);
+    transform: scale(1.2);
+}
+
+.icons i.favorito {
+    color: var(--main-color); /* Color para el icono cuando es favorito */
+}
+
+
 
