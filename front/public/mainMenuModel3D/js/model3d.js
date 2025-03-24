@@ -6,6 +6,8 @@ let selectedDecorations = [];
 const userId = localStorage.getItem('id_usuario');
 const reposteroId = 1;
 
+let flowerModels = {}; // Para almacenar los modelos de flores por piso
+
 // Agregar lista de sabores disponibles
 const SABORES_BIZCOCHO = [
     'Vainilla',
@@ -440,14 +442,26 @@ function showDecoraciones() {
 }
 
 function selectDecoration(decoration) {
+    if (decoration === 'Flores de Fondant') {
+        const numPisos = parseInt(selectedModel.charAt(0));
+        
+        if (numPisos === 1) {
+            // Para un piso, cargar directamente el modelo de flores
+            loadFlowerModel('flores_1pisos.fbx', 1);
+        } else {
+            // Para múltiples pisos, mostrar diálogo de selección
+            showFloorSelectionDialog(numPisos);
+        }
+    }
+    
     if (selectedDecorations.includes(decoration)) {
         selectedDecorations = selectedDecorations.filter(d => d !== decoration);
     } else {
         selectedDecorations.push(decoration);
     }
     
-    updateSelectionsInfo(); // Actualizar información
-    // Actualizar los botones activos
+    updateSelectionsInfo();
+    
     const buttons = document.querySelectorAll('#decoracionesList button');
     buttons.forEach(button => {
         if (selectedDecorations.includes(button.textContent.trim())) {
@@ -458,8 +472,71 @@ function selectDecoration(decoration) {
     });
 }
 
+function showFloorSelectionDialog(numPisos) {
+    const dialog = document.createElement('div');
+    dialog.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    `;
+    
+    dialog.innerHTML = `
+        <h3 style="color: #731D3C; margin-bottom: 15px;">Selecciona el piso para las flores</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            ${Array.from({length: numPisos}, (_, i) => i + 1).map(piso => `
+                <button style="background: #731D3C; color: white; padding: 10px; border: none; border-radius: 4px;"
+                        onclick="loadFlowerModel('flores_${numPisos}pisos.fbx', ${piso})">
+                    Piso ${piso}
+                </button>
+            `).join('')}
+            <button style="background: #A65168; color: white; padding: 10px; border: none; border-radius: 4px;"
+                    onclick="this.parentElement.parentElement.remove()">
+                Cancelar
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(dialog);
+}
+
+function loadFlowerModel(modelPath, floorNumber) {
+    // Eliminar el diálogo si existe
+    const dialog = document.querySelector('div[style*="position: fixed"]');
+    if (dialog) dialog.remove();
+    
+    // Eliminar flores existentes en ese piso si las hay
+    if (flowerModels[floorNumber]) {
+        scene.remove(flowerModels[floorNumber]);
+        delete flowerModels[floorNumber];
+    }
+    
+    loader.load(`models/${modelPath}`, function (object) {
+        const flowerModel = object;
+        flowerModel.scale.set(0.5, 0.5, 0.5);
+        
+        // Ajustar la posición según el piso
+        const pisoHeight = 60; // Altura aproximada por piso
+        flowerModel.position.y = (floorNumber - 1) * pisoHeight;
+        
+        scene.add(flowerModel);
+        flowerModels[floorNumber] = flowerModel;
+    });
+}
+
 function resetCake() {
     if (confirm("¿Estás seguro que deseas reiniciar el diseño del pastel?")) {
+        // Eliminar todos los modelos de flores existentes
+        Object.values(flowerModels).forEach(model => {
+            scene.remove(model);
+        });
+        flowerModels = {};  // Reiniciar el objeto de modelos de flores
+        
         selectedModel = '1_piso.fbx';
         selectedFlavor = null;
         selectedFillings = [];
@@ -467,7 +544,7 @@ function resetCake() {
         
         loadCakeModel(selectedModel);
         showCapas();
-        updateSelectionsInfo(); // Actualizar información
+        updateSelectionsInfo();
         
         alert("El diseño del pastel ha sido reiniciado.");
     }
