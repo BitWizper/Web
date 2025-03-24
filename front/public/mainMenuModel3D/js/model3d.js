@@ -518,14 +518,55 @@ function loadFlowerModel(modelPath, floorNumber) {
     
     loader.load(`models/${modelPath}`, function (object) {
         const flowerModel = object;
-        flowerModel.scale.set(0.5, 0.5, 0.5);
+        
+        // Obtener el número total de pisos del pastel actual
+        const numPisos = parseInt(selectedModel.charAt(0));
+        
+        // Ajustar escala según el número de pisos
+        const baseScale = 0.5;
+        const scaleMultiplier = 1 - ((numPisos - 1) * 0.15); // Ajuste más pronunciado para pasteles más altos
+        flowerModel.scale.set(
+            baseScale * scaleMultiplier,
+            baseScale * scaleMultiplier,
+            baseScale * scaleMultiplier
+        );
         
         // Ajustar la posición según el piso
-        const pisoHeight = 60; // Altura aproximada por piso
-        flowerModel.position.y = (floorNumber - 1) * pisoHeight;
+        const pisoHeight = 30; // Altura base ajustada para cada piso
+        const radioBase = 20; // Radio base del pastel
+        const reduccionRadio = 0.14; // Reducción del radio por piso
         
-        scene.add(flowerModel);
-        flowerModels[floorNumber] = flowerModel;
+        // Calcular el radio para el piso actual
+        const radioActual = radioBase * (1 - ((numPisos - floorNumber) * reduccionRadio));
+        
+        // Calcular la posición Y ajustada
+        const yPosition = (floorNumber - 1) * pisoHeight;
+        
+        // Posicionar el modelo de flores pegado al lateral del pastel
+        flowerModel.position.set(0, yPosition, radioActual);
+        
+        // Hacer que las flores sigan la rotación del pastel
+        if (cakeModel) {
+            // Crear un grupo para mantener las flores alrededor del pastel
+            const flowerGroup = new THREE.Group();
+            flowerGroup.add(flowerModel);
+            
+            // Actualizar la rotación cuando el pastel gira
+            const updateFlowerPosition = () => {
+                if (flowerGroup && cakeModel) {
+                    flowerGroup.rotation.y = cakeModel.rotation.y;
+                }
+            };
+            
+            // Agregar listener para actualizar la rotación
+            controls.addEventListener('change', updateFlowerPosition);
+            
+            scene.add(flowerGroup);
+            flowerModels[floorNumber] = flowerGroup;
+        } else {
+            scene.add(flowerModel);
+            flowerModels[floorNumber] = flowerModel;
+        }
     });
 }
 
