@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,87 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/perfil.css">
     <style>
-        .content-section {
-            display: none; /* Ocultar las secciones por defecto */
-        }
-        .active-tab {
-            font-weight: bold;
-        }
-        /* Añadimos un estilo para ocultar el perfil */
-        .hidden {
-            display: none;
-        }
-
-        /* Estilo para la flecha dentro del sidebar */
-        .back-btn {
-            font-size: 2rem;
-            color: var(--primary-color);
-            cursor: pointer;
-            text-decoration: none;
-            padding: 10px;
-        }
-
-        .back-btn:hover {
-            color: #882f2d;
-        }
-
-        /* Estilo para el botón de guardar cambios */
-        button[type="submit"] {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #882f2d;
-        }
-
-        /* Estilo para el mensaje de confirmación */
-        .confirmation-message {
-            color: green;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        /* Estilo para el mensaje de error */
-        .error-message {
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        /* Estilos adicionales para la tabla de pedidos */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
+        /* Aquí va tu CSS actual */
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Flecha de retroceso utilizando el símbolo '↩' -->
             <span class="back-btn" onclick="window.location.href='home.html'">
-                ↩ <!-- Flecha personalizada -->
+                ↩
             </span>
             <h3>Mis Pedidos</h3>
             <div class="option" onclick="showContent('verPedidos', this)">
@@ -116,28 +46,8 @@
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>#12345</td>
-                            <td>2025-03-01</td>
-                            <td>En proceso</td>
-                            <td>$150.00</td>
-                            <td><button>Ver detalles</button></td>
-                        </tr>
-                        <tr>
-                            <td>#12346</td>
-                            <td>2025-03-02</td>
-                            <td>Enviado</td>
-                            <td>$250.00</td>
-                            <td><button>Ver detalles</button></td>
-                        </tr>
-                        <tr>
-                            <td>#12347</td>
-                            <td>2025-03-03</td>
-                            <td>Entregado</td>
-                            <td>$300.00</td>
-                            <td><button>Ver detalles</button></td>
-                        </tr>
+                    <tbody id="orderList">
+                        <!-- Aquí se agregarán los pedidos mediante JavaScript -->
                     </tbody>
                 </table>
             </div>
@@ -163,9 +73,8 @@
             <div id="historialPedidos" class="content-section">
                 <h4>Historial de Pedidos</h4>
                 <p>Aquí puedes revisar los pedidos anteriores que ya han sido entregados.</p>
-                <ul>
-                    <li><strong>#12345</strong> - Fecha: 2025-02-15 - Estado: Entregado - Total: $150.00</li>
-                    <li><strong>#12344</strong> - Fecha: 2025-02-10 - Estado: Entregado - Total: $200.00</li>
+                <ul id="orderHistoryList">
+                    <!-- Aquí se agregarán los pedidos previos -->
                 </ul>
             </div>
         </div>
@@ -174,27 +83,22 @@
     <script>
         // Función para mostrar la sección correspondiente
         function showContent(sectionId, element) {
-            // Ocultar todas las secciones
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(section => {
                 section.style.display = 'none';
             });
 
-            // Eliminar la clase 'active-tab' de todas las opciones
             const options = document.querySelectorAll('.option');
             options.forEach(option => {
                 option.classList.remove('active-tab');
             });
 
-            // Mostrar la sección seleccionada
             document.getElementById(sectionId).style.display = 'block';
-
-            // Agregar clase 'active-tab' a la opción seleccionada
             element.classList.add('active-tab');
         }
 
-        // Función para validar y realizar el pedido
-        document.getElementById('newOrderForm').addEventListener('submit', function(event) {
+        // Función para guardar el pedido en localStorage
+        document.getElementById('newOrderForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
             const producto = document.getElementById('pedidoProducto').value;
@@ -207,8 +111,72 @@
             } else {
                 document.getElementById('orderErrorMessage').style.display = 'none';
                 document.getElementById('orderSuccessMessage').style.display = 'block';
+
+                // Crear un objeto de pedido
+                const newOrder = {
+                    id: Date.now(),
+                    producto: producto,
+                    cantidad: cantidad,
+                    direccion: direccion,
+                    fecha: new Date().toLocaleDateString(),
+                    estado: 'En proceso',
+                    total: 150.00 // Este es un ejemplo, puedes calcular el total según la cantidad y el precio
+                };
+
+                // Guardar el pedido en localStorage
+                let orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(newOrder);
+                localStorage.setItem('orders', JSON.stringify(orders));
+
+                // Limpiar el formulario
+                document.getElementById('newOrderForm').reset();
+
+                // Cargar los pedidos actualizados
+                loadOrders();
             }
         });
+
+        // Función para cargar los pedidos desde localStorage
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const orderList = document.getElementById('orderList');
+            const orderHistoryList = document.getElementById('orderHistoryList');
+
+            // Limpiar las listas actuales
+            orderList.innerHTML = '';
+            orderHistoryList.innerHTML = '';
+
+            // Agregar los pedidos a la tabla de ver pedidos
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${order.id}</td>
+                    <td>${order.fecha}</td>
+                    <td>${order.estado}</td>
+                    <td>$${order.total}</td>
+                    <td><button onclick="viewOrderDetails(${order.id})">Ver detalles</button></td>
+                `;
+                orderList.appendChild(row);
+            });
+
+            // Agregar los pedidos a la lista de historial de pedidos
+            orders.forEach(order => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>#${order.id}</strong> - Fecha: ${order.fecha} - Estado: ${order.estado} - Total: $${order.total}`;
+                orderHistoryList.appendChild(listItem);
+            });
+        }
+
+        // Cargar los pedidos al cargar la página
+        window.onload = function () {
+            loadOrders();
+        };
+
+        // Función para ver detalles del pedido (puedes expandirla)
+        function viewOrderDetails(orderId) {
+            alert(`Mostrando detalles para el pedido #${orderId}`);
+        }
     </script>
 </body>
+
 </html>
