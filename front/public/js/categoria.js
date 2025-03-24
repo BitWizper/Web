@@ -22,7 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.querySelectorAll(".categoria").forEach(boton => {
             boton.addEventListener("click", function () { 
-                cargarPastelesPorCategoria(this.getAttribute("data-categoria")); 
+                const categoriaId = this.getAttribute("data-categoria");
+                document.querySelectorAll(".categoria").forEach(b => 
+                    b.classList.remove("p-seleccionada")
+                );
+                this.classList.add("p-seleccionada");
+                cargarPastelesPorCategoria(categoriaId);
             });
         });
 
@@ -67,9 +72,27 @@ function cargarImagenesEjemplo() {
 
 function asignarEventosEdicion() {
     document.querySelectorAll(".fa-edit").forEach(icono => {
-        icono.addEventListener("click", function () {
+        icono.addEventListener("click", async function() {
             const pastelId = this.getAttribute("data-id");
-            window.location.href = `editar-pastel.html?id_pastel=${pastelId}`;
+            console.log('ID del pastel a editar:', pastelId); // Para debug
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/pastel/obtenerpasteles`);
+                const pasteles = await response.json();
+                const pastelSeleccionado = pasteles.find(p => p.id_pastel === parseInt(pastelId));
+                
+                if (pastelSeleccionado) {
+                    console.log('Pastel seleccionado:', pastelSeleccionado); // Para debug
+                    sessionStorage.setItem('pastelEditar', JSON.stringify(pastelSeleccionado));
+                    window.location.href = `editar-pastel.html?id=${pastelId}`;
+                } else {
+                    console.error('Pastel no encontrado:', pastelId);
+                    alert('No se encontró el pastel seleccionado');
+                }
+            } catch (error) {
+                console.error("Error al obtener los datos del pastel:", error);
+                alert('Error al cargar los datos del pastel');
+            }
         });
     });
 }
@@ -113,52 +136,90 @@ let todosLosPasteles = [];
 async function cargarPastelesPorCategoria(id_categoria) {
     try {
         const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
-        const data = await response.json();
-
-        categoriaSeleccionada = id_categoria;
-        todosLosPasteles = data.filter(pastel => pastel.id_categoria == id_categoria);
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        const pasteles = await response.json();
+        
+        // Filtrar pasteles por categoría
+        todosLosPasteles = pasteles.filter(pastel => 
+            parseInt(pastel.id_categoria) === parseInt(id_categoria)
+        );
+        
         mostrarPrimerosCuatroPasteles();
     } catch (error) {
-        console.error("Error al obtener los pasteles:", error);
+        console.error("Error al cargar los pasteles:", error);
+        alert("Error al cargar los pasteles");
     }
 }
 
 function mostrarPrimerosCuatroPasteles() {
     const pasteles = todosLosPasteles.slice(0, 4);
     mostrarPasteles(pasteles);
-
-    document.getElementById("mostrarMas").style.display = todosLosPasteles.length > 4 ? "block" : "none";
-    document.getElementById("mostrarMenos").style.display = "none";
+    
+    const btnMostrarMas = document.getElementById("mostrarMas");
+    const btnMostrarMenos = document.getElementById("mostrarMenos");
+    
+    if (btnMostrarMas) btnMostrarMas.style.display = todosLosPasteles.length > 4 ? "block" : "none";
+    if (btnMostrarMenos) btnMostrarMenos.style.display = "none";
 }
 
 function mostrarTodosLosPasteles() {
     mostrarPasteles(todosLosPasteles);
-    document.getElementById("mostrarMas").style.display = "none";
-    document.getElementById("mostrarMenos").style.display = "block";
+    
+    const btnMostrarMas = document.getElementById("mostrarMas");
+    const btnMostrarMenos = document.getElementById("mostrarMenos");
+    
+    if (btnMostrarMas) btnMostrarMas.style.display = "none";
+    if (btnMostrarMenos) btnMostrarMenos.style.display = "block";
 }
 
 function mostrarPasteles(pasteles) {
     const container = document.getElementById("pastelesContainer");
+    if (!container) return;
+
     container.innerHTML = pasteles.map(pastel => `
-        <div class="pastel">
-            <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
-            <p>${pastel.nombre}</p>
+        <div class="pastel" data-pastel-id="${pastel.id_pastel}">
+            <img src="${pastel.imagen_url || 'ruta_imagen_default'}" 
+                 onerror="this.onerror=null; this.src='https://i.pinimg.com/736x/8d/4d/20/8d4d20b75a8d8b13e3d2907c5c58e633.jpg';" 
+                 alt="${pastel.nombre}">
+            <h3>${pastel.nombre}</h3>
+            <p>${pastel.descripcion || 'Sin descripción'}</p>
+            <div class="price">$${pastel.precio || '0.00'}</div>
+            <div class="stars">
+                ${'★'.repeat(Math.floor(pastel.popularidad || 0))}
+            </div>
             <div class="icons">
-                <i class="fas fa-edit" data-id="${pastel.id_pastel}"></i>
-                <i class="fas fa-heart ${isFavorito(pastel.id_pastel) ? 'favorito' : ''}" data-id="${pastel.id_pastel}"></i>
+                <button class="edit-btn" onclick="editarPastel(${pastel.id_pastel})">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <i class="fas fa-heart ${isFavorito(pastel.id_pastel) ? 'favorito' : ''}" 
+                   onclick="toggleFavorito(${pastel.id_pastel})"></i>
             </div>
         </div>
     `).join('');
-
-    asignarEventosFavoritos();
-    asignarEventosEdicion();
 }
 
-const categorias = document.querySelectorAll('.categoria');
-
-categorias.forEach(categoria => {
-    categoria.addEventListener('click', () => {
-        categorias.forEach(c => c.classList.remove('p-seleccionada'));
-        categoria.classList.add('p-seleccionada');
-    });
-});
+async function editarPastel(id_pastel) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/pastel/obtenerpasteles`);
+        if (!response.ok) {
+            throw new Error('Error al obtener los datos del pastel');
+        }
+        
+        const pasteles = await response.json();
+        const pastelSeleccionado = pasteles.find(p => p.id_pastel === id_pastel);
+        
+        if (pastelSeleccionado) {
+            // Guardar datos del pastel en sessionStorage
+            sessionStorage.setItem('pastelEditar', JSON.stringify(pastelSeleccionado));
+            // Redirigir a la página de edición
+            window.location.href = `editar-pastel.html?id=${id_pastel}`;
+        } else {
+            throw new Error('Pastel no encontrado');
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error al cargar los datos del pastel");
+    }
+}
