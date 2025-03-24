@@ -11,7 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.min.js"></script>
     
     <link rel="stylesheet" href="../mainMenuModel3D/css/3d.css">
-    
 </head>
 <body>
     <div class="ui-container">
@@ -19,19 +18,15 @@
             <!-- Botón de Regresar -->
             <button class="back-button" onclick="goBack()">⬅ Regresar</button>
 
-            <h2>Opciones de Pasteles</h2>
-            <div class="cake-options">
-                <button onclick="loadCakeModel('1_piso.fbx')">1 Piso</button>
-                <button onclick="loadCakeModel('2_pisos.fbx')">2 Pisos</button>
-                <button onclick="loadCakeModel('3_pisos.fbx')">3 Pisos</button>
-                <button onclick="loadCakeModel('4_pisos.fbx')">4 Pisos</button>
+            <h2 id="sidebarTitle">Selecciona una opción</h2>
+            <div id="capasOptions" class="scroll-view">
+                
             </div>
-            <h2>Bizcocho</h2>
             <div id="bizcochoList" class="scroll-view"></div>
-            <h2>Relleno</h2>
             <div id="rellenoList" class="scroll-view"></div>
-            <h2>Decoraciones</h2>
             <div id="decoracionesList" class="scroll-view"></div>
+
+           
         </div>
         
         <div class="cake-container">
@@ -39,7 +34,7 @@
         </div>
 
         <div class="controls">
-            <button onclick="loadCakeModel('1_piso.fbx')">Capas</button>
+            <button onclick="showCapas()">Capas</button>
             <button onclick="showBizcocho()">Bizcocho</button>
             <button onclick="showRelleno()">Relleno</button>
             <button onclick="showDecoraciones()">Decoraciones</button>
@@ -49,10 +44,5 @@
     </div>
 
     <script src="../mainMenuModel3D/js/model3d.js"></script>
-    <script>
-        function goBack() {
-            window.history.back(); // Vuelve a la página anterior
-        }
-    </script>
 </body>
 </html>
