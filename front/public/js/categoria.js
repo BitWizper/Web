@@ -176,23 +176,19 @@ function mostrarTodosLosPasteles() {
 
 function mostrarPasteles(pasteles) {
     const container = document.getElementById("pastelesContainer");
-    if (!container) return;
-
     container.innerHTML = pasteles.map(pastel => `
         <div class="pastel" data-pastel-id="${pastel.id_pastel}">
-            <img src="${pastel.imagen_url || 'ruta_imagen_default'}" 
+            <img src="${pastel.imagen_url}" 
                  onerror="this.onerror=null; this.src='https://i.pinimg.com/736x/8d/4d/20/8d4d20b75a8d8b13e3d2907c5c58e633.jpg';" 
                  alt="${pastel.nombre}">
             <h3>${pastel.nombre}</h3>
             <p>${pastel.descripcion || 'Sin descripción'}</p>
-            <div class="price">$${pastel.precio || '0.00'}</div>
+            <div class="price">$${pastel.precio}</div>
             <div class="stars">
                 ${'★'.repeat(Math.floor(pastel.popularidad || 0))}
             </div>
             <div class="icons">
-                <button class="edit-btn" onclick="editarPastel(${pastel.id_pastel})">
-                    <i class="fas fa-edit"></i> Editar
-                </button>
+                <i class="fas fa-edit edit-icon" onclick="editarPastel(${pastel.id_pastel})"></i>
                 <i class="fas fa-heart ${isFavorito(pastel.id_pastel) ? 'favorito' : ''}" 
                    onclick="toggleFavorito(${pastel.id_pastel})"></i>
             </div>
