@@ -3,48 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favoritos</title>
+    <title>Mis Pasteles Favoritos</title>
     <link rel="stylesheet" href="../css/favoritos.css">
 </head>
 <body>
-    <h1>Mis Pasteles Favoritos 🎂</h1>
+    <h1>Mis Pasteles Favoritos</h1>
+    
+    <!-- Contenedor donde se mostrarán los pasteles favoritos -->
     <div id="favoritosContainer"></div>
-    <a href="home.html" class="volver-btn">Volver a Inicio</a>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            console.log("El DOM ha sido cargado.");
+
             const favoritosContainer = document.getElementById("favoritosContainer");
-            let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+            const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+            console.log("Favoritos en localStorage:", favoritos);
 
-            function mostrarFavoritos() {
-                if (favoritos.length === 0) {
-                    favoritosContainer.innerHTML = "<p class='mensaje'>No tienes pasteles favoritos aún.</p>";
-                    return;
-                }
-
-                favoritosContainer.innerHTML = favoritos.map((pastel, index) => `
-                    <div class="pastel">
-                        <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
-                        <p>${pastel.nombre}</p>
-                        <button class="eliminar-btn" data-index="${index}">Eliminar</button>
-                    </div>
-                `).join('');
-
-                document.querySelectorAll(".eliminar-btn").forEach(btn => {
-                    btn.addEventListener("click", function () {
-                        eliminarFavorito(this.getAttribute("data-index"));
-                    });
-                });
+            if (favoritos.length === 0) {
+                favoritosContainer.innerHTML = "<p>No tienes pasteles favoritos.</p>";
+            } else {
+                cargarPastelesFavoritos(favoritos);
             }
-
-            function eliminarFavorito(index) {
-                favoritos.splice(index, 1);
-                localStorage.setItem("favoritos", JSON.stringify(favoritos));
-                mostrarFavoritos();
-            }
-
-            mostrarFavoritos();
         });
+
+        async function cargarPastelesFavoritos(favoritos) {
+            try {
+                const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
+                const pasteles = await response.json();
+                
+                console.log("Datos obtenidos de la API:", pasteles);
+
+                const pastelesFavoritos = pasteles.filter(pastel => favoritos.includes(pastel.id_pastel));
+                
+                console.log("Pasteles favoritos filtrados:", pastelesFavoritos);
+
+                if (pastelesFavoritos.length > 0) {
+                    favoritosContainer.innerHTML = pastelesFavoritos.map(pastel => `
+                        <div class="pastel">
+                            <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
+                            <p>${pastel.nombre}</p>
+                            <div class="icons">
+                                <button onclick="eliminarDeFavoritos(${pastel.id_pastel})">❌ Eliminar</button>
+                                <button onclick="editarPastel(${pastel.id_pastel})">✏️ Editar</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    favoritosContainer.innerHTML = "<p>No tienes pasteles favoritos.</p>";
+                }
+            } catch (error) {
+                console.error("Error al obtener los pasteles desde la base de datos:", error);
+                favoritosContainer.innerHTML = "<p>No se pudo cargar la información de los pasteles.</p>";
+            }
+        }
+
+        function eliminarDeFavoritos(id_pastel) {
+            let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+            favoritos = favoritos.filter(id => id !== id_pastel);
+            localStorage.setItem("favoritos", JSON.stringify(favoritos));
+
+            alert(`❌ Pastel eliminado de favoritos.`);
+            location.reload(); // Recargar la página para actualizar la lista
+        }
+
+        function editarPastel(id_pastel) {
+            window.location.href = `editar-pastel.html?id_pastel=${id_pastel}`;
+        }
     </script>
 </body>
 </html>

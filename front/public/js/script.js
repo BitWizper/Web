@@ -20,3 +20,4 @@ function addToFavorites(productName, productImage) {
         localStorage.setItem('favorites', JSON.stringify(favorites)); // Guardar de nuevo en localStorage
     }
 }
+

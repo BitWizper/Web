@@ -80,6 +80,18 @@ section {
     z-index: 0;
 }
 
+.heading {
+    font-size: 3.5rem; /* Antes 4rem */
+}
+
+.heading-title h1 {
+    font-size: 7rem; /* Antes 8rem */
+}
+
+.btn {
+    font-size: 1.8rem; /* Antes 2rem */
+}
+
 
 /* header */
 
@@ -147,8 +159,9 @@ section {
 }
 
 .dropdown-menu ul li a:hover {
-    color: #ff4081; /* Color de texto cuando se pasa el ratón */
+    color: #ff4081;
 }
+
 
 /* Ajustar el ícono del menú hamburguesa */
 .menu-icon {
@@ -360,10 +373,7 @@ section {
 /* fin del home*/
 
 /* son los logos de categoria*/
-.categorias, .categoria, .categoria img {
-    background: transparent !important;
-}
-
+/* Contenedor de las categorías */
 .categorias {
     display: flex;
     justify-content: space-evenly;
@@ -373,29 +383,52 @@ section {
     margin-top: 3rem;
 }
 
+/* Estilo base para cada categoría */
 .categoria {
     text-align: center;
     flex: 1;
     max-width: 12rem;
     margin: 1.5rem 0;
     transition: transform 0.3s ease;
+    cursor: pointer; /* Cambia el cursor para indicar interactividad */
+    background: transparent; /* No debe haber fondo en el contenedor */
 }
 
+/* Estilo para la imagen de la categoría */
 .categoria img {
     width: 12rem;
     height: 12rem;
     border-radius: 50%;
 }
 
+/* Estilo para el texto de la categoría */
 .categoria p {
     margin-top: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.9rem; /* Tamaño de fuente más grande */
     color: #333;
+    transition: color 0.3s ease; /* Añadido para que el color cambie suavemente */
 }
 
+/* Efecto hover para la categoría */
 .categoria:hover {
     transform: scale(1.1);
 }
+
+/* Estilo cuando solo el texto de la categoría es seleccionado */
+.categoria.p-seleccionada p {
+    color: var(--main-color); /* Cambia el color del texto cuando está seleccionada */
+}
+
+/* El texto de las categorías no seleccionadas */
+.categoria p {
+    color: #333; /* Color original para el texto */
+}
+
+/* Efecto hover para el texto */
+.categoria:hover p {
+    color: var(--main-color); /* Color de texto en hover */
+}
+
 
 /* termina aqui la parte de los logos de categoria*/
 
