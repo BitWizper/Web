@@ -129,12 +129,17 @@
             <h2>Agenda tu cita</h2>
             <form id="schedule-form">
                 <label for="date">Fecha de entrega:</label>
-                <input type="date" id="date" name="date">
+                <input type="date" id="date" name="date" required>
                 <br>
                 <label for="time">Hora de entrega:</label>
-                <input type="time" id="time" name="time">
+                <input type="time" id="time" name="time" required>
                 <br>
-                <button type="button" class="btn" onclick="scheduleAppointment()">Agendar cita</button>
+                <label for="direccion">Dirección de entrega:</label>
+                <textarea id="direccion" name="direccion" 
+                    placeholder="Ingresa la dirección completa de entrega" 
+                    required></textarea>
+                <br>
+                <button type="button" class="btn" onclick="realizarPedido()">Realizar Pedido</button>
             </form>
         </div>
     </section>
@@ -197,7 +202,7 @@
         }
     </script>
 
-    <script src="../js/menu.js"></script>
+    
     <script src="../js/carrito.js"></script>
     
     <!-- Custom JS link -->

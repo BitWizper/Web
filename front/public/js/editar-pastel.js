@@ -23,17 +23,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Actualizar los campos del formulario
         document.getElementById('decoration').value = pastelData.descripcion || '';
         document.getElementById('message').value = pastelData.mensaje || '';
-        
-        // Agregar event listener para el formulario
-        const form = document.getElementById('cake-form');
-        if (form) {
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                await guardarCambios(pastelId);
-            });
-        }
-    } else {
-        console.error('No se encontraron datos del pastel');
     }
 
     // Modificar el botón de "Realizar Pedido"
@@ -55,58 +44,67 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-// Función para guardar cambios
 async function realizarPedido() {
     try {
         const date = document.getElementById('date').value;
         const time = document.getElementById('time').value;
+        const direccion = document.getElementById('direccion').value;
 
-        if (!date || !time) {
-            alert('Por favor selecciona fecha y hora de entrega');
+        if (!date || !time || !direccion) {
+            alert('Por favor completa todos los campos: fecha, hora y dirección de entrega');
             return;
         }
 
         const pastelData = JSON.parse(sessionStorage.getItem('pastelEditar'));
-        if (!pastelData) {
-            alert('No se encontraron datos del pastel');
-            return;
-        }
+        const token = localStorage.getItem('token');
 
         const fechaEntrega = `${date}T${time}:00`;
+        const fechaPedido = new Date().toISOString();
 
         const pedidoData = {
             id_pastel: pastelData.id_pastel,
             id_repostero: pastelData.id_repostero,
+            fecha_pedido: fechaPedido,
             fecha_entrega: fechaEntrega,
-            direccion: "Por definir"
+            direccion: direccion,
+            estado: 'pendiente',
+            detalles_pastel: {
+                tamano: document.getElementById('size').value,
+                sabor: document.getElementById('flavor').value,
+                decoracion: document.getElementById('decoration').value,
+                mensaje: document.getElementById('message').value
+            }
         };
+
+        console.log('Enviando pedido:', pedidoData);
 
         const response = await fetch('http://localhost:3000/api/pedido/crearpedido', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(pedidoData)
         });
 
         if (!response.ok) {
-            throw new Error('Error al crear el pedido');
+            const error = await response.text();
+            throw new Error(`Error al crear el pedido: ${error}`);
         }
 
         const resultado = await response.json();
-        
-        // Guardar el pedido en sessionStorage para recuperarlo en la página de pedidos
-        sessionStorage.setItem('nuevoPedido', JSON.stringify({
+        console.log('Respuesta del servidor:', resultado);
+
+        // Guardar el pedido completo
+        localStorage.setItem('ultimoPedidoCreado', JSON.stringify({
             ...pedidoData,
-            id_pedido: resultado.id_pedido,
-            fecha_pedido: new Date().toISOString()
+            id_pedido: resultado.id_pedido || resultado.insertId
         }));
 
-        alert('Pedido realizado correctamente');
-        window.location.href = 'pedidos.html';
+        alert('¡Pedido realizado correctamente!');
+        window.location.href = 'pedidos.html?new=true';
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error detallado:', error);
         alert('Error al realizar el pedido: ' + error.message);
     }
 }
@@ -130,7 +128,6 @@ function addToCart() {
     document.getElementById('cart-popup').style.display = 'block';
 }
 
-// Reemplazar la función existente
 function scheduleAppointment() {
     realizarPedido();
 }

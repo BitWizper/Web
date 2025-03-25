@@ -1,16 +1,40 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Carga inicial
-    cargarPedidos();
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('Iniciando carga de pedidos...'); // Para debugging
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const esNuevoPedido = urlParams.get('new') === 'true';
+    
+    if (esNuevoPedido) {
+        console.log('Detectado nuevo pedido'); // Para debugging
+        const pedidoNuevoData = localStorage.getItem('ultimoPedidoCreado');
+        console.log('Datos del nuevo pedido:', pedidoNuevoData); // Para debugging
+        
+        if (pedidoNuevoData) {
+            const pedidoNuevo = JSON.parse(pedidoNuevoData);
+            mostrarPedidoNuevo(pedidoNuevo);
+        }
+    }
+
+    await cargarPedidos();
     agregarFiltros();
 
-    // Actualizar cada 30 segundos (30000 milisegundos)
-    setInterval(async () => {
-        await cargarPedidos();
-    }, 40000);
+    setInterval(cargarPedidos, 30000);
 });
+
+function mostrarPedidoNuevo(pedido) {
+    console.log('Mostrando pedido nuevo:', pedido); // Para debugging
+    const pedidosActivos = document.getElementById('pedidosActivos');
+    if (pedidosActivos) {
+        const pedidoCard = crearPedidoCard(pedido);
+        pedidoCard.classList.add('nuevo-pedido');
+        pedidosActivos.innerHTML = '';
+        pedidosActivos.appendChild(pedidoCard);
+    }
+}
 
 async function cargarPedidos() {
     try {
+        console.log('Cargando pedidos...'); // Para debugging
         const response = await fetch('http://localhost:3000/api/pedido/obtenerpedidos', {
             method: 'GET',
             headers: {
@@ -19,25 +43,26 @@ async function cargarPedidos() {
             }
         });
 
-        if (!response.ok) throw new Error('Error al obtener los pedidos');
+        if (!response.ok) {
+            const error = await response.text();
+            throw new Error(`Error en la respuesta: ${error}`);
+        }
 
         const pedidos = await response.json();
+        console.log('Pedidos obtenidos:', pedidos); // Para debugging
+
         window.todosPedidos = pedidos;
-        
-        // Mantener el estado del filtro actual
-        const filtroActivo = document.querySelector('.filtro-btn.active');
-        const estadoActual = filtroActivo ? filtroActivo.dataset.estado : 'todos';
-        
-        // Aplicar los filtros actuales
-        aplicarFiltros(estadoActual);
+        mostrarPedidos(pedidos);
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error al cargar los pedidos');
+        console.error('Error al cargar pedidos:', error);
     }
 }
 
 function mostrarPedidos(pedidos) {
-    if (!pedidos) return;
+    if (!pedidos || !Array.isArray(pedidos)) {
+        console.log('No hay pedidos para mostrar');
+        return;
+    }
     
     const pedidosActivos = document.getElementById('pedidosActivos');
     const pedidosHistorial = document.getElementById('pedidosHistorial');
@@ -47,24 +72,20 @@ function mostrarPedidos(pedidos) {
     pedidosActivos.innerHTML = '';
     pedidosHistorial.innerHTML = '';
 
-    const ahora = new Date();
+    console.log('Procesando pedidos:', pedidos.length); // Para debugging
 
-    // Separar pedidos en activos e historial
     const pedidosSeparados = pedidos.reduce((acc, pedido) => {
-        const fechaEntrega = pedido.fecha_entrega ? new Date(pedido.fecha_entrega) : null;
         const estado = determinarEstado(pedido);
+        console.log(`Pedido ${pedido.id_pedido} - Estado: ${estado}`); // Para debugging
         
-        // Solo mostrar en pedidos activos si está pendiente o en proceso
         if (estado === 'pendiente' || estado === 'en-proceso') {
             acc.activos.push(pedido);
         } else {
             acc.historial.push(pedido);
         }
-        
         return acc;
     }, { activos: [], historial: [] });
 
-    // Mostrar pedidos activos
     if (pedidosSeparados.activos.length > 0) {
         pedidosSeparados.activos.forEach(pedido => {
             pedidosActivos.appendChild(crearPedidoCard(pedido));
@@ -73,7 +94,6 @@ function mostrarPedidos(pedidos) {
         pedidosActivos.innerHTML = '<p>No hay pedidos activos</p>';
     }
 
-    // Mostrar historial
     if (pedidosSeparados.historial.length > 0) {
         pedidosSeparados.historial.forEach(pedido => {
             pedidosHistorial.appendChild(crearPedidoCard(pedido));
@@ -393,6 +413,8 @@ function filtrarPorAño(pedidos) {
 }
 
 function determinarEstado(pedido) {
+    if (!pedido) return 'pendiente';
+    
     if (pedido.estado === 'cancelado') return 'cancelado';
     if (!pedido.fecha_entrega) return 'pendiente';
     
@@ -432,6 +454,19 @@ const estilosAdicionales = `
         
         .refreshing {
             animation: refreshing 0.5s ease;
+        }
+        
+        .nuevo-pedido {
+            animation: destacar 1s ease;
+            border: 2px solid #731D3C !important;
+            box-shadow: 0 0 15px rgba(115, 29, 60, 0.3) !important;
+            background-color: #fff5f7 !important;
+        }
+
+        @keyframes destacar {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
         }
     </style>
 `;
