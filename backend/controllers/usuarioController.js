@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'tu_clave_secreta'; // Usa una clave segura y mantenla en secreto
 const bcrypt = require('bcrypt');
 const Usuario = require('../models/Usuario');
-const { pool } = require('../config/db');
+const db = require('../config/database');
 const path = require('path');
 const fs = require('fs').promises;
 
@@ -106,7 +106,7 @@ class UsuarioController {
       const { nombre, correo, telefono, direccion } = req.body;
 
       // Verificar si el correo ya está en uso por otro usuario
-      const [existingUser] = await pool.query(
+      const [existingUser] = await db.query(
         'SELECT id FROM usuarios WHERE correo = ? AND id != ?',
         [correo, userId]
       );
@@ -115,7 +115,7 @@ class UsuarioController {
         return res.status(400).json({ mensaje: 'El correo ya está en uso' });
       }
 
-      await pool.query(
+      await db.query(
         'UPDATE usuarios SET nombre = ?, correo = ?, telefono = ?, direccion = ? WHERE id = ?',
         [nombre, correo, telefono, direccion, userId]
       );
@@ -133,7 +133,7 @@ class UsuarioController {
       const userId = req.usuario.id; // Viene del token
 
       // Obtener usuario de la base de datos
-      const [usuario] = await pool.query('SELECT * FROM usuarios WHERE id = ?', [userId]);
+      const [usuario] = await db.query('SELECT * FROM usuarios WHERE id = ?', [userId]);
       
       if (!usuario[0]) {
         return res.status(404).json({ mensaje: 'Usuario no encontrado' });
@@ -150,7 +150,7 @@ class UsuarioController {
       const hashedPassword = await bcrypt.hash(newPassword, salt);
 
       // Actualizar contraseña
-      await pool.query('UPDATE usuarios SET contrasena = ? WHERE id = ?', [hashedPassword, userId]);
+      await db.query('UPDATE usuarios SET contrasena = ? WHERE id = ?', [hashedPassword, userId]);
 
       res.json({ mensaje: 'Contraseña actualizada exitosamente' });
     } catch (error) {
@@ -165,20 +165,20 @@ class UsuarioController {
       const userId = req.usuario.id;
 
       // Verificar si ya existen preferencias
-      const [preferenciasExistentes] = await pool.query(
+      const [preferenciasExistentes] = await db.query(
         'SELECT * FROM preferencias_usuario WHERE usuario_id = ?',
         [userId]
       );
 
       if (preferenciasExistentes.length > 0) {
         // Actualizar preferencias existentes
-        await pool.query(
+        await db.query(
           'UPDATE preferencias_usuario SET idioma = ?, notificaciones_email = ?, perfil_publico = ? WHERE usuario_id = ?',
           [idioma, notificaciones_email, perfil_publico, userId]
         );
       } else {
         // Crear nuevas preferencias
-        await pool.query(
+        await db.query(
           'INSERT INTO preferencias_usuario (usuario_id, idioma, notificaciones_email, perfil_publico) VALUES (?, ?, ?, ?)',
           [userId, idioma, notificaciones_email, perfil_publico]
         );
@@ -195,7 +195,7 @@ class UsuarioController {
     try {
       const userId = req.usuario.id;
 
-      const [preferencias] = await pool.query(
+      const [preferencias] = await db.query(
         'SELECT idioma, notificaciones_email, perfil_publico FROM preferencias_usuario WHERE usuario_id = ?',
         [userId]
       );
@@ -219,7 +219,7 @@ class UsuarioController {
   static async obtenerPerfil(req, res) {
     try {
       const userId = req.user.id;
-      const [usuario] = await pool.query(
+      const [usuario] = await db.query(
         'SELECT id, nombre, correo, telefono, direccion, imagen_url FROM usuarios WHERE id = ?',
         [userId]
       );
@@ -245,7 +245,7 @@ class UsuarioController {
       const imagenUrl = `/uploads/profiles/${req.file.filename}`;
 
       // Obtener la imagen anterior
-      const [usuario] = await pool.query(
+      const [usuario] = await db.query(
         'SELECT imagen_url FROM usuarios WHERE id = ?',
         [userId]
       );
@@ -259,7 +259,7 @@ class UsuarioController {
       }
 
       // Actualizar la URL de la imagen en la base de datos
-      await pool.query(
+      await db.query(
         'UPDATE usuarios SET imagen_url = ? WHERE id = ?',
         [imagenUrl, userId]
       );

@@ -1,6 +1,5 @@
 const express = require('express');
 const UsuarioController = require('../controllers/usuarioController');
-const { verificarToken } = require('../middleware/auth');
 const multer = require('multer');
 const path = require('path');
 const authMiddleware = require('../middleware/authMiddleware');
@@ -48,9 +47,9 @@ router.post('/loginuser', UsuarioController.login);
 //router.put('/update-profile', UserController.updateProfile);
 
 // Nuevas rutas para configuración
-router.put('/cambiar-password', verificarToken, UsuarioController.cambiarPassword);
-router.put('/actualizar-preferencias', verificarToken, UsuarioController.actualizarPreferencias);
-router.get('/preferencias', verificarToken, UsuarioController.obtenerPreferencias);
+router.put('/cambiar-password', authMiddleware, UsuarioController.cambiarPassword);
+router.put('/actualizar-preferencias', authMiddleware, UsuarioController.actualizarPreferencias);
+router.get('/preferencias', authMiddleware, UsuarioController.obtenerPreferencias);
 
 // Rutas de perfil (protegidas)
 router.get('/perfil', authMiddleware, UsuarioController.obtenerPerfil);
