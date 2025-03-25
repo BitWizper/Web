@@ -43,22 +43,22 @@
 
 /* Estilos para los pasteles */
 .pasteles-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 0; /* Eliminado padding extra */
-    margin: 0; /* Elimina margen extra */
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    padding: 20px;
 }
 
 /* Diseño de cada pastel similar al estilo de los recuadros */
 .pastel {
-    min-width: 280px; /* Tamaño mínimo para cada pastel */
+    display: flex;
+    flex-direction: column;
+    height: 100%;  /* Altura completa */
+    position: relative;
+    padding-bottom: 100px; /* Aumentar el padding bottom para dar espacio */
     background: #fff; /* Fondo blanco */
     border-radius: 10px; /* Bordes redondeados */
     text-align: center;
-    padding: 2rem; /* Espaciado interno */
     box-shadow: var(--box-shadow); /* Sombra similar a la de los recuadros */
     transition: transform 0.3s, box-shadow 0.3s; /* Transición suave */
     margin: 0; /* Elimina márgenes innecesarios */
@@ -73,22 +73,26 @@
 /* Imagen del pastel */
 .pastel img {
     width: 100%;
-    height: 180px;
-    object-fit: cover; /* Ajusta la imagen para que cubra el área sin deformarse */
+    height: 200px;
+    object-fit: cover;
+    position: relative;
     border-radius: 10px 10px 0 0; /* Bordes redondeados solo en la parte superior */
     border-bottom: 4px solid var(--primary-color); /* Borde inferior con el color primario */
 }
 
 /* Estilo del nombre del pastel */
 .pastel h3 {
+    margin: 10px 0;
+    min-height: 50px; /* altura mínima para el título */
     font-size: 2.5rem; /* Tamaño de la fuente del nombre */
     color: var(--black); /* Color del texto */
-    margin: 1rem 0;
     font-weight: bold; /* Negrita en el nombre */
 }
 
 /* Descripción del pastel */
 .pastel p {
+    margin-bottom: 15px;
+    min-height: 40px; /* altura mínima para la descripción */
     font-size: 1.6rem;
     color: var(--black);
     padding: 0 1rem 1rem;
@@ -112,19 +116,25 @@
     background: var(--black);
 }
 
-
 /* Precio */
-.precio {
-    font-size: 1.4em;
+.price {
+    font-size: 1.5em;
     font-weight: bold;
-    color: var(--primary-color);
-    margin: 12px 0;
+    color: #8B1538;
+    text-align: right;
+    margin: 10px 15px;
+    position: absolute;
+    bottom: 60px;
+    right: 0;
 }
 
 /* Estrellas de calificación */
-.estrellas {
-    color: #f4c542;
-    font-size: 1.3em;
+.stars {
+    color: #FFD700;
+    font-size: 1.2em;
+    position: absolute;
+    bottom: 65px;
+    left: 15px;
 }
 
 /* Botón para agregar al carrito */
@@ -174,45 +184,151 @@
 
 /* Estilo para el pastel */
 .pastel {
-    position: relative; /* Necesario para posicionar los iconos absolutamente */
-    background: linear-gradient(to bottom, #fff, #f9f9f9);
-    border-radius: 12px;
-    box-shadow: var(--box-shadow);
-    text-align: center;
-    padding: 15px;
-    width: 300px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
+    position: relative; /* Para posicionamiento de los iconos */
 }
 
-/* Contenedor de los iconos en la parte superior */
-.pastel .icons-container {
-    position: absolute;  /* Posicionamos los iconos de manera absoluta */
-    top: 10px;  /* Distancia desde el borde superior */
-    left: 50%;  /* Centrado horizontal */
-    transform: translateX(-50%);  /* Centrado horizontal exacto */
+.icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     display: flex;
-    justify-content: space-between;
-    width: 90%;  /* Ancho para que los iconos no toquen los bordes */
-    padding: 0 15px;
-    z-index: 1; /* Asegura que los iconos estén por encima de la imagen */
+    gap: 10px;
+    z-index: 2;
 }
 
-/* Estilo para los iconos */
 .icons i {
-    font-size: 2rem;
-    color: var(--black);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 8px;
+    border-radius: 50%;
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
+    color: #8B1538;
+    transition: all 0.3s ease;
 }
 
 .icons i:hover {
-    color: var(--main-color);
-    transform: scale(1.2);
+    background-color: #8B1538;
+    color: white;
 }
 
-.icons i.favorito {
-    color: var(--main-color); /* Color para el icono cuando es favorito */
+.icons .fa-heart.favorito {
+    color: #8B1538;
+}
+
+.icons .fa-heart.favorito:hover {
+    color: white;
+}
+
+.btn-agregar-carrito {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+}
+
+.pastel-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding-bottom: 15px;
+    margin: 10px;
+    position: relative;
+}
+
+.pastel-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+}
+
+.pastel-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.icons-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.icon-button {
+    background: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.icon-button i {
+    color: #8B1538;
+    font-size: 14px;
+}
+
+.pastel-title {
+    color: #8B1538;
+    font-size: 24px;
+    font-family: 'Palatino Linotype', serif;
+    margin: 15px 0 10px;
+    text-align: center;
+}
+
+.pastel-description {
+    color: #8B1538;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 15px 15px;
+    line-height: 1.4;
+}
+
+.rating-price-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px;
+}
+
+.rating {
+    color: #FFD700;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.price {
+    color: #8B1538;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.add-to-cart-button {
+    width: calc(100% - 30px);
+    margin: 0 15px;
+    background: #f5f5f5;
+    color: #8B1538;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+}
+
+#pastelesContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 

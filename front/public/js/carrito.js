@@ -1,4 +1,32 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Mover estas funciones fuera del DOMContentLoaded para hacerlas globales
+window.actualizarCantidad = function(index, cambio) {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    if (carrito[index]) {
+        carrito[index].cantidad += cambio;
+        
+        if (carrito[index].cantidad <= 0) {
+            carrito.splice(index, 1);
+        }
+        
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        mostrarProductosCarrito();
+        updateCounts();
+        renderCartPopup();
+    }
+};
+
+window.eliminarProducto = function(index) {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito.splice(index, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    mostrarProductosCarrito();
+    updateCounts();
+    renderCartPopup();
+    addNotification('Producto eliminado del carrito');
+};
+
+document.addEventListener('DOMContentLoaded', async function() {
     // Elementos del DOM
     const cartIcon = document.querySelector('.fa-shopping-cart').parentElement;
     const notificationIcon = document.querySelector('.fa-bell').parentElement;
@@ -10,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     notificationPopup.className = 'popup-container';
     
     // Inicializar datos
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('carrito')) || [];
     let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
     
     // Configurar contadores
@@ -25,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Actualizar contadores
     function updateCounts() {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const totalItems = cart.reduce((sum, item) => sum + item.cantidad, 0);
         cartCount.textContent = totalItems;
         cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
 
@@ -33,28 +61,51 @@ document.addEventListener('DOMContentLoaded', function() {
         notificationCount.style.display = notifications.length > 0 ? 'flex' : 'none';
     }
 
-    // Renderizar carrito popup
-    function renderCartPopup() {
-        let total = cart.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
-        cartPopup.innerHTML = `
-            <h3>Carrito de Compras</h3>
-            <div class="popup-items">
-                ${cart.map((item, index) => `
-                    <div class="popup-item">
-                        <img src="${item.imagen}" alt="${item.nombre}">
-                        <div class="popup-item-details">
-                            <h4>${item.nombre}</h4>
-                            <p>$${item.precio} x ${item.quantity}</p>
-                            <button onclick="removeFromCart(${index})" class="remove-item">&times;</button>
+    // Renderizar carrito popup con datos de la API
+    async function renderCartPopup() {
+        try {
+            const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
+            const pasteles = await response.json();
+
+            const cartItemsWithDetails = cart.map(cartItem => {
+                const pastelInfo = pasteles.find(p => p.id_pastel === cartItem.id);
+                return {
+                    ...cartItem,
+                    nombre: pastelInfo?.nombre || cartItem.nombre,
+                    precio: pastelInfo?.precio || cartItem.precio,
+                    imagen: pastelInfo?.imagen_url || cartItem.imagen
+                };
+            });
+
+            let total = cartItemsWithDetails.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            
+            cartPopup.innerHTML = `
+                <h3>Carrito de Compras</h3>
+                <div class="popup-items">
+                    ${cartItemsWithDetails.map((item, index) => `
+                        <div class="popup-item">
+                            <img src="${item.imagen}" alt="${item.nombre}" 
+                                 onerror="this.src='../img/repostera1.jpg'">
+                            <div class="popup-item-details">
+                                <h4>${item.nombre}</h4>
+                                <p>$${item.precio} x ${item.cantidad}</p>
+                                <button onclick="removeFromCart(${index})" class="remove-item">&times;</button>
+                            </div>
                         </div>
-                    </div>
-                `).join('')}
-            </div>
-            <div class="popup-footer">
-                <p>Total: $${total.toFixed(2)}</p>
-                <a href="carrito.html" class="popup-btn">Ver Carrito</a>
-            </div>
-        `;
+                    `).join('')}
+                </div>
+                <div class="popup-footer">
+                    <p>Total: $${total.toFixed(2)}</p>
+                    <a href="carrito.html" class="popup-btn">Ver Carrito</a>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Error al cargar los pasteles:', error);
+            cartPopup.innerHTML = `
+                <h3>Carrito de Compras</h3>
+                <p>Error al cargar los productos</p>
+            `;
+        }
     }
 
     // Renderizar notificaciones popup
@@ -102,32 +153,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Añadir al carrito
-    window.addToCart = function(pastel) {
+    window.addToCart = async function(pastel) {
         const existingItem = cart.find(item => item.id === pastel.id);
         
         if (existingItem) {
-            existingItem.quantity += 1;
+            existingItem.cantidad += 1;
         } else {
             cart.push({
                 id: pastel.id,
                 nombre: pastel.nombre,
                 precio: pastel.precio,
-                imagen: pastel.imagen_url,
-                quantity: 1
+                imagen: pastel.imagen,
+                cantidad: 1
             });
         }
 
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCounts();
-        renderCartPopup();
+        localStorage.setItem('carrito', JSON.stringify(cart));
+        updateCounts(); // Actualiza el contador inmediatamente
+        await renderCartPopup(); // Actualiza el popup del carrito inmediatamente
         addNotification(`Se añadió ${pastel.nombre} al carrito`);
     };
+    
+    
 
     // Remover del carrito
     window.removeFromCart = function(index) {
         const item = cart[index];
         cart.splice(index, 1);
-        localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('carrito', JSON.stringify(cart));
         updateCounts();
         renderCartPopup();
         addNotification(`Se eliminó ${item.nombre} del carrito`);
@@ -157,75 +210,77 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Inicialización
-    cartIcon.parentElement.appendChild(cartPopup);
-    notificationIcon.parentElement.appendChild(notificationPopup);
-    updateCounts();
-    renderCartPopup();
-    renderNotificationPopup();
-
-    // Función para mostrar los productos en la página del carrito
-    function mostrarProductosCarrito() {
+    // Mostrar productos en la página del carrito
+    async function mostrarProductosCarrito() {
         const carritoItems = document.querySelector('.carrito-items');
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
+        if (!carritoItems) return;
+
         if (cart.length === 0) {
-            carritoItems.innerHTML = '<p class="carrito-vacio">Tu carrito está vacío</p>';
+            carritoItems.innerHTML = `
+                <div class="carrito-vacio">
+                    <i class="fas fa-shopping-cart" style="font-size: 48px; color: #ccc;"></i>
+                    <p>Tu carrito está vacío</p>
+                    <a href="categorias.html" class="btn">Ver pasteles</a>
+                </div>
+            `;
             actualizarResumen(0);
             return;
         }
 
-        carritoItems.innerHTML = cart.map((item, index) => `
-            <div class="carrito-item">
-                <img src="${item.imagen}" alt="${item.nombre}">
-                <div class="carrito-item-details">
-                    <h4>${item.nombre}</h4>
-                    <p class="carrito-item-price">$${item.precio.toFixed(2)}</p>
-                </div>
-                <div class="carrito-item-quantity">
-                    <button onclick="actualizarCantidad(${index}, -1)">-</button>
-                    <span>${item.quantity}</span>
-                    <button onclick="actualizarCantidad(${index}, 1)">+</button>
-                    <button onclick="eliminarProducto(${index})" class="remove-item">&times;</button>
-                </div>
-            </div>
-        `).join('');
+        try {
+            const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
+            const pasteles = await response.json();
 
-        actualizarResumen(cart);
-    }
+            const cartItemsWithDetails = cart.map(cartItem => {
+                const pastelInfo = pasteles.find(p => p.id_pastel === cartItem.id);
+                return {
+                    ...cartItem,
+                    nombre: pastelInfo?.nombre || cartItem.nombre,
+                    precio: pastelInfo?.precio || cartItem.precio,
+                    imagen: pastelInfo?.imagen_url || cartItem.imagen
+                };
+            });
 
-    // Función para actualizar la cantidad de un producto
-    function actualizarCantidad(index, cambio) {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        if (cart[index]) {
-            cart[index].quantity += cambio;
-            
-            if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            mostrarProductosCarrito();
-            updateCounts();
-            renderCartPopup();
+            carritoItems.innerHTML = cartItemsWithDetails.map((item, index) => `
+                <div class="carrito-item">
+                    <img src="${item.imagen}" 
+                         alt="${item.nombre}"
+                         onerror="this.src='../img/repostera1.jpg'">
+                    <div class="carrito-item-details">
+                        <h4>${item.nombre}</h4>
+                        <p class="carrito-item-price">$${parseFloat(item.precio).toFixed(2)}</p>
+                    </div>
+                    <div class="carrito-item-quantity">
+                        <button onclick="actualizarCantidad(${index}, -1)" class="btn-cantidad">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span>${item.cantidad}</span>
+                        <button onclick="actualizarCantidad(${index}, 1)" class="btn-cantidad">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button onclick="eliminarProducto(${index})" class="btn-eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            actualizarResumen(cartItemsWithDetails);
+        } catch (error) {
+            console.error('Error al cargar los pasteles:', error);
+            carritoItems.innerHTML = `
+                <div class="error-message">
+                    <p>Error al cargar los productos del carrito</p>
+                </div>
+            `;
         }
     }
 
-    // Función para eliminar un producto del carrito
-    function eliminarProducto(index) {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.splice(index, 1);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        mostrarProductosCarrito();
-        updateCounts();
-        renderCartPopup();
-        addNotification('Producto eliminado del carrito');
-    }
-
     // Función para actualizar el resumen del pedido
-    function actualizarResumen(cart) {
-        const subtotal = cart.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
+    function actualizarResumen(carrito) {
+        if (!Array.isArray(carrito)) return;
+        
+        const subtotal = carrito.reduce((sum, item) => sum + (parseFloat(item.precio) * item.cantidad), 0);
         const iva = subtotal * 0.16;
         const total = subtotal + iva;
 
@@ -236,16 +291,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para proceder al pago
     function procederPago() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        if (cart.length === 0) {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        if (carrito.length === 0) {
             alert('Tu carrito está vacío');
             return;
         }
-        alert('Procediendo al pago...');
         // Aquí puedes agregar la lógica para el proceso de pago
+        alert('Procediendo al pago...');
     }
 
-    // Inicializar la página del carrito
+    // Inicialización
+    cartIcon.parentElement.appendChild(cartPopup);
+    notificationIcon.parentElement.appendChild(notificationPopup);
+    updateCounts();
+    await renderCartPopup();
+    renderNotificationPopup();
+
+    // Inicializar la página del carrito si estamos en ella
     if (document.querySelector('.carrito-container')) {
         mostrarProductosCarrito();
     }

@@ -40,34 +40,94 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function cargarImagenesEjemplo() {
+async function cargarImagenesEjemplo() {
     const container = document.getElementById("pastelesContainer");
     if (!container) return;
 
-    const ejemplos = [
-        { imagen_url: "https://i.pinimg.com/736x/bd/23/db/bd23db3a27a42689661b3654bb7b3ab3.jpg", nombre: "Pastel Arcoíris", id_pastel: 1 },
-        { imagen_url: "https://i.pinimg.com/736x/ac/eb/4d/aceb4d7bc6a0c3ccca161b9490414b5d.jpg", nombre: "Pastel de Chocolate Clásico", id_pastel: 2 },
-        { imagen_url: "https://i.pinimg.com/736x/ec/b6/ec/ecb6ecb46df6a57fc7efc86d6b18f284.jpg", nombre: "Pastel Tres Leches", id_pastel: 3 },
-        { imagen_url: "https://i.pinimg.com/736x/41/a1/42/41a142ca5d382be2ef2901fb124ddfc1.jpg", nombre: "Pastel de Frutas Tropicales", id_pastel: 4 },
-        { imagen_url: "https://i.pinimg.com/736x/a0/5a/4e/a05a4e09865d6b8d9a1b0d070495b9ad.jpg", nombre: "Pastel de Rosas de Azúcar", id_pastel: 5 },
-        { imagen_url: "https://i.pinimg.com/736x/b0/8f/6f/b08f6fd110b3888c13ad13c7a787de44.jpg", nombre: "Pastel de Osos", id_pastel: 6 },
-        { imagen_url: "https://i.pinimg.com/736x/b3/12/6c/b3126c02d3d2837f676e77d75431ea7c.jpg", nombre: "Pastel XV años de Vainilla", id_pastel: 7 },
-        { imagen_url: "https://i.pinimg.com/736x/2e/f1/11/2ef111518f4ad650ab07baf4f461510e.jpg", nombre: "Pastel de Barbie", id_pastel: 8 }
-    ];
+    try {
+        const response = await fetch('http://localhost:3000/api/pastel/obtenerpasteles');
+        const pasteles = await response.json();
 
-    container.innerHTML = ejemplos.map(pastel => `
-        <div class="pastel" data-id="${pastel.id_pastel}">
-            <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
-            <p>${pastel.nombre}</p>
-            <div class="icons">
-                <i class="fas fa-edit" data-id="${pastel.id_pastel}"></i>
-                <i class="fas fa-heart ${isFavorito(pastel.id_pastel) ? 'favorito' : ''}" data-id="${pastel.id_pastel}"></i>
-            </div>
-        </div>
-    `).join('');
+        // Definir las categorías
+        const categorias = [
+            { id: 1, nombre: "XV Años" },
+            { id: 2, nombre: "Cumpleaños" },
+            { id: 3, nombre: "Baby Shower" },
+            { id: 4, nombre: "Bodas" },
+            { id: 5, nombre: "Bautizos" }
+        ];
 
-    asignarEventosFavoritos();
-    asignarEventosEdicion();
+        // Obtener pasteles destacados (5 estrellas) por cada categoría
+        const pastelesDestacados = categorias.map(categoria => {
+            // Filtrar pasteles por categoría y popularidad = 5
+            const pastelCategoria = pasteles.find(pastel => 
+                parseInt(pastel.id_categoria) === categoria.id && 
+                parseInt(pastel.popularidad) === 5
+            );
+
+            if (pastelCategoria) {
+                // Asegurarse de que el precio sea un número
+                pastelCategoria.precio = parseFloat(pastelCategoria.precio) || 0;
+                return pastelCategoria;
+            }
+
+            // Pastel por defecto si no se encuentra uno destacado
+            return {
+                id_pastel: categoria.id,
+                nombre: `Pastel de ${categoria.nombre}`,
+                imagen_url: "../img/repostera1.jpg",
+                descripcion: `Pastel destacado para ${categoria.nombre}`,
+                precio: 0,
+                popularidad: 5
+            };
+        });
+
+        container.innerHTML = pastelesDestacados.map(pastel => {
+            // Asegurarse de que el precio sea un número antes de usar toFixed
+            const precio = typeof pastel.precio === 'number' ? 
+                          pastel.precio.toFixed(2) : 
+                          parseFloat(pastel.precio || 0).toFixed(2);
+
+            return `
+                <div class="pastel" data-id="${pastel.id_pastel}">
+                    <img src="${pastel.imagen_url || '../img/repostera1.jpg'}" 
+                         alt="${pastel.nombre}"
+                         onerror="this.src='../img/repostera1.jpg'">
+                    <div class="icons">
+                        <i class="fas fa-edit" data-id="${pastel.id_pastel}"></i>
+                        <i class="fas fa-heart ${isFavorito(pastel.id_pastel) ? 'favorito' : ''}" 
+                           data-id="${pastel.id_pastel}"></i>
+                    </div>
+                    <h3>${pastel.nombre}</h3>
+                    <p>${pastel.descripcion || 'Pastel destacado'}</p>
+                    <div class="stars">
+                        ${'★'.repeat(5)}
+                    </div>
+                    <div class="price">$${precio}</div>
+                    <button class="btn-agregar-carrito" onclick="addToCart({
+                        id: ${pastel.id_pastel},
+                        nombre: '${pastel.nombre.replace(/'/g, "\\'")}',
+                        precio: ${precio},
+                        imagen: '${pastel.imagen_url || '../img/repostera1.jpg'}',
+                        cantidad: 1
+                    })">
+                        Añadir al carrito
+                    </button>
+                </div>
+            `;
+        }).join('');
+
+        if (typeof asignarEventosFavoritos === 'function') {
+            asignarEventosFavoritos();
+        }
+        if (typeof asignarEventosEdicion === 'function') {
+            asignarEventosEdicion();
+        }
+
+    } catch (error) {
+        console.error("Error al cargar los pasteles destacados:", error);
+        container.innerHTML = '<p>Error al cargar los pasteles destacados</p>';
+    }
 }
 
 function asignarEventosEdicion() {
@@ -176,24 +236,64 @@ function mostrarTodosLosPasteles() {
 
 function mostrarPasteles(pasteles) {
     const container = document.getElementById("pastelesContainer");
-    container.innerHTML = pasteles.map(pastel => `
-        <div class="pastel" data-pastel-id="${pastel.id_pastel}">
-            <img src="${pastel.imagen_url}" 
-                 onerror="this.onerror=null; this.src='https://i.pinimg.com/736x/8d/4d/20/8d4d20b75a8d8b13e3d2907c5c58e633.jpg';" 
-                 alt="${pastel.nombre}">
-            <h3>${pastel.nombre}</h3>
-            <p>${pastel.descripcion || 'Sin descripción'}</p>
-            <div class="price">$${pastel.precio}</div>
-            <div class="stars">
-                ${'★'.repeat(Math.floor(pastel.popularidad || 0))}
+    container.innerHTML = pasteles.map(pastel => {
+        const precio = typeof pastel.precio === 'number' ? 
+                      pastel.precio.toFixed(2) : 
+                      parseFloat(pastel.precio || 0).toFixed(2);
+
+        return `
+            <div class="pastel" data-id="${pastel.id_pastel}">
+                <img src="${pastel.imagen_url || '../img/repostera1.jpg'}" 
+                     alt="${pastel.nombre}"
+                     onerror="this.src='../img/repostera1.jpg'">
+                <div class="icons">
+                    <i class="fas fa-edit" data-id="${pastel.id_pastel}"></i>
+                    <i class="fas fa-heart ${isFavorito(pastel.id_pastel) ? 'favorito' : ''}" 
+                       data-id="${pastel.id_pastel}"></i>
+                </div>
+                <h3>${pastel.nombre}</h3>
+                <p>${pastel.descripcion || 'Pastel destacado'}</p>
+                <div class="stars">
+                    ${'★'.repeat(pastel.popularidad || 0)}
+                </div>
+                <div class="price">$${precio}</div>
+                <button class="btn-agregar-carrito" onclick="addToCart({
+                    id: ${pastel.id_pastel},
+                    nombre: '${pastel.nombre.replace(/'/g, "\\'")}',
+                    precio: ${precio},
+                    imagen: '${pastel.imagen_url || '../img/repostera1.jpg'}',
+                    cantidad: 1
+                })">
+                    Añadir al carrito
+                </button>
             </div>
-            <div class="icons">
-                <i class="fas fa-edit edit-icon" onclick="editarPastel(${pastel.id_pastel})"></i>
-                <i class="fas fa-heart ${isFavorito(pastel.id_pastel) ? 'favorito' : ''}" 
-                   onclick="toggleFavorito(${pastel.id_pastel})"></i>
-            </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
+
+    // Agregar botones mostrar más/menos
+    const botonesHTML = `
+        <button id="mostrarMas" class="mostrar-mas" style="display: none;">Mostrar más</button>
+        <button id="mostrarMenos" class="mostrar-mas" style="display: none;">Mostrar menos</button>
+    `;
+    
+    // Asegurarse de que los botones estén fuera del contenedor de pasteles
+    const section = container.closest('section');
+    if (section) {
+        // Remover botones anteriores si existen
+        const botonesAnteriores = section.querySelectorAll('.mostrar-mas');
+        botonesAnteriores.forEach(boton => boton.remove());
+        
+        // Agregar nuevos botones
+        section.insertAdjacentHTML('beforeend', botonesHTML);
+    }
+
+    // Asignar eventos
+    if (typeof asignarEventosFavoritos === 'function') {
+        asignarEventosFavoritos();
+    }
+    if (typeof asignarEventosEdicion === 'function') {
+        asignarEventosEdicion();
+    }
 }
 
 async function editarPastel(id_pastel) {
@@ -219,3 +319,152 @@ async function editarPastel(id_pastel) {
         alert("Error al cargar los datos del pastel");
     }
 }
+
+function agregarAlCarrito(pastel) {
+    try {
+        // Obtener el carrito actual del localStorage
+        let carrito = [];
+        const carritoGuardado = localStorage.getItem('carrito');
+        
+        if (carritoGuardado) {
+            carrito = JSON.parse(carritoGuardado);
+        }
+        
+        // Verificar si el pastel ya está en el carrito
+        const pastelExistente = carrito.find(item => item.id === pastel.id);
+        
+        if (pastelExistente) {
+            // Si el pastel ya está en el carrito, aumentar la cantidad
+            pastelExistente.cantidad += 1;
+        } else {
+            // Asegurarse de que todos los campos necesarios estén presentes
+            const nuevoPastel = {
+                id: pastel.id,
+                nombre: pastel.nombre,
+                precio: parseFloat(pastel.precio),
+                imagen: pastel.imagen,
+                cantidad: 1,
+                // Agregar campos adicionales si son necesarios para tu carrito
+                descripcion: pastel.descripcion || ''
+            };
+            carrito.push(nuevoPastel);
+        }
+        
+        // Guardar el carrito actualizado
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        
+        // Mostrar mensaje de confirmación
+        mostrarMensaje('¡Pastel agregado al carrito!');
+        
+        // Actualizar el contador del carrito
+        actualizarContadorCarrito();
+        
+        // Log para debugging
+        console.log('Carrito actualizado:', carrito);
+        
+    } catch (error) {
+        console.error('Error al agregar al carrito:', error);
+        mostrarMensaje('Error al agregar al carrito');
+    }
+}
+
+function mostrarMensaje(mensaje) {
+    // Eliminar mensaje anterior si existe
+    const mensajeAnterior = document.querySelector('.mensaje-carrito');
+    if (mensajeAnterior) {
+        mensajeAnterior.remove();
+    }
+
+    const mensajeDiv = document.createElement('div');
+    mensajeDiv.className = 'mensaje-carrito';
+    mensajeDiv.textContent = mensaje;
+    document.body.appendChild(mensajeDiv);
+
+    // Eliminar el mensaje después de 2 segundos
+    setTimeout(() => {
+        mensajeDiv.remove();
+    }, 2000);
+}
+
+function actualizarContadorCarrito() {
+    try {
+        const carritoGuardado = localStorage.getItem('carrito');
+        const carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
+        
+        // Actualizar el contador en el ícono del carrito
+        const contadorElement = document.querySelector('.cart-count');
+        if (contadorElement) {
+            const totalItems = carrito.reduce((total, item) => total + (item.cantidad || 0), 0);
+            contadorElement.textContent = totalItems;
+            // Hacer visible el contador
+            contadorElement.style.display = totalItems > 0 ? 'block' : 'none';
+        }
+        
+        // Log para debugging
+        console.log('Contador actualizado:', carrito.length);
+        
+    } catch (error) {
+        console.error('Error al actualizar contador:', error);
+    }
+}
+
+// Agregar evento para cargar el contador al iniciar la página
+document.addEventListener('DOMContentLoaded', function() {
+    actualizarContadorCarrito();
+});
+
+function cargarImagenesCategoria(categoria) {
+    fetch('http://localhost:3000/api/pastel/obtenerpasteles')
+        .then(response => response.json())
+        .then(pasteles => {
+            const contenedor = document.querySelector('#pastelesContainer');
+            contenedor.innerHTML = '';
+
+            // Filtrar pasteles por categoría
+            const pastelesFiltrados = pasteles.filter(pastel => pastel.categoria === categoria);
+
+            pastelesFiltrados.forEach(pastel => {
+                const pastelDiv = document.createElement('div');
+                pastelDiv.className = 'pastel';
+                pastelDiv.setAttribute('data-id', pastel.id);
+                pastelDiv.innerHTML = `
+                    <img src="${pastel.imagen || 'ruta/imagen/default.jpg'}" 
+                         alt="${pastel.nombre}" 
+                         onerror="this.src='ruta/imagen/default.jpg'">
+                    <div class="icons">
+                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>${pastel.nombre}</h3>
+                    <p>${pastel.descripcion}</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="price">$${pastel.precio.toFixed(2)}</div>
+                    <button class="boton-carrito">Añadir al carrito</button>
+                `;
+                contenedor.appendChild(pastelDiv);
+            });
+
+            // Agregar botones de mostrar más/menos
+            const botonesContainer = document.createElement('div');
+            botonesContainer.innerHTML = `
+                <button id="mostrarMas" class="mostrar-mas" style="display: none;">Mostrar más</button>
+                <button id="mostrarMenos" class="mostrar-mas" style="display: none;">Mostrar menos</button>
+            `;
+            contenedor.parentElement.appendChild(botonesContainer);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+// Event listeners para los botones de categoría
+document.addEventListener('DOMContentLoaded', () => {
+    const categorias = ['XV Años', 'Cumpleaños', 'Baby Shower', 'Boda', 'Bautizo'];
+    
+    categorias.forEach(categoria => {
+        const boton = document.querySelector(`[data-categoria="${categoria}"]`);
+        if (boton) {
+            boton.addEventListener('click', () => cargarImagenesCategoria(categoria));
+        }
+    });
+});
