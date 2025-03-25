@@ -192,6 +192,7 @@ function asignarEventosFavoritos() {
 
 let categoriaSeleccionada = null;
 let todosLosPasteles = [];
+const PASTELES_POR_PAGINA = 4; // Número de pasteles a mostrar inicialmente
 
 async function cargarPastelesPorCategoria(id_categoria) {
     try {
@@ -206,7 +207,20 @@ async function cargarPastelesPorCategoria(id_categoria) {
             parseInt(pastel.id_categoria) === parseInt(id_categoria)
         );
         
+        // Mostrar solo los primeros pasteles
         mostrarPrimerosCuatroPasteles();
+
+        // Asignar eventos a los botones
+        const btnMostrarMas = document.getElementById("mostrarMas");
+        const btnMostrarMenos = document.getElementById("mostrarMenos");
+        
+        if (btnMostrarMas) {
+            btnMostrarMas.onclick = mostrarTodosLosPasteles;
+        }
+        if (btnMostrarMenos) {
+            btnMostrarMenos.onclick = mostrarPrimerosCuatroPasteles;
+        }
+
     } catch (error) {
         console.error("Error al cargar los pasteles:", error);
         alert("Error al cargar los pasteles");
@@ -214,14 +228,18 @@ async function cargarPastelesPorCategoria(id_categoria) {
 }
 
 function mostrarPrimerosCuatroPasteles() {
-    const pasteles = todosLosPasteles.slice(0, 4);
-    mostrarPasteles(pasteles);
+    const pastelesMostrar = todosLosPasteles.slice(0, PASTELES_POR_PAGINA);
+    mostrarPasteles(pastelesMostrar);
     
     const btnMostrarMas = document.getElementById("mostrarMas");
     const btnMostrarMenos = document.getElementById("mostrarMenos");
     
-    if (btnMostrarMas) btnMostrarMas.style.display = todosLosPasteles.length > 4 ? "block" : "none";
-    if (btnMostrarMenos) btnMostrarMenos.style.display = "none";
+    if (btnMostrarMas) {
+        btnMostrarMas.style.display = todosLosPasteles.length > PASTELES_POR_PAGINA ? "block" : "none";
+    }
+    if (btnMostrarMenos) {
+        btnMostrarMenos.style.display = "none";
+    }
 }
 
 function mostrarTodosLosPasteles() {
@@ -230,8 +248,12 @@ function mostrarTodosLosPasteles() {
     const btnMostrarMas = document.getElementById("mostrarMas");
     const btnMostrarMenos = document.getElementById("mostrarMenos");
     
-    if (btnMostrarMas) btnMostrarMas.style.display = "none";
-    if (btnMostrarMenos) btnMostrarMenos.style.display = "block";
+    if (btnMostrarMas) {
+        btnMostrarMas.style.display = "none";
+    }
+    if (btnMostrarMenos) {
+        btnMostrarMenos.style.display = "block";
+    }
 }
 
 function mostrarPasteles(pasteles) {
@@ -270,21 +292,18 @@ function mostrarPasteles(pasteles) {
         `;
     }).join('');
 
-    // Agregar botones mostrar más/menos
-    const botonesHTML = `
-        <button id="mostrarMas" class="mostrar-mas" style="display: none;">Mostrar más</button>
-        <button id="mostrarMenos" class="mostrar-mas" style="display: none;">Mostrar menos</button>
-    `;
-    
-    // Asegurarse de que los botones estén fuera del contenedor de pasteles
+    // Agregar botones mostrar más/menos si no existen
     const section = container.closest('section');
-    if (section) {
-        // Remover botones anteriores si existen
-        const botonesAnteriores = section.querySelectorAll('.mostrar-mas');
-        botonesAnteriores.forEach(boton => boton.remove());
-        
-        // Agregar nuevos botones
+    if (section && !document.getElementById("mostrarMas")) {
+        const botonesHTML = `
+            <button id="mostrarMas" class="mostrar-mas">Mostrar más</button>
+            <button id="mostrarMenos" class="mostrar-mas">Mostrar menos</button>
+        `;
         section.insertAdjacentHTML('beforeend', botonesHTML);
+        
+        // Asignar eventos a los botones
+        document.getElementById("mostrarMas").onclick = mostrarTodosLosPasteles;
+        document.getElementById("mostrarMenos").onclick = mostrarPrimerosCuatroPasteles;
     }
 
     // Asignar eventos
