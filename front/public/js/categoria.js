@@ -104,15 +104,27 @@ async function cargarImagenesEjemplo() {
                         ${'★'.repeat(5)}
                     </div>
                     <div class="price">$${precio}</div>
-                    <button class="btn-agregar-carrito" onclick="addToCart({
-                        id: ${pastel.id_pastel},
-                        nombre: '${pastel.nombre.replace(/'/g, "\\'")}',
-                        precio: ${precio},
-                        imagen: '${pastel.imagen_url || '../img/repostera1.jpg'}',
-                        cantidad: 1
-                    })">
-                        Añadir al carrito
-                    </button>
+                    <button class="btn-agregar-carrito" style="
+                    background: #8B1538;
+                    color:rgb(255, 255, 255);
+                    border: none;
+                    padding: 12px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    text-align: center;
+                    width: calc(100% - 30px);
+                    margin: 3px;
+                    transition: all 0.3s ease;
+                " onclick="addToCart({
+                    id: ${pastel.id_pastel},
+                    nombre: '${pastel.nombre.replace(/'/g, "\\'")}',
+                    precio: ${precio},
+                    imagen: '${pastel.imagen_url || '../img/repostera1.jpg'}',
+                    cantidad: 1
+                })">
+                    Añadir al carrito
+                </button>
                 </div>
             `;
         }).join('');
@@ -279,7 +291,19 @@ function mostrarPasteles(pasteles) {
                     ${'★'.repeat(pastel.popularidad || 0)}
                 </div>
                 <div class="price">$${precio}</div>
-                <button class="btn-agregar-carrito" onclick="addToCart({
+                <button class="btn-agregar-carrito" style="
+                    background: #8B1538;
+                    color:rgb(255, 255, 255);
+                    border: none;
+                    padding: 12px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    text-align: center;
+                    width: calc(100% - 30px);
+                    margin: 3px;
+                    transition: all 0.3s ease;
+                " onclick="addToCart({
                     id: ${pastel.id_pastel},
                     nombre: '${pastel.nombre.replace(/'/g, "\\'")}',
                     precio: ${precio},
