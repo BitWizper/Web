@@ -132,7 +132,25 @@
     <!-- carrito section starts -->
     <section class="carrito">
         <div class="carrito-container">
-            <!-- Aquí se agregarán los productos dinámicamente -->
+            <div class="carrito-items">
+                <!-- Aquí se mostrarán los productos del carrito -->
+            </div>
+            <div class="carrito-resumen">
+                <h3>Resumen del Pedido</h3>
+                <div class="resumen-item">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="resumen-item">
+                    <span>IVA (16%):</span>
+                    <span id="iva">$0.00</span>
+                </div>
+                <div class="resumen-item total">
+                    <span>Total:</span>
+                    <span id="total">$0.00</span>
+                </div>
+                <button class="btn" onclick="procederPago()">Proceder al Pago</button>
+            </div>
         </div>
     </section>
     <!-- carrito section ends -->

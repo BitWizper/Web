@@ -1,9 +1,21 @@
+// Función para verificar si el usuario está autenticado
+function isAuthenticated() {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const ahora = Math.floor(Date.now() / 1000);
+        return payload.exp > ahora;
+    } catch (error) {
+        return false;
+    }
+}
+
 // Función para verificar el inicio de sesión
 function checkLogin() {
-    const userId = localStorage.getItem('id_usuario');
-    if (!userId) {
-        alert("Debes iniciar sesión para acceder a esta función");
-        window.location.href = 'index.html';
+    if (!isAuthenticated()) {
+        showLoginDialog();
         return false;
     }
     return true;
@@ -47,6 +59,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <div style="color: #666; font-size: 0.9em; text-align: right;">
                         Categoría: ${pastel.categoria || 'General'}
                     </div>
+                    <button onclick="addToCart({
+                        id: ${pastel.id_pastel},
+                        nombre: '${pastel.nombre}',
+                        precio: ${pastel.precio},
+                        imagen_url: '${pastel.imagen_url}'
+                    })" class="btn">Añadir al carrito</button>
                 `;
 
                 // Agregar evento click al pastel (requerirá login)
@@ -146,7 +164,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.addEventListener('click', function(e) {
         const clickedElement = e.target;
         
-        if (!userId && !shouldBeExcluded(clickedElement)) {
+        if (!isAuthenticated() && !shouldBeExcluded(clickedElement)) {
             e.preventDefault();
             e.stopPropagation();
             showLoginDialog();

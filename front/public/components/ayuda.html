@@ -3,136 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro de Ayuda - BORCELLE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <title>Centro de Ayuda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Estilos generales */
         body {
-            font-family: 'Nunito', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f7f2f2;
-            color: #333;
+            padding: 20px;
+            background-color: #F2F0E4;
+            color: #731D3C;
+            line-height: 1.6;
         }
 
         .container {
-            width: 100%;
-            max-width: 1100px;
-            margin: 40px auto;
-            background: white;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 30px;
-            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         h1 {
+            color: #731D3C;
             text-align: center;
-            color: #d78fa4;
-            font-size: 2.5em;
-            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            font-size: 24px;
+            color: #A65168;
+            cursor: pointer;
             margin-bottom: 20px;
+            transition: color 0.3s;
         }
 
-        h2 {
-            font-size: 1.8em;
-            color: #d78fa4;
-            margin-top: 25px;
-            font-weight: 600;
-        }
-
-        p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #555;
-            margin-top: 15px;
-        }
-
-        .highlight {
-            font-weight: bold;
-            color: #d78fa4;
+        .back-btn:hover {
+            color: #731D3C;
         }
 
         .section {
-            margin-top: 40px;
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        .cta-button {
-            display: block;
-            margin: 40px auto;
-            padding: 15px 30px;
-            background-color: #d78fa4;
-            color: white;
-            font-size: 1.2em;
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .section:hover {
+            transform: translateY(-5px);
         }
 
-        .cta-button:hover {
-            background-color: #c77490;
+        h2 {
+            color: #A65168;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
         }
 
-        .question {
+        p {
+            color: #731D3C;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            color: #8C1B2F;
             font-weight: bold;
-            font-size: 1.4em;
-            color: #d78fa4;
+        }
+
+        .contact-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
             margin-top: 20px;
         }
 
-        
-
-        
-        /* Hover effect */
-        .section:hover {
-            background-color: #f9f9f9;
+        .contact-item {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            padding: 15px;
+            background-color: #F2F0E4;
             border-radius: 8px;
-            transition: background 0.3s ease-in-out;
         }
 
-        /* Diseño responsivo */
+        .contact-item i {
+            font-size: 2rem;
+            color: #A65168;
+            margin-bottom: 10px;
+        }
+
+        .faq-section {
+            margin-top: 40px;
+        }
+
+        .faq-item {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            color: #8C1B2F;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .faq-answer {
+            color: #731D3C;
+        }
+
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 10px;
             }
 
             h1 {
-                font-size: 2em;
+                font-size: 2rem;
             }
 
             h2 {
-                font-size: 1.5em;
+                font-size: 1.5rem;
             }
 
-            p {
-                font-size: 1em;
-            }
-
-            .cta-button {
-                padding: 12px 25px;
+            .contact-item {
+                min-width: 150px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <span class="back-btn" onclick="window.location.href='home.html'">
-            ↩ <!-- Flecha personalizada -->
-        </span>
+        <span class="back-btn" onclick="window.location.href='home.html'">↩</span>
         <h1>Centro de Ayuda</h1>
-        
 
         <div class="section">
             <h2>¿Qué es <span class="highlight">BORCELLE</span>?</h2>
-            <p>Es una plataforma en línea que permite diseñar y encargar pasteles personalizados para eventos exclusivos como bodas, quince años y celebraciones especiales.</p>
+            <p>BORCELLE es una plataforma en línea que te permite diseñar y encargar pasteles personalizados para tus eventos especiales como bodas, quinceañeras y celebraciones únicas.</p>
         </div>
 
         <div class="section">
-            <h2>¿Cómo funciona <span class="highlight"></span>?</h2>
-            <p>Los usuarios pueden crear un pastel único, eligiendo desde los sabores hasta las decoraciones, y ver el diseño en tiempo real mientras eligen las opciones.</p>
+            <h2>¿Cómo funciona?</h2>
+            <p>Nuestra plataforma te permite crear un pastel único eligiendo desde los sabores hasta las decoraciones. Podrás ver el diseño en tiempo real mientras seleccionas las opciones que más te gusten.</p>
         </div>
 
         <div class="section">
@@ -175,33 +199,43 @@
             <p>La plataforma permite coordinar todos los detalles con el pastelero para asegurar que el pastel sea exactamente lo que buscas. Si hay algún problema, trabajamos para solucionarlo.</p>
         </div>
 
-        <div class="section">
-            <h2>Contacto</h2>
-            <p>Si no encuentras la respuesta a tu pregunta, no dudes en ponerte en contacto con nuestro equipo de soporte.</p>
-            <form>
-                <label for="nombre">Nombre:</label><br>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required><br><br>
+        <div class="faq-section">
+            <h2>Preguntas Frecuentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Cuál es el tiempo de entrega?</div>
+                <div class="faq-answer">Los pedidos regulares se entregan en 48-72 horas. Para pedidos especiales o de gran tamaño, recomendamos hacer el pedido con al menos una semana de anticipación.</div>
+            </div>
 
-                <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email" placeholder="Tu correo electrónico" required><br><br>
+            <div class="faq-item">
+                <div class="faq-question">¿Hacen envíos a domicilio?</div>
+                <div class="faq-answer">Sí, realizamos envíos a domicilio dentro de nuestra área de cobertura. El costo del envío se calcula según la distancia.</div>
+            </div>
 
-                <label for="mensaje">Mensaje:</label><br>
-                <textarea id="mensaje" name="mensaje" rows="4" cols="50" placeholder="Escribe tu mensaje" required></textarea><br><br>
-
-                <button type="submit" class="cta-button">Enviar mensaje</button>
-            </form>
+            <div class="faq-item">
+                <div class="faq-question">¿Qué métodos de pago aceptan?</div>
+                <div class="faq-answer">Aceptamos tarjetas de crédito/débito, transferencias bancarias y pagos en efectivo al momento de la entrega.</div>
+            </div>
         </div>
-        
 
-        <div class="section">
-            <h2>Soporte Técnico</h2>
-            <p>Si necesitas asistencia técnica, por favor rellena el formulario a continuación:</p>
-            <form>
-                <label for="problema">Descripción del problema:</label><br>
-                <textarea id="problema" name="problema" rows="4" cols="50" placeholder="Describe tu problema técnico" required></textarea><br><br>
-
-                <button type="submit" class="cta-button">Enviar solicitud</button>
-            </form>
+        <div class="contact-section">
+            <h2>Contáctanos</h2>
+            <p>¿Necesitas ayuda adicional? Estamos aquí para asistirte.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>soporte@borcelle.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+52 (55) 1234-5678</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Lun-Sáb: 9:00-18:00</p>
+                </div>
+            </div>
         </div>
     </div>
 </body>

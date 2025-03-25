@@ -94,7 +94,7 @@ class UsuarioService {
       const token = jwt.sign(
         { id: usuario.id_usuario, tipo_usuario: usuario.tipo_usuario },
         'tu_secreto_jwt',
-        { expiresIn: '1h' }
+        { expiresIn: '24h' }
       );
       return { usuario, token };
     } catch (error) {

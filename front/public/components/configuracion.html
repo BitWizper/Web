@@ -4,83 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuración</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Asegúrate de que tu archivo CSS esté bien vinculado -->
     <style>
         body {
-            font-family: 'Nunito', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f7f2f2;
+            padding: 20px;
+            background-color: #F2F0E4;
+            color: #731D3C;
         }
 
         .container {
-            width: 100%;
-            max-width: 900px;
-            margin: 20px auto;
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
             border-radius: 10px;
-            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
+            color: #731D3C;
             text-align: center;
-            color: #d78fa4;
-        }
-
-        .back-btn {
-            font-size: 24px;
-            cursor: pointer;
-            color: #d78fa4;
-            position: absolute;
-            top: 20px;
-            left: 20px;
+            margin-bottom: 30px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #F2F0E4;
+            border-radius: 8px;
         }
 
         label {
-            font-weight: 600;
-            color: #333;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            color: #8C1B2F;
+            font-weight: bold;
         }
 
-        input[type="text"],
-        input[type="password"],
-        select,
-        textarea {
+        input, select {
             width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #D9B9AD;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
         }
 
         button {
-            background-color: #d78fa4;
+            background-color: #A65168;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
+            width: 100%;
             font-size: 16px;
-            transition: background 0.3s;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #c77490;
+            background-color: #731D3C;
+        }
+
+        .back-btn {
+            display: inline-block;
+            font-size: 24px;
+            color: #A65168;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #731D3C;
         }
 
         .section-title {
             font-size: 1.2em;
-            color: #d78fa4;
+            color: #A65168;
             margin-top: 30px;
             margin-bottom: 15px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 4px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .notification.success {
+            background-color: #4CAF50;
+        }
+
+        .notification.error {
+            background-color: #f44336;
+        }
+
+        .notification.show {
+            opacity: 1;
         }
     </style>
 </head>
@@ -88,7 +120,7 @@
     <div class="container">
         <!-- Botón de regreso -->
         <span class="back-btn" onclick="window.location.href='home.html'">
-            ↩ <!-- Flecha personalizada -->
+            ↩
         </span>
 
         <h2>Configuración de Cuenta</h2>
@@ -105,7 +137,7 @@
             <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
 
-            <button type="submit">Actualizar Contraseña</button>
+            <button onclick="cambiarPassword()">Actualizar Contraseña</button>
         </div>
 
         <!-- Sección de Preferencias de Idioma -->
@@ -118,20 +150,134 @@
                 <option value="fr">Francés</option>
                 <option value="de">Alemán</option>
             </select>
-            <button type="submit">Guardar Preferencias</button>
+            <button onclick="guardarPreferencias()">Guardar Preferencias</button>
         </div>
 
         <!-- Sección de Preferencias de Privacidad -->
         <div class="form-group">
             <h3 class="section-title">Privacidad</h3>
-            <label for="emailNotifications">Recibir Notificaciones por Correo Electrónico:</label>
-            <input type="checkbox" id="emailNotifications" name="emailNotifications">
+            <div style="margin-bottom: 15px;">
+                <input type="checkbox" id="emailNotifications" name="emailNotifications">
+                <label for="emailNotifications" style="display: inline;">Recibir Notificaciones por Correo</label>
+            </div>
             
-            <label for="showProfile">Mostrar mi perfil públicamente:</label>
-            <input type="checkbox" id="showProfile" name="showProfile">
+            <div style="margin-bottom: 15px;">
+                <input type="checkbox" id="showProfile" name="showProfile">
+                <label for="showProfile" style="display: inline;">Mostrar mi perfil públicamente</label>
+            </div>
             
-            <button type="submit">Actualizar Preferencias de Privacidad</button>
+            <button onclick="guardarPreferencias()">Actualizar Preferencias de Privacidad</button>
         </div>
     </div>
+
+    <script>
+        // Cargar preferencias al iniciar
+        document.addEventListener('DOMContentLoaded', cargarPreferencias);
+
+        async function cargarPreferencias() {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const response = await fetch('http://localhost:3000/api/usuario/preferencias', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Error al cargar preferencias');
+
+                const preferencias = await response.json();
+                
+                // Establecer valores
+                document.getElementById('language').value = preferencias.idioma;
+                document.getElementById('emailNotifications').checked = preferencias.notificaciones_email;
+                document.getElementById('showProfile').checked = preferencias.perfil_publico;
+            } catch (error) {
+                mostrarNotificacion('Error al cargar preferencias', false);
+            }
+        }
+
+        async function cambiarPassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                mostrarNotificacion('Las contraseñas no coinciden', false);
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:3000/api/usuario/cambiar-password', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ currentPassword, newPassword })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) throw new Error(data.mensaje);
+
+                mostrarNotificacion('Contraseña actualizada exitosamente', true);
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+            } catch (error) {
+                mostrarNotificacion(error.message || 'Error al actualizar la contraseña', false);
+            }
+        }
+
+        async function guardarPreferencias() {
+            try {
+                const token = localStorage.getItem('token');
+                const preferencias = {
+                    idioma: document.getElementById('language').value,
+                    notificaciones_email: document.getElementById('emailNotifications').checked,
+                    perfil_publico: document.getElementById('showProfile').checked
+                };
+
+                const response = await fetch('http://localhost:3000/api/usuario/actualizar-preferencias', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(preferencias)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) throw new Error(data.mensaje);
+
+                mostrarNotificacion('Preferencias actualizadas exitosamente', true);
+            } catch (error) {
+                mostrarNotificacion(error.message || 'Error al actualizar las preferencias', false);
+            }
+        }
+
+        function mostrarNotificacion(mensaje, esExito) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${esExito ? 'success' : 'error'}`;
+            notification.textContent = mensaje;
+            document.body.appendChild(notification);
+
+            // Mostrar la notificación
+            setTimeout(() => notification.classList.add('show'), 100);
+
+            // Ocultar y eliminar la notificación después de 3 segundos
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

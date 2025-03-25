@@ -674,12 +674,13 @@ Aqui termina*/
 }
 
 .signature-title {
-    font-family: 'Nunito', sans-serif; /* Asignar fuente explícita */
-    font-size: 3rem; /* Personaliza el tamaño si lo deseas */
-    color: var(--primary-color); /* Si quieres personalizar el color */
-    font-weight: bold; /* Igual que en los reposteros */
-    letter-spacing: 2px; /* Añadido para mejorar la legibilidad */
-    margin-bottom: 2rem; /* Espaciado similar al de los reposteros */
+    font-family: 'Nunito', sans-serif;
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-transform: none;
 }
 
 .slider-container {
@@ -1021,26 +1022,26 @@ Aqui termina*/
 /* -------------------------------------------- */
 
 .reposteros-destacados {
-    padding: 3rem 7%;
+    padding: 2rem 7%;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
-    margin: 3rem auto;
+    margin: 2rem auto;
     text-align: center;
 }
 
 .reposteros-title {
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: var(--primary-color);
-    margin-bottom: 2rem;
-    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    text-transform: none;
     font-weight: bold;
     letter-spacing: 2px;
 }
 
 .reposteros-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
     justify-content: center;
 }
 
@@ -1050,7 +1051,7 @@ Aqui termina*/
     box-shadow: var(--box-shadow);
     overflow: hidden;
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
 }
@@ -1062,23 +1063,23 @@ Aqui termina*/
 
 .repostero-card img {
     width: 100%;
-    height: 250px;
+    height: 200px;
     object-fit: cover;
     border-bottom: 4px solid var(--primary-color);
     border-radius: 10px 10px 0 0;
 }
 
 .repostero-card h3 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: var(--black);
-    margin: 1rem 0;
+    margin: 0.8rem 0;
     font-weight: bold;
 }
 
 .repostero-card p {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: var(--black);
-    padding: 0 1rem 1rem;
+    padding: 0 0.8rem 0.8rem;
 }
 
 /* Botón dentro de la tarjeta */
@@ -1209,6 +1210,373 @@ Aqui termina*/
 @media (max-width:450px){
     html{
         font-size: 50%;
+    }
+}
+
+/* Estilos del carrito */
+.cart-popup {
+    display: none;
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.cart-popup.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+}
+
+.cart-popup h3 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.cart-items {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-details h4 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.cart-total {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+    text-align: right;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.remove-item:hover {
+    color: #ff5252;
+}
+
+/* Estilos para las notificaciones */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Estilos comunes para popups */
+.popup-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 300px;
+    max-width: 400px;
+    margin-top: 10px;
+}
+
+.popup-container.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+}
+
+.popup-container h3 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+.popup-items {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.popup-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.popup-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.popup-item-details {
+    flex-grow: 1;
+}
+
+.popup-item-details h4 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+}
+
+.popup-item-details p {
+    margin: 5px 0 0;
+    color: #666;
+    font-size: 1.4rem;
+}
+
+.popup-footer {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+}
+
+.popup-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 1.4rem;
+    color: white;
+    background: var(--primary-color);
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.popup-btn:hover {
+    background: var(--black);
+}
+
+/* Contador de items */
+.item-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* Estilos específicos para notificaciones */
+.notification-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 1.4rem;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item .time {
+    color: #999;
+    font-size: 1.2rem;
+    margin-top: 5px;
+}
+
+/* Estilos para la página del carrito */
+.carrito {
+    padding: 2rem;
+    min-height: calc(100vh - 200px);
+}
+
+.carrito-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.carrito-items {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.carrito-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.carrito-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.carrito-item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.carrito-item-details h4 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.carrito-item-price {
+    font-weight: bold;
+    color: #666;
+}
+
+.carrito-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.carrito-item-quantity button {
+    background: none;
+    border: 1px solid #ddd;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.carrito-item-quantity button:hover {
+    background: #f5f5f5;
+}
+
+.carrito-resumen {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: fit-content;
+}
+
+.carrito-resumen h3 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.resumen-item.total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    border-top: 2px solid #eee;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.carrito-resumen .btn {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .carrito-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .carrito-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .carrito-item img {
+        margin: 0 auto;
+    }
+    
+    .carrito-item-quantity {
+        justify-content: center;
     }
 }
 

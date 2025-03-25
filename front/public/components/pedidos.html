@@ -5,178 +5,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Pedidos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pedidos.css">
     <style>
-        /* Aquí va tu CSS actual */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #F2F0E4;
+            color: #731D3C;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #731D3C;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .pedidos-section {
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .pedidos-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pedidos-activos, .pedidos-historial {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #A65168;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .pedidos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .pedido-card {
+            background-color: #F2F0E4;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .pedido-card h3 {
+            color: #8C1B2F;
+            margin-bottom: 15px;
+        }
+
+        .pedido-info {
+            margin-bottom: 15px;
+        }
+
+        .pedido-info p {
+            margin: 8px 0;
+            color: #731D3C;
+        }
+
+        .pedido-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .status-pendiente {
+            background-color: #D9B9AD;
+            color: #731D3C;
+        }
+
+        .status-entregado {
+            background-color: #A65168;
+            color: white;
+        }
+
+        .back-btn {
+            display: inline-block;
+            font-size: 24px;
+            color: #A65168;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #731D3C;
+        }
+
+        @media (max-width: 768px) {
+            .pedidos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <span class="back-btn" onclick="window.location.href='home.html'">
-                ↩
-            </span>
-            <h3>Mis Pedidos</h3>
-            <div class="option" onclick="showContent('verPedidos', this)">
-                <span>Ver Pedidos</span>
-            </div>
-            <div class="option" onclick="showContent('nuevoPedido', this)">
-                <span>Nuevo Pedido</span>
-            </div>
-            <div class="option" onclick="showContent('historialPedidos', this)">
-                <span>Historial de Pedidos</span>
-            </div>
+    <!-- header section starts -->
+    <header class="header">
+        <div class="left-section">
+            <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a>
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a>
         </div>
 
-        <!-- Contenedor de pedidos -->
-        <div class="profile-container">
-            <div id="verPedidos" class="content-section">
-                <h4>Ver Pedidos</h4>
-                <p>Consulta los pedidos realizados y su estado.</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID Pedido</th>
-                            <th>Fecha</th>
-                            <th>Estado</th>
-                            <th>Total</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="orderList">
-                        <!-- Aquí se agregarán los pedidos mediante JavaScript -->
-                    </tbody>
-                </table>
+        <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+            <ul>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="favoritos.html"><i class="fas fa-heart"></i> Favoritos</a></li>
+                <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
+                <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <nav class="navbar">
+            <a href="home.html">Home</a>
+            <a href="categorias.html">Pasteles</a>
+            <a href="reposteros.html">Reposteros</a>
+            <a href="loadingCake.html">Crear Pastel</a>
+        </nav>
+
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar aquí..." class="search-input">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
             </div>
-
-            <div id="nuevoPedido" class="content-section">
-                <h4>Nuevo Pedido</h4>
-                <form id="newOrderForm">
-                    <label for="pedidoProducto">Producto:</label>
-                    <input type="text" id="pedidoProducto" name="pedidoProducto" placeholder="Producto a pedir"><br><br>
-
-                    <label for="pedidoCantidad">Cantidad:</label>
-                    <input type="number" id="pedidoCantidad" name="pedidoCantidad" value="1"><br><br>
-
-                    <label for="pedidoDireccion">Dirección de Envío:</label><br>
-                    <textarea id="pedidoDireccion" name="pedidoDireccion" rows="4" cols="50" placeholder="Dirección de envío"></textarea><br><br>
-
-                    <button type="submit">Realizar Pedido</button>
-                </form>
-                <p id="orderErrorMessage" class="error-message" style="display: none;">Por favor, completa todos los campos.</p>
-                <p id="orderSuccessMessage" class="confirmation-message" style="display: none;">Pedido realizado correctamente.</p>
+            <div class="profile-section">
+                <a href="#" title="Notificaciones">
+                    <i class="fas fa-bell fa-lg"></i>
+                </a>
             </div>
+            <div class="cart-section">
+                <a href="carrito.html" title="Carrito de Compras">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                </a>
+            </div>
+        </div>
+    </header>
 
-            <div id="historialPedidos" class="content-section">
-                <h4>Historial de Pedidos</h4>
-                <p>Aquí puedes revisar los pedidos anteriores que ya han sido entregados.</p>
-                <ul id="orderHistoryList">
-                    <!-- Aquí se agregarán los pedidos previos -->
-                </ul>
+    <div class="container">
+        <span class="back-btn" onclick="window.location.href='home.html'">↩</span>
+        
+        <h1>Mis Pedidos</h1>
+        
+        <div class="pedidos-section">
+            <div class="pedidos-container">
+                <div class="pedidos-activos">
+                    <h2>Pedidos Activos</h2>
+                    <div id="pedidosActivos" class="pedidos-grid">
+                        <!-- Ejemplo de pedido activo -->
+                        <div class="pedido-card">
+                            <h3>Pedido #1234</h3>
+                            <div class="pedido-info">
+                                <p><strong>Fecha:</strong> 15/03/2024</p>
+                                <p><strong>Producto:</strong> Pastel de Chocolate</p>
+                                <p><strong>Total:</strong> $350.00</p>
+                                <span class="pedido-status status-pendiente">Pendiente</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pedidos-historial">
+                    <h2>Historial de Pedidos</h2>
+                    <div id="pedidosHistorial" class="pedidos-grid">
+                        <!-- Ejemplo de pedido histórico -->
+                        <div class="pedido-card">
+                            <h3>Pedido #1201</h3>
+                            <div class="pedido-info">
+                                <p><strong>Fecha:</strong> 01/03/2024</p>
+                                <p><strong>Producto:</strong> Pastel de Vainilla</p>
+                                <p><strong>Total:</strong> $280.00</p>
+                                <span class="pedido-status status-entregado">Entregado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Función para mostrar la sección correspondiente
-        function showContent(sectionId, element) {
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
-
-            const options = document.querySelectorAll('.option');
-            options.forEach(option => {
-                option.classList.remove('active-tab');
-            });
-
-            document.getElementById(sectionId).style.display = 'block';
-            element.classList.add('active-tab');
-        }
-
-        // Función para guardar el pedido en localStorage
-        document.getElementById('newOrderForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const producto = document.getElementById('pedidoProducto').value;
-            const cantidad = document.getElementById('pedidoCantidad').value;
-            const direccion = document.getElementById('pedidoDireccion').value;
-
-            if (producto === '' || cantidad === '' || direccion === '') {
-                document.getElementById('orderErrorMessage').style.display = 'block';
-                document.getElementById('orderSuccessMessage').style.display = 'none';
-            } else {
-                document.getElementById('orderErrorMessage').style.display = 'none';
-                document.getElementById('orderSuccessMessage').style.display = 'block';
-
-                // Crear un objeto de pedido
-                const newOrder = {
-                    id: Date.now(),
-                    producto: producto,
-                    cantidad: cantidad,
-                    direccion: direccion,
-                    fecha: new Date().toLocaleDateString(),
-                    estado: 'En proceso',
-                    total: 150.00 // Este es un ejemplo, puedes calcular el total según la cantidad y el precio
-                };
-
-                // Guardar el pedido en localStorage
-                let orders = JSON.parse(localStorage.getItem('orders')) || [];
-                orders.push(newOrder);
-                localStorage.setItem('orders', JSON.stringify(orders));
-
-                // Limpiar el formulario
-                document.getElementById('newOrderForm').reset();
-
-                // Cargar los pedidos actualizados
-                loadOrders();
-            }
-        });
-
-        // Función para cargar los pedidos desde localStorage
-        function loadOrders() {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            const orderList = document.getElementById('orderList');
-            const orderHistoryList = document.getElementById('orderHistoryList');
-
-            // Limpiar las listas actuales
-            orderList.innerHTML = '';
-            orderHistoryList.innerHTML = '';
-
-            // Agregar los pedidos a la tabla de ver pedidos
-            orders.forEach(order => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>#${order.id}</td>
-                    <td>${order.fecha}</td>
-                    <td>${order.estado}</td>
-                    <td>$${order.total}</td>
-                    <td><button onclick="viewOrderDetails(${order.id})">Ver detalles</button></td>
-                `;
-                orderList.appendChild(row);
-            });
-
-            // Agregar los pedidos a la lista de historial de pedidos
-            orders.forEach(order => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `<strong>#${order.id}</strong> - Fecha: ${order.fecha} - Estado: ${order.estado} - Total: $${order.total}`;
-                orderHistoryList.appendChild(listItem);
-            });
-        }
-
-        // Cargar los pedidos al cargar la página
-        window.onload = function () {
-            loadOrders();
-        };
-
-        // Función para ver detalles del pedido (puedes expandirla)
-        function viewOrderDetails(orderId) {
-            alert(`Mostrando detalles para el pedido #${orderId}`);
-        }
-    </script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/pedidos.js"></script>
 </body>
 
 </html>
