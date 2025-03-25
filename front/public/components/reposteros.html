@@ -109,81 +109,39 @@
     <div class="heading-title" style="background: url(https://static.vecteezy.com/system/resources/previews/040/459/837/non_2x/ai-generated-a-birthday-cake-in-pink-adorned-with-golden-candles-and-balloons-free-photo.jpg) no-repeat;">
         <h1>Reposteros</h1>
     </div>
-    
-    <section id="catalogo-reposteros" class="section">
-        <div class="reposteros-container">
-            <!-- Repostero 1 -->
-            <div class="repostero-card">
-                <img src="../img/repostera1.jpg" alt="Ana Martínez">
-                <h3>Ana Martínez</h3>
-                <a href="perfil-repostero.html?id=0">
-                    <button class="ver-perfil" data-index="0">Ver Perfil</button>
-                </a>
-            </div>
-    
-            <!-- Repostero 2 -->
-            <div class="repostero-card">
-                <img src="../img/repostero3.jpg" alt="Mario Pérez">
-                <h3>Mario Pérez</h3>
-                <a href="perfil-repostero.html?id=1">
-                    <button class="ver-perfil" data-index="1">Ver Perfil</button>
-                </a>
-            </div>
-    
-            <!-- Repostero 3 -->
-            <div class="repostero-card">
-                <img src="https://i.pinimg.com/736x/da/b9/77/dab977e27d0b6b36404ecb63b7c2fc07.jpg" alt="Carlos Ramírez">
-                <h3>Carlos Ramírez</h3>
-                <a href="perfil-repostero.html?id=2">
-                    <button class="ver-perfil" data-index="2">Ver Perfil</button>
-                </a>
-            </div>
-    
-            <!-- Repostero 4 -->
-            <div class="repostero-card">
-                <img src="https://i.pinimg.com/736x/29/5f/53/295f53aa078b641602dc788b938d9aec.jpg" alt="Rachel Morgan">
-                <h3>Rachel Morgan</h3>
-                <a href="perfil-repostero.html?id=3">
-                    <button class="ver-perfil" data-index="3">Ver Perfil</button>
-                </a>
-            </div>
-    
-            <!-- Repostero 5 -->
-            <div class="repostero-card">
-                <img src="https://i.pinimg.com/736x/c8/eb/51/c8eb51b65def8b5e3ee851e3f3d1008b.jpg" alt="Emma Ross">
-                <h3>Emma Ross</h3>
-                <a href="perfil-repostero.html?id=4">
-                    <button class="ver-perfil" data-index="4">Ver Perfil</button>
-                </a>
-            </div>
-    
-            <!-- Repostero 6 -->
-            <div class="repostero-card">
-                <img src="https://i.pinimg.com/736x/a7/f1/72/a7f172e638da2d2cb36650e004042218.jpg" alt="Cristina">
-                <h3>Cristina</h3>
-                <a href="perfil-repostero.html?id=5">
-                    <button class="ver-perfil" data-index="5">Ver Perfil</button>
-                </a>
-            </div>
-    
-            <!-- Repostero 7 -->
-            <div class="repostero-card">
-                <img src="https://i.pinimg.com/474x/95/16/59/951659b7bea768bd5475ca7e598ef46b.jpg" alt="Sofia García">
-                <h3>Sofia García</h3>
-                <a href="perfil-repostero.html?id=6">
-                    <button class="ver-perfil" data-index="6">Ver Perfil</button>
-                </a>
-            </div>
-    
-            <!-- Repostero 8 -->
-            <div class="repostero-card">
-                <img src="https://i.pinimg.com/736x/fb/8c/a8/fb8ca837542e302967cb6d909fe70e29.jpg" alt="Luis Fernández">
-                <h3>Luis Fernández</h3>
-                <a href="perfil-repostero.html?id=7">
-                    <button class="ver-perfil" data-index="7">Ver Perfil</button>
-                </a>
-            </div>
+
+    <!-- Sección de Categorías -->
+    <section class="category">
+        <div class="categorias">
+            <button class="categoria" data-categoria="1">
+                <img src="../img/xv años.png" alt="XV Años">
+                <p>XV Años</p>
+            </button>
+            <button class="categoria" data-categoria="2">
+                <img src="../img/cumpleaños.png" alt="Cumpleaños">
+                <p>Cumpleaños</p>
+            </button>
+            <button class="categoria" data-categoria="3">
+                <img src="../img/babyshower.png" alt="Baby Shower">
+                <p>Baby Shower</p>
+            </button>
+            <button class="categoria" data-categoria="4">
+                <img src="../img/boda2.png" alt="Bodas">
+                <p>Bodas</p>
+            </button>
+            <button class="categoria" data-categoria="5">
+                <img src="../img/bautizo.png" alt="Bautizos">
+                <p>Bautizos</p>
+            </button>
         </div>
+    </section>
+
+    <section class="menu">
+        <h1 class="otro-heading" id="reposterosLink" style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; color: #8B1538; text-align: center; font-size: 2.5em; margin: 40px 0;">Reposteros</h1>
+        <div id="reposterosContainer" class="reposteros-container">
+            <!-- Este div debe estar vacío inicialmente -->
+        </div>
+        <button id="btnVerMas" class="btn-ver-mas" style="display: none;">Ver más</button>
     </section>
     
     
@@ -215,8 +173,7 @@
         </div>
     </section>
 
-    <script src="../js/categoria.js"></script>
-    <script src="../js/menu.js"></script>
      <script src="../js/carrito.js"></script>
+     <script src="../js/repostero.js"></script>
 </body>
 </html>

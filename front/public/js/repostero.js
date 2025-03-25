@@ -1,111 +1,83 @@
-// Selecciona el contenedor para los reposteros populares
-const reposterosContainer = document.querySelector('.reposteros-container');
+// Variables globales
+let todosLosReposteros = [];
 
-// Función para renderizar los datos de los reposteros en el DOM
-const renderReposteros = (reposteros) => {
-    if (!Array.isArray(reposteros)) {
-        console.error('Los datos de reposteros no son válidos:', reposteros);
-        return;
-    }
+// Inicialización cuando el DOM está listo
+document.addEventListener("DOMContentLoaded", function() {
+    // Mostrar mensaje inicial
+    const container = document.getElementById("reposterosContainer");
+    container.innerHTML = '<p class="instruccion">Selecciona una categoría para ver los reposteros disponibles</p>';
 
-    reposterosContainer.innerHTML = ''; // Limpia el contenedor antes de renderizar
-    reposteros.forEach(repostero => {
-        const div = document.createElement('div');
-        div.classList.add('repostero'); // Clase CSS para estilos
-        div.innerHTML = `
-            <h3>${repostero.NombreNegocio}</h3>
-            <p><strong>Ubicación:</strong> ${repostero.Ubicacion || 'No especificada'}</p>
-            <p><strong>Especialidades:</strong> ${repostero.Especialidades || 'No especificadas'}</p>
-            ${repostero.PortafolioURL 
-                ? `<a href="${repostero.PortafolioURL}" target="_blank">Ver Portafolio</a>` 
-                : '<p>Portafolio no disponible</p>'}
-        `;
-        reposterosContainer.appendChild(div); // Agrega el elemento al contenedor
+    // Configurar eventos de los botones
+    document.querySelectorAll(".categoria").forEach(boton => {
+        boton.addEventListener("click", async function() {
+            const categoriaId = parseInt(this.getAttribute("data-categoria"));
+            
+            // Actualizar botón seleccionado
+            document.querySelectorAll(".categoria").forEach(b => b.classList.remove("p-seleccionada"));
+            this.classList.add("p-seleccionada");
+            
+            // Cargar reposteros de la categoría
+            await cargarReposterosPorCategoria(categoriaId);
+        });
     });
-};
+});
 
-// URL de la API que devuelve los datos de los reposteros
-const API_URL = 'http://localhost:3000/api/repostero/obtenereposteros'; // Cambia esta URL por la correcta de tu backend
-
-// Función para obtener los datos de los reposteros desde la API
-const fetchData = async () => {
+async function cargarReposterosPorCategoria(categoriaId) {
+    const container = document.getElementById("reposterosContainer");
+    const btnVerMas = document.getElementById("btnVerMas");
+    
     try {
-        const response = await fetch(API_URL); // Realiza la solicitud a la API
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        container.innerHTML = '<p class="instruccion">Cargando reposteros...</p>';
+        
+        if (todosLosReposteros.length === 0) {
+            const response = await fetch('http://localhost:3000/api/repostero/obtenereposteros');
+            if (!response.ok) throw new Error('Error en la respuesta del servidor');
+            todosLosReposteros = await response.json();
+        }
+        
+        let reposterosFiltrados = todosLosReposteros
+            .filter(repostero => parseInt(repostero.id_categoria) === categoriaId)
+            .sort((a, b) => a.NombreNegocio.localeCompare(b.NombreNegocio)) // Ordenar alfabéticamente
+            .slice(0, 4); // Mostrar solo los primeros 4
+
+        if (reposterosFiltrados.length === 0) {
+            container.innerHTML = '<p class="instruccion">No hay reposteros disponibles en esta categoría</p>';
+            btnVerMas.style.display = 'none';
+            return;
         }
 
-        const reposteros = await response.json(); // Convierte la respuesta a JSON
-        console.log('Datos obtenidos:', reposteros); // Debugging: Imprime los datos en la consola
-        renderReposteros(reposteros); // Renderiza los datos obtenidos
+        mostrarReposteros(reposterosFiltrados);
+        btnVerMas.style.display = 'none'; // Ocultamos el botón "Ver más" ya que solo mostraremos 4
+
     } catch (error) {
-        console.error('Error al obtener los datos:', error);
-        reposterosContainer.innerHTML = '<p>Error al cargar los reposteros. Intenta más tarde.</p>';
-    }
-};
-
-
-// Obtener y mostrar pasteles destacados
-async function mostrarDestacados() {
-    try {
-        const response = await fetch('https://pateles-borcelle.onrender.com/api/pastel/obtenerpasteles');
-        const pasteles = await response.json();
-
-        // Filtrar pasteles destacados
-        const destacados = pasteles.filter(pastel => pastel.popularidad >= 4.2);
-        
-        // Renderizar pasteles
-        mostrarPasteles(destacados, '#destacados');
-    } catch (error) {
-        console.error('Error al obtener los pasteles destacados:', error);
+        console.error("Error:", error);
+        container.innerHTML = '<p class="instruccion">Error al cargar los reposteros</p>';
+        btnVerMas.style.display = 'none';
     }
 }
 
-// Función para renderizar los pasteles en el contenedor
-function mostrarPasteles(pasteles, containerSelector) {
-    const container = document.querySelector(containerSelector);
-    container.innerHTML = ''; // Limpiar el contenedor
-
-    pasteles.forEach(pastel => {
-        const pastelElemento = document.createElement('div');
-        pastelElemento.classList.add('box');
-
-        pastelElemento.innerHTML = `
-            <div class="image">
-                <img src="${pastel.imagen_url}" alt="${pastel.nombre}">
-            </div>
-            <div class="content">
-                <h3>${pastel.nombre}</h3>
-                <p>${pastel.descripcion}</p>
-                <div class="price">$${pastel.precio.toFixed(2)} MXN</div>
-                <div class="stars">
-                    ${getStarsHTML(pastel.popularidad)}
-                </div>
-                <a href="#" class="btn">add to cart</a>
-            </div>
-        `;
-
-        container.appendChild(pastelElemento);
-    });
+function mostrarReposteros(reposteros) {
+    const container = document.getElementById("reposterosContainer");
+    
+    container.innerHTML = reposteros.map(repostero => `
+        <div class="repostero-card">
+            <img src="${repostero.imagen_url || '../img/repostera1.jpg'}" 
+                 onerror="this.src='../img/repostera1.jpg'" 
+                 alt="${repostero.NombreNegocio}">
+            <h3>${repostero.NombreNegocio}</h3>
+            <p class="ubicacion">
+                <i class="fas fa-map-marker-alt"></i> 
+                ${repostero.Ubicacion || 'No especificada'}
+            </p>
+            <p class="especialidades">
+                <i class="fas fa-birthday-cake"></i> 
+                ${repostero.Especialidades || 'No especificadas'}
+            </p>
+            <a href="perfil-repostero.html?id=${repostero.id_repostero}">
+                <button class="ver-perfil">Ver Perfil</button>
+            </a>
+        </div>
+    `).join('');
 }
 
-// Función para generar estrellas según popularidad
-function getStarsHTML(popularidad) {
-    const fullStars = Math.floor(popularidad);
-    const halfStar = popularidad % 1 !== 0;
-    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
-    return (
-        '<i class="fas fa-star"></i>'.repeat(fullStars) +
-        (halfStar ? '<i class="fas fa-star-half-alt"></i>' : '') +
-        '<i class="far fa-star"></i>'.repeat(emptyStars)
-    );
-}
-
-// Cargar pasteles destacados al cargar la página
-document.addEventListener('DOMContentLoaded', mostrarDestacados);
-
-
-
-// Llama a la función para cargar los datos al cargar la página
-document.addEventListener('DOMContentLoaded', fetchData);
