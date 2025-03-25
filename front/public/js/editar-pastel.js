@@ -56,60 +56,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 // Función para guardar cambios
-async function guardarCambios(pastelId) {
-    try {
-        const formData = {
-            descripcion: document.getElementById('decoration').value,
-            mensaje: document.getElementById('message').value,
-            tamaño: document.getElementById('size').value,
-            sabor: document.getElementById('flavor').value
-        };
-
-        const response = await fetch(`http://localhost:3000/api/pastel/actpasteles/${pastelId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-
-        if (!response.ok) {
-            throw new Error('Error al actualizar el pastel');
-        }
-
-        alert('Pastel actualizado correctamente');
-        window.location.href = 'categorias.html';
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error al guardar los cambios');
-    }
-}
-
-// Función para eliminar pastel
-async function eliminarPastel(pastelId) {
-    if (confirm('¿Estás seguro de que deseas eliminar este pastel?')) {
-        try {
-            const response = await fetch(`http://localhost:3000/api/pastel/elimpasteles/${pastelId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Error al eliminar el pastel');
-            }
-
-            alert('Pastel eliminado correctamente');
-            window.location.href = 'categorias.html';
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error al eliminar el pastel');
-        }
-    }
-}
-
-// Nueva función para realizar pedido
 async function realizarPedido() {
     try {
         const date = document.getElementById('date').value;
@@ -120,7 +66,6 @@ async function realizarPedido() {
             return;
         }
 
-        // Obtener los datos del pastel del sessionStorage
         const pastelData = JSON.parse(sessionStorage.getItem('pastelEditar'));
         if (!pastelData) {
             alert('No se encontraron datos del pastel');
@@ -133,7 +78,7 @@ async function realizarPedido() {
             id_pastel: pastelData.id_pastel,
             id_repostero: pastelData.id_repostero,
             fecha_entrega: fechaEntrega,
-            direccion: "Por definir" // Podrías agregar un campo para esto en el HTML
+            direccion: "Por definir"
         };
 
         const response = await fetch('http://localhost:3000/api/pedido/crearpedido', {
@@ -149,7 +94,15 @@ async function realizarPedido() {
             throw new Error('Error al crear el pedido');
         }
 
-        const result = await response.json();
+        const resultado = await response.json();
+        
+        // Guardar el pedido en sessionStorage para recuperarlo en la página de pedidos
+        sessionStorage.setItem('nuevoPedido', JSON.stringify({
+            ...pedidoData,
+            id_pedido: resultado.id_pedido,
+            fecha_pedido: new Date().toISOString()
+        }));
+
         alert('Pedido realizado correctamente');
         window.location.href = 'pedidos.html';
     } catch (error) {

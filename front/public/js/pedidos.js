@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Actualizar cada 30 segundos (30000 milisegundos)
     setInterval(async () => {
         await cargarPedidos();
-    }, 30000);
+    }, 40000);
 });
 
 async function cargarPedidos() {
