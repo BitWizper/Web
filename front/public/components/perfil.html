@@ -4,264 +4,286 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/perfil.css">
     <style>
-        /* Estilos adicionales para los botones */
-        .logout-btn {
-            background-color: #e74c3c;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #F2F0E4;
+            color: #731D3C;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #731D3C;
             text-align: center;
+            margin-bottom: 30px;
         }
 
-        .logout-btn:hover {
-            background-color: #c0392b;
+        .profile-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #F2F0E4;
+            border-radius: 8px;
         }
 
-        /* Estilos generales */
-        .content-section {
-            display: none; /* Ocultar las secciones por defecto */
+        .form-group {
+            margin-bottom: 15px;
         }
-        .active-tab {
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8C1B2F;
             font-weight: bold;
         }
-        .hidden {
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #D9B9AD;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #A65168;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #731D3C;
+        }
+
+        .back-btn {
+            display: inline-block;
+            font-size: 24px;
+            color: #A65168;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #731D3C;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 4px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .notification.success {
+            background-color: #4CAF50;
+        }
+
+        .notification.error {
+            background-color: #f44336;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            object-fit: cover;
+            border: 3px solid #A65168;
+        }
+
+        .image-upload {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image-upload input[type="file"] {
             display: none;
         }
-        .back-btn {
-            font-size: 2rem;
-            color: var(--primary-color);
-            cursor: pointer;
-            text-decoration: none;
-            padding: 10px;
-        }
-        .back-btn:hover {
-            color: #882f2d;
-        }
-        button[type="submit"] {
-            background-color: var(--primary-color);
+
+        .image-upload label {
+            background-color: #A65168;
             color: white;
-            padding: 10px 20px;
-            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
             cursor: pointer;
-            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
         }
-        button[type="submit"]:hover {
-            background-color: #882f2d;
-        }
-        .confirmation-message {
-            color: green;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .error-message {
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
+
+        .image-upload label:hover {
+            background-color: #731D3C;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="sidebar">
-            <span class="back-btn" onclick="window.location.href='home.html'">↩</span>
-            <h3>Mi Perfil</h3>
-            <div class="option" onclick="showContent('editarPerfil', this)">
-                <span>Editar Perfil</span>
-            </div>
-            <div class="option" onclick="showContent('notificaciones', this)">
-                <span>Notificaciones</span>
-            </div>
-            <div class="option" onclick="showContent('miTarjeta', this)">
-                <span>Mi tarjeta</span>
-            </div>
-            <div class="option" onclick="showContent('configuracion', this)">
-                <span>Configuración</span>
-            </div>
-            <div class="option" onclick="showContent('cambiarContrasena', this)">
-                <span>Cambiar Contraseña</span>
-            </div>
-            <div class="option" onclick="showContent('historialActividades', this)">
-                <span>Historial de Actividades</span>
-            </div>
-            <div class="option" onclick="showContent('seguridad', this)">
-                <span>Seguridad</span>
-            </div>
-            <div class="option" onclick="showContent('eliminarCuenta', this)">
-                <span>Eliminar Cuenta</span>
-            </div>
-        </div>
+        <span class="back-btn" onclick="window.location.href='home.html'">
+            ↩
+        </span>
 
-        <div class="profile-container">
-            <!-- Editar perfil -->
-            <div id="editarPerfil" class="content-section">
-                <h4>Editar Perfil</h4>
-                <!-- Mostrar nombre y foto solo en la sección de editar perfil -->
-                <div class="perfil-info">
-                    <h5>Nombre:</h5>
-                    <p id="nombrePerfil">Juan Pérez</p> <!-- Aquí puedes insertar el nombre dinámicamente si es necesario -->
-                    <h5>Foto de Perfil:</h5>
-                    <img id="fotoPerfil" src="ruta-de-la-imagen.jpg" alt="Foto de perfil" width="150" height="150">
-                </div>
-                
-                <form id="editForm">
-                    <label for="editName">Nuevo Nombre:</label>
-                    <input type="text" id="editName" name="editName" value="Juan Pérez"><br><br>
-                    <label for="editBio">Biografía:</label><br>
-                    <textarea id="editBio" name="editBio" rows="4" cols="50"></textarea><br><br>
-                    <label for="editImage">Cambiar Imagen de Perfil:</label>
-                    <input type="file" id="editImage" name="editImage" accept="image/*"><br><br>
-                    <button type="submit">Actualizar Información</button>
-                </form>
-                <p id="errorMessage" class="error-message" style="display: none;">Por favor, completa todos los campos.</p>
-                <p id="successMessage" class="confirmation-message" style="display: none;">Información actualizada correctamente.</p>
-            </div>
-            
-            <!-- Notificaciones -->
-            <div id="notificaciones" class="content-section">
-                <h4>Notificaciones</h4>
-                <p>Recibe alertas sobre actividades importantes y actualizaciones.</p>
-                <ul id="notificationsList">
-                    <li><strong>Nuevo mensaje</strong>: Has recibido un mensaje de tu amigo Juan.</li>
-                    <li><strong>Actualización de cuenta</strong>: Tu contraseña fue cambiada recientemente.</li>
-                    <li><strong>Recordatorio</strong>: No olvides actualizar tu información de pago.</li>
-                </ul>
+        <h1>Mi Perfil</h1>
+        
+        <div class="profile-section">
+            <div class="image-upload">
+                <img src="../images/default-profile.jpg" alt="Foto de perfil" id="profileImage" class="profile-image">
+                <input type="file" id="imageInput" accept="image/*" onchange="cambiarImagenPerfil(event)">
+                <label for="imageInput">Cambiar foto</label>
             </div>
 
-            <!-- Mi tarjeta -->
-            <div id="miTarjeta" class="content-section">
-                <h4>Mi Tarjeta</h4>
-                <p>Gestiona tus métodos de pago y tarjetas de crédito aquí.</p>
-                <ul id="cardList">
-                    <!-- Aquí se irán agregando las tarjetas -->
-                </ul>
-                <form id="addCardForm">
-                    <label for="cardNumber">Número de tarjeta:</label>
-                    <input type="text" id="cardNumber" name="cardNumber" required><br><br>
-                    <label for="expiryDate">Fecha de expiración:</label>
-                    <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/AA" required><br><br>
-                    <button type="submit">Añadir tarjeta</button>
-                </form>
+            <div class="form-group">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" required>
             </div>
 
-            <!-- Configuración -->
-            <div id="configuracion" class="content-section">
-                <h4>Configuración</h4>
-                <p>Ajusta tus preferencias de cuenta y configuración general.</p>
-                <form id="configForm">
-                    <label for="emailNotifications">Notificaciones por correo electrónico:</label>
-                    <input type="checkbox" id="emailNotifications" checked><br><br>
-                    <label for="smsNotifications">Notificaciones por SMS:</label>
-                    <input type="checkbox" id="smsNotifications"><br><br>
-                    <label for="privacy">Privacidad de la cuenta:</label>
-                    <select id="privacy">
-                        <option value="publico">Público</option>
-                        <option value="privado">Privado</option>
-                    </select><br><br>
-                    <button type="submit">Guardar cambios</button>
-                </form>
-                <p id="configSuccessMessage" class="confirmation-message" style="display: none;">Cambios guardados correctamente.</p>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" required>
             </div>
 
-            <!-- Cambiar contraseña -->
-            <div id="cambiarContrasena" class="content-section">
-                <h4>Cambiar Contraseña</h4>
-                <form id="changePasswordForm">
-                    <label for="oldPassword">Contraseña Actual:</label>
-                    <input type="password" id="oldPassword" name="oldPassword" required><br><br>
-                    <label for="newPassword">Nueva Contraseña:</label>
-                    <input type="password" id="newPassword" name="newPassword" required><br><br>
-                    <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
-                    <button type="submit">Cambiar Contraseña</button>
-                </form>
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" required>
             </div>
 
-            <!-- Eliminar cuenta -->
-            <div id="eliminarCuenta" class="content-section">
-                <h4>Eliminar Cuenta</h4>
-                <p>Si deseas eliminar tu cuenta, por favor confirma la acción.</p>
-                <button onclick="confirmarEliminacion()">Eliminar Cuenta</button>
+            <div class="form-group">
+                <label for="direccion">Dirección de entrega</label>
+                <textarea id="direccion" rows="3" required></textarea>
             </div>
 
-            <!-- Historial de actividades -->
-            <div id="historialActividades" class="content-section">
-                <h4>Historial de Actividades</h4>
-                <ul id="activityList">
-                    <li><strong>Actualización de Perfil:</strong> Cambiaste tu nombre el 10/03/2025.</li>
-                    <li><strong>Cambio de Contraseña:</strong> Cambiaste tu contraseña el 15/03/2025.</li>
-                    <li><strong>Inicio de sesión:</strong> Iniciaste sesión el 18/03/2025 a las 08:00 AM.</li>
-                </ul>
-            </div>
-
-            <!-- Seguridad -->
-            <div id="seguridad" class="content-section">
-                <h4>Seguridad</h4>
-                <p>Gestiona la seguridad de tu cuenta.</p>
-                <ul>
-                    <li><strong>Dispositivos conectados:</strong> 2 dispositivos conectados.</li>
-                    <li><strong>Última sesión:</strong> 18/03/2025 08:00 AM.</li>
-                </ul>
-                <button onclick="alert('Verifica la seguridad de tu cuenta.')">Verificar seguridad</button>
-            </div>
+            <button onclick="guardarCambios()">Guardar Cambios</button>
         </div>
     </div>
 
     <script>
-        function showContent(sectionId, element) {
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => section.style.display = 'none');
+        document.addEventListener('DOMContentLoaded', cargarPerfil);
 
-            const options = document.querySelectorAll('.option');
-            options.forEach(option => option.classList.remove('active-tab'));
+        async function cargarPerfil() {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = 'login.html';
+                    return;
+                }
 
-            document.getElementById(sectionId).style.display = 'block';
-            element.classList.add('active-tab');
+                const response = await fetch('http://localhost:3000/api/usuario/perfil', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Error al cargar el perfil');
+
+                const usuario = await response.json();
+                
+                // Establecer valores
+                document.getElementById('nombre').value = usuario.nombre || '';
+                document.getElementById('email').value = usuario.correo || '';
+                document.getElementById('telefono').value = usuario.telefono || '';
+                document.getElementById('direccion').value = usuario.direccion || '';
+                
+                if (usuario.imagen_url) {
+                    document.getElementById('profileImage').src = usuario.imagen_url;
+                }
+            } catch (error) {
+                mostrarNotificacion('Error al cargar el perfil', false);
+            }
         }
 
-        // Función para cambiar el perfil
-        document.getElementById('editForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const name = document.getElementById('editName').value.trim();
-            const bio = document.getElementById('editBio').value.trim();
-            if (name === '' || bio === '') {
-                document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('successMessage').style.display = 'none';
-            } else {
-                document.getElementById('errorMessage').style.display = 'none';
-                document.getElementById('successMessage').style.display = 'block';
+        async function guardarCambios() {
+            try {
+                const token = localStorage.getItem('token');
+                const datosUsuario = {
+                    nombre: document.getElementById('nombre').value,
+                    correo: document.getElementById('email').value,
+                    telefono: document.getElementById('telefono').value,
+                    direccion: document.getElementById('direccion').value
+                };
+
+                const response = await fetch('http://localhost:3000/api/usuario/actualizar-perfil', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(datosUsuario)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) throw new Error(data.mensaje);
+
+                mostrarNotificacion('Perfil actualizado exitosamente', true);
+            } catch (error) {
+                mostrarNotificacion(error.message || 'Error al actualizar el perfil', false);
             }
-        });
-
-        // Función para añadir tarjeta
-        document.getElementById('addCardForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const cardNumber = document.getElementById('cardNumber').value;
-            const expiryDate = document.getElementById('expiryDate').value;
-            const cardList = document.getElementById('cardList');
-
-            const listItem = document.createElement('li');
-            listItem.textContent = `Tarjeta: ${cardNumber}, Expiración: ${expiryDate}`;
-            cardList.appendChild(listItem);
-            document.getElementById('cardNumber').value = '';
-            document.getElementById('expiryDate').value = '';
-        });
-
-        function cerrarSesion() {
-            alert('Has cerrado sesión correctamente.');
-            window.location.href = 'login.html';
         }
 
-        function confirmarEliminacion() {
-            if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no puede deshacerse.')) {
-                alert('Tu cuenta ha sido eliminada.');
-                window.location.href = 'home.html'; // Redirigir a la página principal después de eliminar la cuenta
+        async function cambiarImagenPerfil(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            try {
+                const formData = new FormData();
+                formData.append('imagen', file);
+
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:3000/api/usuario/actualizar-imagen', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) throw new Error(data.mensaje);
+
+                document.getElementById('profileImage').src = data.imagen_url;
+                mostrarNotificacion('Imagen de perfil actualizada', true);
+            } catch (error) {
+                mostrarNotificacion(error.message || 'Error al actualizar la imagen', false);
             }
+        }
+
+        function mostrarNotificacion(mensaje, esExito) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${esExito ? 'success' : 'error'}`;
+            notification.textContent = mensaje;
+            document.body.appendChild(notification);
+
+            setTimeout(() => notification.classList.add('show'), 100);
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
     </script>
 </body>

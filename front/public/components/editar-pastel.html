@@ -114,10 +114,12 @@
                 <label for="message">Mensaje en el pastel:</label>
                 <input type="text" id="message" name="message" placeholder="Escribe el mensaje...">
                 <br>
-                <button type="button" class="btn" onclick="addToCart()">Añadir al carrito</button>
-                <br>
-                <!-- Nuevo botón para realizar pedido -->
-                <button type="button" class="btn" onclick="window.location.href='pedidos.html'">Realizar Pedido</button>
+                <div class="button-group">
+                    <button type="submit" class="btn">Guardar Cambios</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminarPastel(new URLSearchParams(window.location.search).get('id_pastel'))">Eliminar Pastel</button>
+                    <button type="button" class="btn" onclick="addToCart()">Añadir al carrito</button>
+                    <button type="button" class="btn" onclick="window.location.href='pedidos.html'">Realizar Pedido</button>
+                </div>
             </form>
         </div>
         
@@ -196,6 +198,11 @@
     </script>
 
     <script src="../js/menu.js"></script>
+<<<<<<< HEAD
+=======
+    <script src="../js/carrito.js"></script>
+    <!-- Custom JS link -->
+>>>>>>> 3074f52117d2e8b344afaadae1e1ac050f8ec90b
     <script src="../js/editar-pastel.js"></script>
 
 </body>
