@@ -74,12 +74,17 @@
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
+            margin-top: -80px;
+        }
+
+        .carrito-container {
+            margin-top: -80px;
         }
 
         .carrito-item {
             display: flex;
             align-items: center;
-            padding: 15px;
+            padding: 25px;
             margin-bottom: 15px;
             background: white;
             border-radius: 8px;
@@ -113,22 +118,23 @@
         .carrito-item-quantity {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            margin-left: 20px;
         }
 
         .btn-cantidad {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border: none;
             background-color: #8B1538;
             color: white;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 5px;
+            transition: background-color 0.3s ease;
         }
 
         .btn-cantidad:hover {
@@ -136,9 +142,10 @@
         }
 
         .carrito-item-quantity span {
-            min-width: 30px;
+            min-width: 40px;
             text-align: center;
-            font-size: 16px;
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .btn-eliminar {
@@ -177,24 +184,286 @@
 
         .carrito-resumen {
             background: white;
-            padding: 20px;
+            padding: 40px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-top: 20px;
+            margin-top: -30px;
+            width: 400px;
+            margin-left: auto;
+            position: sticky;
+            top: 20px;
+        }
+
+        .carrito-resumen h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #731D3C;
         }
 
         .resumen-item {
             display: flex;
             justify-content: space-between;
-            margin: 10px 0;
+            margin: 15px 0;
+            font-size: 18px;
         }
 
         .total {
             font-weight: bold;
-            font-size: 1.2em;
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
+            font-size: 24px;
+            border-top: 2px solid #ddd;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            font-size: 20px;
+            padding: 15px 30px;
+            margin-top: 25px;
+        }
+
+        /* Estilos para el seguimiento de pago */
+        .seguimiento-pago {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .seguimiento-pago h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .estado-pago {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .pago-pendiente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .pago-procesando {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        .pago-completado {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .historial-pago {
+            margin-top: 15px;
+        }
+
+        .historial-pago p {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .historial-pago .fecha {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .heading-title {
+            margin-bottom: 80px;
+        }
+
+        /* Estilos para los métodos de pago */
+        .metodos-pago {
+            margin: 20px 0;
+        }
+
+        .metodo-pago-option {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .metodo-pago-option:hover {
+            background: #e9ecef;
+        }
+
+        .metodo-pago-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .metodo-pago-option label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .metodo-pago-option i {
+            margin-right: 10px;
+            font-size: 20px;
+            color: #8B1538;
+        }
+
+        /* Estilos para el formulario de tarjeta */
+        .form-tarjeta {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-row input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .form-check input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-check label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Estilos para tarjetas guardadas */
+        .tarjetas-guardadas {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .tarjetas-guardadas h5 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .tarjeta-guardada {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .tarjeta-guardada input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .tarjeta-guardada label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-nueva-tarjeta {
+            background: none;
+            border: 1px dashed #8B1538;
+            color: #8B1538;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-nueva-tarjeta:hover {
+            background: #8B1538;
+            color: white;
+        }
+
+        /* Estilos para detalles de efectivo y transferencia */
+        .efectivo-details,
+        .transferencia-details {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .datos-transferencia {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
             margin-top: 10px;
+        }
+
+        .datos-transferencia p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .datos-transferencia strong {
+            color: #8B1538;
+        }
+
+        .btn-confirmar-pago {
+            width: 100%;
+            padding: 15px;
+            background: #8B1538;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-confirmar-pago:hover {
+            background: #6d102c;
+        }
+
+        .estado-actual {
+            margin-bottom: 20px;
         }
     </style>
 </head>

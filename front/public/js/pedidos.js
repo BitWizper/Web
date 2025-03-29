@@ -51,37 +51,37 @@ async function cargarPedidos() {
         pedidos.sort((a, b) => new Date(b.fecha_pedido) - new Date(a.fecha_pedido));
         
         window.todosPedidos = pedidos;
-        mostrarPedidos(pedidos);
+        mostrarPedidos();
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-function mostrarPedidos(pedidos) {
-    if (!pedidos) return;
-    
+function mostrarPedidos() {
     const pedidosActivos = document.getElementById('pedidosActivos');
     const pedidosHistorial = document.getElementById('pedidosHistorial');
     
     if (!pedidosActivos || !pedidosHistorial) return;
 
+    // Obtener los pedidos del localStorage
+    const misPedidos = JSON.parse(localStorage.getItem('misPedidos')) || [];
+    
     pedidosActivos.innerHTML = '';
     pedidosHistorial.innerHTML = '';
 
-    const ahora = new Date();
+    if (misPedidos.length === 0) {
+        pedidosActivos.innerHTML = '<p>No hay pedidos activos</p>';
+        pedidosHistorial.innerHTML = '<p>No hay pedidos en el historial</p>';
+        return;
+    }
 
     // Separar pedidos en activos e historial
-    const pedidosSeparados = pedidos.reduce((acc, pedido) => {
-        const fechaEntrega = pedido.fecha_entrega ? new Date(pedido.fecha_entrega) : null;
-        const estado = determinarEstado(pedido);
-        
-        // Solo mostrar en pedidos activos si está pendiente o en proceso
-        if (estado === 'pendiente' || estado === 'en-proceso') {
-            acc.activos.push(pedido);
-        } else {
+    const pedidosSeparados = misPedidos.reduce((acc, pedido) => {
+        if (pedido.estado === 'completado') {
             acc.historial.push(pedido);
+        } else {
+            acc.activos.push(pedido);
         }
-        
         return acc;
     }, { activos: [], historial: [] });
 
@@ -108,24 +108,32 @@ function crearPedidoCard(pedido) {
     const card = document.createElement('div');
     card.className = 'pedido-card';
 
-    // Formatear fechas
-    const fechaPedido = new Date(pedido.fecha_pedido).toLocaleDateString();
-    const fechaEntrega = pedido.fecha_entrega ? new Date(pedido.fecha_entrega).toLocaleDateString() : 'Pendiente';
-    
-    // Determinar el estado
-    const esPendiente = !pedido.fecha_entrega || new Date(pedido.fecha_entrega) > new Date();
-    const estadoClase = esPendiente ? 'status-pendiente' : 'status-entregado';
-    const estadoTexto = esPendiente ? 'Pendiente' : 'Entregado';
+    const items = pedido.items.map(item => `
+        <div class="pedido-item">
+            <img src="${item.imagen}" alt="${item.nombre}" onerror="this.src='../img/repostera1.jpg'">
+            <div class="pedido-item-details">
+                <h4>${item.nombre}</h4>
+                <p>Cantidad: ${item.cantidad}</p>
+                <p>Precio: $${item.precio}</p>
+            </div>
+        </div>
+    `).join('');
 
     card.innerHTML = `
-        <h3>Pedido #${pedido.id_pedido}</h3>
-        <div class="pedido-info">
-            <p><strong>Fecha de Pedido:</strong> ${fechaPedido}</p>
-            <p><strong>Fecha de Entrega:</strong> ${fechaEntrega}</p>
-            <p><strong>Dirección:</strong> ${pedido.direccion}</p>
-            <p><strong>Pastel:</strong> ${pedido.id_pastel}</p>
-            <p><strong>Repostero:</strong> ${pedido.id_repostero}</p>
-            <span class="pedido-status ${estadoClase}">${estadoTexto}</span>
+        <div class="pedido-header">
+            <span class="pedido-id">Pedido #${pedido.id}</span>
+            <span class="pedido-fecha">${new Date(pedido.fecha).toLocaleDateString()}</span>
+        </div>
+        <div class="pedido-estado ${pedido.estado}">
+            Estado: ${pedido.estado.charAt(0).toUpperCase() + pedido.estado.slice(1)}
+        </div>
+        <div class="pedido-items">
+            ${items}
+        </div>
+        <div class="pedido-total">
+            <p><strong>Subtotal:</strong> $${pedido.subtotal.toFixed(2)}</p>
+            <p><strong>IVA:</strong> $${pedido.iva.toFixed(2)}</p>
+            <p><strong>Total:</strong> $${pedido.total.toFixed(2)}</p>
         </div>
     `;
 
