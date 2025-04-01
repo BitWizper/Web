@@ -175,6 +175,130 @@
         .heading-title {
             margin-bottom: 80px;
         }
+
+        /* Estilos para los métodos de pago */
+        .metodos-pago {
+            margin: 20px 0;
+        }
+
+        .metodo-pago-option {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .metodo-pago-option:hover {
+            background: #e9ecef;
+        }
+
+        .metodo-pago-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .metodo-pago-option label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .metodo-pago-option i {
+            margin-right: 10px;
+            font-size: 20px;
+            color: #8B1538;
+        }
+
+        /* Estilos para el formulario de tarjeta */
+        .form-tarjeta {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-row input {
+            flex: 1;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .form-check input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-check label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Estilos para detalles de efectivo y transferencia */
+        .efectivo-details,
+        .transferencia-details {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .datos-transferencia {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .datos-transferencia p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .datos-transferencia strong {
+            color: #8B1538;
+        }
+
+        .btn-confirmar-pago {
+            width: 100%;
+            padding: 15px;
+            background: #8B1538;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-confirmar-pago:hover {
+            background: #6d102c;
+        }
     </style>
 </head>
 <body>
@@ -256,7 +380,67 @@
                     <span>Total:</span>
                     <span id="total">$0.00</span>
                 </div>
-                <button class="btn" onclick="procederPago()">Proceder al Pago</button>
+
+                <!-- Métodos de pago -->
+                <div class="metodos-pago">
+                    <h4>Método de Pago</h4>
+                    <div class="metodo-pago-option">
+                        <input type="radio" id="tarjeta" name="metodo-pago" value="tarjeta">
+                        <label for="tarjeta">
+                            <i class="fas fa-credit-card"></i>
+                            Tarjeta de Crédito/Débito
+                        </label>
+                    </div>
+                    <div class="metodo-pago-option">
+                        <input type="radio" id="efectivo" name="metodo-pago" value="efectivo">
+                        <label for="efectivo">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Efectivo
+                        </label>
+                    </div>
+                    <div class="metodo-pago-option">
+                        <input type="radio" id="transferencia" name="metodo-pago" value="transferencia">
+                        <label for="transferencia">
+                            <i class="fas fa-exchange-alt"></i>
+                            Transferencia Bancaria
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Formulario de tarjeta (se mostrará/ocultará según la selección) -->
+                <div class="form-tarjeta" id="formTarjeta" style="display: none;">
+                    <div class="form-group">
+                        <input type="text" placeholder="Número de tarjeta" maxlength="16">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="MM/AA" maxlength="5">
+                        <input type="text" placeholder="CVV" maxlength="3">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Nombre en la tarjeta">
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="guardar-tarjeta">
+                        <label for="guardar-tarjeta">Guardar tarjeta para futuras compras</label>
+                    </div>
+                </div>
+
+                <!-- Detalles de efectivo -->
+                <div class="efectivo-details" id="efectivoDetails" style="display: none;">
+                    <p>Podrás pagar en efectivo al momento de la entrega.</p>
+                </div>
+
+                <!-- Detalles de transferencia -->
+                <div class="transferencia-details" id="transferenciaDetails" style="display: none;">
+                    <div class="datos-transferencia">
+                        <p><strong>Banco:</strong> Bancomer</p>
+                        <p><strong>Cuenta:</strong> 0123456789</p>
+                        <p><strong>CLABE:</strong> 012345678901234567</p>
+                        <p><strong>Beneficiario:</strong> Borcelle S.A. de C.V.</p>
+                    </div>
+                </div>
+
+                <button class="btn-confirmar-pago" onclick="confirmarPago()">Confirmar Pago</button>
             </div>
         </div>
     </section>
@@ -343,7 +527,7 @@
             } else {
                 carritoItems.innerHTML = carrito.map((item, index) => `
                     <div class="carrito-item" data-id="${item.id}">
-                        <img src="${item.imagen}" alt="${item.nombre}">
+                        <img src="${item.imagen.startsWith('http') ? item.imagen : '../' + item.imagen}" alt="${item.nombre}" onerror="this.src='../images/default-cake.jpg'">
                         <div class="item-details">
                             <h3>${item.nombre}</h3>
                             <p class="item-price">$${item.precio.toFixed(2)}</p>
@@ -380,8 +564,54 @@
             document.getElementById('total').textContent = `$${total.toFixed(2)}`;
         }
 
-        function procederPago() {
-            window.location.href = 'pago.html';
+        // Funciones para el manejo de métodos de pago
+        document.querySelectorAll('input[name="metodo-pago"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Ocultar todos los formularios
+                document.getElementById('formTarjeta').style.display = 'none';
+                document.getElementById('efectivoDetails').style.display = 'none';
+                document.getElementById('transferenciaDetails').style.display = 'none';
+
+                // Mostrar el formulario correspondiente
+                if (this.value === 'tarjeta') {
+                    document.getElementById('formTarjeta').style.display = 'block';
+                } else if (this.value === 'efectivo') {
+                    document.getElementById('efectivoDetails').style.display = 'block';
+                } else if (this.value === 'transferencia') {
+                    document.getElementById('transferenciaDetails').style.display = 'block';
+                }
+            });
+        });
+
+        function confirmarPago() {
+            const metodoPago = document.querySelector('input[name="metodo-pago"]:checked');
+            if (!metodoPago) {
+                alert('Por favor selecciona un método de pago');
+                return;
+            }
+
+            if (metodoPago.value === 'tarjeta') {
+                // Validar campos de tarjeta
+                const numeroTarjeta = document.querySelector('#formTarjeta input[placeholder="Número de tarjeta"]').value;
+                const fechaVencimiento = document.querySelector('#formTarjeta input[placeholder="MM/AA"]').value;
+                const cvv = document.querySelector('#formTarjeta input[placeholder="CVV"]').value;
+                const nombre = document.querySelector('#formTarjeta input[placeholder="Nombre en la tarjeta"]').value;
+
+                if (!numeroTarjeta || !fechaVencimiento || !cvv || !nombre) {
+                    alert('Por favor completa todos los campos de la tarjeta');
+                    return;
+                }
+            }
+
+            // Proceder con el pago
+            alert('¡Pago confirmado! Gracias por tu compra.');
+            localStorage.removeItem('carrito');
+            window.location.href = 'pedidos.html';
+        }
+
+        function addNotification(message) {
+            // Esta función sería para mostrar notificaciones (puedes implementarla según tus necesidades)
+            console.log(message);
         }
     </script>
 
