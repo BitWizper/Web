@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Usuario = require('./Usuario');
 const Repostero = require('./Repostero');
-const Pastel =require ('./Pastel');
+const Pastel = require('./Pastel');
 
 const PastelPersonalizado = sequelize.define('PastelPersonalizado', {
   id_pastelPersonalizado: {
@@ -33,6 +33,11 @@ const PastelPersonalizado = sequelize.define('PastelPersonalizado', {
   Relleno: {
     type: DataTypes.STRING(100),
     allowNull: false,
+  },
+  CapasOPisos: {
+    type: DataTypes.ENUM('1', '2', '3', '4'), // Opción 1 (recomendada)
+    allowNull: false,
+    defaultValue: '1',
   },
   Decoraciones: DataTypes.TEXT,
   Precio: {
