@@ -41,17 +41,17 @@ const DECORACIONES_DISPONIBLES = [
 
 // Definir colores para cada sabor
 const SABORES_COLORES = {
-    'Vainilla': 0xFFF8DC,      // Color crema claro
+    'Vainilla': 0xf7dc6f,      // Color crema claro
     'Chocolate': 0x3C1321,     // Marrón chocolate
     'Red Velvet': 0x960018,    // Rojo intenso
-    'Zanahoria': 0xFFA07A,     // Naranja suave
+    'Zanahoria': 0xba4a00,     // Naranja suave
     'Mármol': {                // Para el mármol usaremos dos colores
-        primary: 0xFFF8DC,     // Vainilla
-        secondary: 0x3C1321    // Chocolate
+        primary: 0xf7dc6f,     // Vainilla
+        secondary: 0xd98880   // Chocolate
     },
-    'Limón': 0xFFFACD,         // Amarillo limón
-    'Naranja': 0xFFB347,       // Naranja
-    'Almendra': 0xFFE4C4       // Color almendra
+    'Limón': 0x196f3d,         // Amarillo limón
+    'Naranja': 0x873600,       // Naranja
+    'Almendra': 0x78281f       // Color almendra
 };
 
 function init() {
