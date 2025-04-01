@@ -3,288 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil</title>
+    <title>Editar Perfil - Pastelería</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #F2F0E4;
-            color: #731D3C;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1, h2 {
-            color: #731D3C;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
         .profile-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #F2F0E4;
-            border-radius: 8px;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #8C1B2F;
-            font-weight: bold;
-        }
-
-        input, textarea {
+        .profile-container {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #D9B9AD;
-            border-radius: 4px;
-            box-sizing: border-box;
         }
 
-        button {
-            background-color: #A65168;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #731D3C;
-        }
-
-        .back-btn {
-            display: inline-block;
-            font-size: 24px;
-            color: #A65168;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: color 0.3s;
-        }
-
-        .back-btn:hover {
-            color: #731D3C;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 4px;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .notification.success {
-            background-color: #4CAF50;
-        }
-
-        .notification.error {
-            background-color: #f44336;
-        }
-
-        .notification.show {
-            opacity: 1;
+        .profile-heading {
+            text-align: center;
+            color: var(--main-color);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .profile-image {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            margin: 0 auto 20px;
-            display: block;
             object-fit: cover;
-            border: 3px solid #A65168;
+            border: 3px solid var(--main-color);
         }
 
-        .image-upload {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .image-upload input[type="file"] {
-            display: none;
-        }
-
-        .image-upload label {
-            background-color: #A65168;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 4px;
+        .image-upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--main-color);
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            display: inline-block;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
         }
 
-        .image-upload label:hover {
-            background-color: #731D3C;
+        .image-upload-btn:hover {
+            background: var(--black);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+            font-size: 1.4rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 0.8rem;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--main-color);
+            outline: none;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .skill-tag {
+            background: var(--main-color);
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-tag i {
+            cursor: pointer;
+        }
+
+        .add-skill-btn {
+            background: transparent;
+            border: 2px dashed var(--main-color);
+            color: var(--main-color);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-skill-btn:hover {
+            background: var(--main-color);
+            color: #fff;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.8rem;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save {
+            background: var(--main-color);
+            color: #fff;
+        }
+
+        .btn-save:hover {
+            background: var(--black);
+        }
+
+        .btn-cancel {
+            background: #ddd;
+            color: var(--black);
+        }
+
+        .btn-cancel:hover {
+            background: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .profile-section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <span class="back-btn" onclick="window.location.href='home.html'">
-            ↩
-        </span>
+    <section class="profile-section">
+        <div class="profile-container">
+            <h2 class="profile-heading">Editar Perfil</h2>
+            
+            <div class="profile-form">
+                <div class="profile-image">
+                    <img src="../images/profile-placeholder.jpg" alt="Foto de perfil" id="profile-image">
+                    <label for="image-upload" class="image-upload-btn">
+                        <i class="fas fa-camera"></i>
+                    </label>
+                    <input type="file" id="image-upload" hidden>
+                </div>
 
-        <h1>Mi Perfil</h1>
-        
-        <div class="profile-section">
-            <div class="image-upload">
-                <img src="../images/default-profile.jpg" alt="Foto de perfil" id="profileImage" class="profile-image">
-                <input type="file" id="imageInput" accept="image/*" onchange="cambiarImagenPerfil(event)">
-                <label for="imageInput">Cambiar foto</label>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Nombre</label>
+                        <input type="text" id="firstName" placeholder="Tu nombre" value="Jake">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Apellido</label>
+                        <input type="text" id="lastName" placeholder="Tu apellido" value="Jensen">
+                    </div>
+                </div>
+
+                <div class="form-group skills-group">
+                    <label>Intereses</label>
+                    <div class="skills-container">
+                        <span class="skill-tag">PASTELES DE BODA<i class="fas fa-times"></i></span>
+                        <span class="skill-tag">CUPCAKES<i class="fas fa-times"></i></span>
+                        <span class="skill-tag">POSTRES<i class="fas fa-times"></i></span>
+                        <button class="add-skill-btn"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Tu email" value="jakejensen@fakemail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" placeholder="Tu teléfono" value="(555) 987-1234">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Dirección</label>
+                    <input type="text" id="address" placeholder="Tu dirección" value="1234 Fake Street">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">País</label>
+                        <select id="country">
+                            <option value="MX">México</option>
+                            <option value="US" selected>Estados Unidos</option>
+                            <option value="ES">España</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">Estado/Provincia</label>
+                        <select id="state">
+                            <option value="CA" selected>California</option>
+                            <option value="NY">Nueva York</option>
+                            <option value="TX">Texas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">Ciudad</label>
+                        <select id="city">
+                            <option value="SD" selected>San Diego</option>
+                            <option value="LA">Los Angeles</option>
+                            <option value="SF">San Francisco</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">Código Postal</label>
+                        <input type="text" id="zipCode" placeholder="Tu código postal" value="92118">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-save">Guardar Perfil</button>
+                    <button type="button" class="btn btn-cancel">Cancelar</button>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="nombre">Nombre completo</label>
-                <input type="text" id="nombre" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" id="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" required>
-            </div>
-
-            <div class="form-group">
-                <label for="direccion">Dirección de entrega</label>
-                <textarea id="direccion" rows="3" required></textarea>
-            </div>
-
-            <button onclick="guardarCambios()">Guardar Cambios</button>
         </div>
-    </div>
+    </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', cargarPerfil);
-
-        async function cargarPerfil() {
-            try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    window.location.href = 'login.html';
-                    return;
+        // Manejar la carga de imagen
+        document.getElementById('image-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-image').src = e.target.result;
                 }
+                reader.readAsDataURL(file);
+            }
+        });
 
-                const response = await fetch('http://localhost:3000/api/usuario/perfil', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+        // Manejar la eliminación de intereses
+        document.querySelectorAll('.skill-tag i').forEach(icon => {
+            icon.addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
 
-                if (!response.ok) throw new Error('Error al cargar el perfil');
-
-                const usuario = await response.json();
+        // Manejar el botón de agregar interés
+        document.querySelector('.add-skill-btn').addEventListener('click', function() {
+            const interest = prompt('Ingresa un nuevo interés:');
+            if (interest) {
+                const skillTag = document.createElement('span');
+                skillTag.className = 'skill-tag';
+                skillTag.innerHTML = `${interest.toUpperCase()}<i class="fas fa-times"></i>`;
                 
-                // Establecer valores
-                document.getElementById('nombre').value = usuario.nombre || '';
-                document.getElementById('email').value = usuario.correo || '';
-                document.getElementById('telefono').value = usuario.telefono || '';
-                document.getElementById('direccion').value = usuario.direccion || '';
-                
-                if (usuario.imagen_url) {
-                    document.getElementById('profileImage').src = usuario.imagen_url;
-                }
-            } catch (error) {
-                mostrarNotificacion('Error al cargar el perfil', false);
-            }
-        }
-
-        async function guardarCambios() {
-            try {
-                const token = localStorage.getItem('token');
-                const datosUsuario = {
-                    nombre: document.getElementById('nombre').value,
-                    correo: document.getElementById('email').value,
-                    telefono: document.getElementById('telefono').value,
-                    direccion: document.getElementById('direccion').value
-                };
-
-                const response = await fetch('http://localhost:3000/api/usuario/actualizar-perfil', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(datosUsuario)
+                skillTag.querySelector('i').addEventListener('click', function() {
+                    skillTag.remove();
                 });
 
-                const data = await response.json();
-
-                if (!response.ok) throw new Error(data.mensaje);
-
-                mostrarNotificacion('Perfil actualizado exitosamente', true);
-            } catch (error) {
-                mostrarNotificacion(error.message || 'Error al actualizar el perfil', false);
+                this.parentElement.insertBefore(skillTag, this);
             }
-        }
+        });
 
-        async function cambiarImagenPerfil(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        // Manejar los botones de guardar y cancelar
+        document.querySelector('.btn-save').addEventListener('click', function() {
+            // Aquí iría la lógica para guardar los cambios
+            alert('Cambios guardados exitosamente');
+        });
 
-            try {
-                const formData = new FormData();
-                formData.append('imagen', file);
-
-                const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:3000/api/usuario/actualizar-imagen', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) throw new Error(data.mensaje);
-
-                document.getElementById('profileImage').src = data.imagen_url;
-                mostrarNotificacion('Imagen de perfil actualizada', true);
-            } catch (error) {
-                mostrarNotificacion(error.message || 'Error al actualizar la imagen', false);
+        document.querySelector('.btn-cancel').addEventListener('click', function() {
+            if (confirm('¿Estás seguro de que deseas cancelar los cambios?')) {
+                window.history.back();
             }
-        }
-
-        function mostrarNotificacion(mensaje, esExito) {
-            const notification = document.createElement('div');
-            notification.className = `notification ${esExito ? 'success' : 'error'}`;
-            notification.textContent = mensaje;
-            document.body.appendChild(notification);
-
-            setTimeout(() => notification.classList.add('show'), 100);
-
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
+        });
     </script>
 </body>
 </html>

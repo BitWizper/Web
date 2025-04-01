@@ -217,6 +217,7 @@
                 <!-- Botón de acción -->
                 <div class="action-btns">
                     <button class="follow-btn">Seguir</button>
+                    <button class="schedule-btn" onclick="mostrarFormularioCita()">Agendar Cita para Degustación</button>
                 </div>
             `;
         } else {
@@ -224,34 +225,281 @@
         }
     </script>
 
-<section class="footer">
+    <!-- Modal para agendar cita -->
+    <div id="citaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agendar Cita para Degustación</h2>
+            
+            <form id="citaForm">
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" required min="${new Date().toISOString().split('T')[0]}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="hora">Hora:</label>
+                    <select id="hora" required>
+                        <option value="">Selecciona una hora</option>
+                        <option value="09:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">1:00 PM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tipo">Tipo de Pastel para Degustación:</label>
+                    <select id="tipo" required>
+                        <option value="">Selecciona un tipo</option>
+                        <option value="boda">Pastel de Boda</option>
+                        <option value="cumpleanos">Pastel de Cumpleaños</option>
+                        <option value="especial">Pastel Especial</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notas">Notas Adicionales:</label>
+                    <textarea id="notas" rows="3" placeholder="Especifica cualquier detalle importante para la degustación..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-confirmar">Confirmar Cita</button>
+                    <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+    /* Estilos para los botones de acción */
+    .action-btns {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .follow-btn, .schedule-btn {
+        flex: 1;
+        padding: 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .follow-btn {
+        background: var(--main-color);
+        color: white;
+    }
+
+    .schedule-btn {
+        background: #4CAF50;
+        color: white;
+    }
+
+    .follow-btn:hover {
+        background: var(--black);
+    }
+
+    .schedule-btn:hover {
+        background: #45a049;
+    }
+
+    /* Estilos para el modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .modal-content {
+        position: relative;
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 2rem;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    .close {
+        position: absolute;
+        right: 2rem;
+        top: 1rem;
+        font-size: 2.8rem;
+        font-weight: bold;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+    .close:hover {
+        color: var(--main-color);
+    }
+
+    .modal h2 {
+        color: var(--main-color);
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--black);
+        font-size: 1.4rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        font-size: 1.4rem;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+    }
+
+    .btn-confirmar,
+    .btn-cancelar {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-confirmar {
+        background: var(--main-color);
+        color: white;
+    }
+
+    .btn-cancelar {
+        background: #ddd;
+        color: var(--black);
+    }
+
+    .btn-confirmar:hover {
+        background: var(--black);
+    }
+
+    .btn-cancelar:hover {
+        background: #ccc;
+    }
+
+    @media (max-width: 768px) {
+        .action-btns {
+            flex-direction: column;
+        }
+        
+        .modal-content {
+            margin: 10% auto;
+            width: 95%;
+            padding: 1.5rem;
+        }
+    }
+    </style>
+
+    <script>
+    // Funciones para el modal de cita
+    function mostrarFormularioCita() {
+        document.getElementById('citaModal').style.display = 'block';
+    }
+
+    function cerrarModal() {
+        document.getElementById('citaModal').style.display = 'none';
+    }
+
+    // Cerrar modal al hacer clic fuera de él
+    window.onclick = function(event) {
+        const modal = document.getElementById('citaModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Manejar el envío del formulario
+    document.getElementById('citaForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Recoger los datos del formulario
+        const fecha = document.getElementById('fecha').value;
+        const hora = document.getElementById('hora').value;
+        const tipo = document.getElementById('tipo').value;
+        const notas = document.getElementById('notas').value;
+        
+        // Aquí iría la lógica para enviar los datos al servidor
+        console.log('Cita agendada:', { fecha, hora, tipo, notas });
+        
+        // Mostrar mensaje de éxito
+        alert('¡Cita agendada con éxito!');
+        
+        // Cerrar el modal
+        cerrarModal();
+    });
+
+    // Cerrar con la X
+    document.querySelector('.close').addEventListener('click', cerrarModal);
+    </script>
+
+  <!-- footer section starts -->
+  <section class="footer">
     <div class="box-container">
         <div class="box">
-            <h3>quick links</h3>
+            <h3>Quick links</h3>
             <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
             <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
-            <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
+            <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catálogo</a>
             <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
         </div>
         <div class="box">
-            <h3>extra links</h3>
-            <a href="#"> <i class="fas fa-arrow-right"></i> mis pedidos</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> mis favoritos</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> mi carrito</a>
-            <a href="perfil.html"> <i class="fas fa-arrow-right"></i> mi perfil</a>
-            <a href="#"> <i class="fas fa-arrow-right"></i> política y privacidad</a>
+            <h3>Extra links</h3>
+            <a href="pedidos.html"> <i class="fas fa-arrow-right"></i> Mis pedidos</a>
+            <a href="favoritos.html"> <i class="fas fa-arrow-right"></i> Mis favoritos</a>
+            <a href="carrito.html"> <i class="fas fa-arrow-right"></i> Mi carrito</a>
+            <a href="perfil.html"> <i class="fas fa-arrow-right"></i> Mi perfil</a>
+            <a href="#"> <i class="fas fa-arrow-right"></i> Política y privacidad</a>
         </div>
         <div class="box">
             <h3>Síguenos</h3>
-            <a href="#"> <i class="fab fa-facebook-f"></i> facebook</a>
-            <a href="#"> <i class="fab fa-twitter"></i> twitter</a>
-            <a href="#"> <i class="fab fa-instagram"></i> instagram</a>
-            <a href="#"> <i class="fab fa-linkedin"></i> linkedin</a>
-            <a href="#"> <i class="fab fa-pinterest"></i> pinterest</a>
+            <a href="#"> <i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#"> <i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#"> <i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#"> <i class="fab fa-pinterest"></i> Pinterest</a>
         </div>
     </div>
 </section>
-<section class="credit"></section> 
+<section class="credit"></section>
+<!-- footer section ends -->
 
     <script src="../js/menu.js"></script>
     <script src="../js/carrito.js"></script>

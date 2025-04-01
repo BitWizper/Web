@@ -1,4 +1,4 @@
-// Mostrar contenido de la sección correspondiente
+zzz// Mostrar contenido de la sección correspondiente
 function showContent(sectionId, element) {
   // Ocultar todas las secciones
   const sections = document.querySelectorAll('.content-section');

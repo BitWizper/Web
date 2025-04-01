@@ -29,6 +29,7 @@
             <ul>
                 <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
                 <li><a href="pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="citas.html"><i class="fas fa-calendar-alt"></i> Mis Citas</a></li>
                 <li><a href="favoritos.html"><i class="fas fa-heart"></i> Favoritos</a></li>
                 <li><a href="ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
                 <li><a href="configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
@@ -92,67 +93,119 @@
             <img src="https://i.pinimg.com/736x/8d/4d/20/8d4d20b75a8d8b13e3d2907c5c58e633.jpg" alt="Pastel Personalizado">
         </div>
         <div class="cake-options">
-            <form id="cake-form">
-                <label for="size">Tamaño del pastel:</label>
-                <select id="size" name="size">
-                    <option value="pequeño">Pequeño</option>
-                    <option value="mediano">Mediano</option>
-                    <option value="grande">Grande</option>
-                </select>
-                <br>
-                <label for="flavor">Sabor del pastel:</label>
-                <select id="flavor" name="flavor">
-                    <option value="chocolate">Chocolate</option>
-                    <option value="vainilla">Vainilla</option>
-                    <option value="fresa">Fresa</option>
-                    <option value="red velvet">Red Velvet</option>
-                </select>
-                <br>
-                <label for="decoration">Decoración especial:</label>
-                <input type="text" id="decoration" name="decoration" placeholder="Escribe tu decoración...">
-                <br>
-                <label for="message">Mensaje en el pastel:</label>
-                <input type="text" id="message" name="message" placeholder="Escribe el mensaje...">
-                <br>
+            <form id="cake-form" onsubmit="guardarDatosPastel(event)">
+                <div class="form-group">
+                    <label for="size">Tamaño del pastel:</label>
+                    <select id="size" name="size" required>
+                        <option value="">Selecciona un tamaño</option>
+                        <option value="pequeño">Pequeño (15-20 personas)</option>
+                        <option value="mediano">Mediano (25-30 personas)</option>
+                        <option value="grande">Grande (35-40 personas)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="flavor">Sabor del pastel:</label>
+                    <select id="flavor" name="flavor" required>
+                        <option value="">Selecciona un sabor</option>
+                        <option value="chocolate">Chocolate</option>
+                        <option value="vainilla">Vainilla</option>
+                        <option value="fresa">Fresa</option>
+                        <option value="red_velvet">Red Velvet</option>
+                        <option value="zanahoria">Zanahoria</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="color_principal">Color principal del pastel:</label>
+                    <select id="color_principal" name="color_principal" required>
+                        <option value="">Selecciona un color</option>
+                        <option value="blanco">Blanco</option>
+                        <option value="rosa">Rosa</option>
+                        <option value="azul">Azul</option>
+                        <option value="verde">Verde</option>
+                        <option value="morado">Morado</option>
+                        <option value="amarillo">Amarillo</option>
+                        <option value="rojo">Rojo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="color_secundario">Color secundario del pastel:</label>
+                    <select id="color_secundario" name="color_secundario">
+                        <option value="">Selecciona un color (opcional)</option>
+                        <option value="blanco">Blanco</option>
+                        <option value="rosa">Rosa</option>
+                        <option value="azul">Azul</option>
+                        <option value="verde">Verde</option>
+                        <option value="morado">Morado</option>
+                        <option value="amarillo">Amarillo</option>
+                        <option value="rojo">Rojo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="decoration">Decoración especial:</label>
+                    <input type="text" id="decoration" name="decoration" placeholder="Escribe tu decoración...">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Mensaje en el pastel:</label>
+                    <input type="text" id="message" name="message" placeholder="Escribe el mensaje que deseas en el pastel...">
+                </div>
+
                 <div class="button-group">
-                    <button type="submit" class="btn">Guardar Cambios</button>
-                    <button type="button" class="btn btn-danger" onclick="eliminarPastel(new URLSearchParams(window.location.search).get('id_pastel'))">Eliminar Pastel</button>
-                    <button type="button" class="btn" onclick="addToCart()">Añadir al carrito</button>
-                    <button type="button" class="btn" onclick="window.location.href='pedidos.html'">Realizar Pedido</button>
+                    <button type="button" class="btn-3d" onclick="window.location.href='../mainMenuModel3D/mainMenuUI.html'">
+                        <i class="fas fa-cube"></i> Ver en 3D
+                    </button>
+                    <button type="submit" class="btn">Guardar Diseño</button>
+                    <button type="button" class="btn btn-cart" onclick="addToCart()">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </button>
                 </div>
             </form>
         </div>
         
+        <!-- Nuevo contenedor para citas de degustación -->
+        <div class="tasting-section">
+            <h2>¿Quieres probar el pastel antes de hacer tu pedido?</h2>
+            <p>Agenda una cita de degustación con nuestros reposteros</p>
+            <div class="cost-info">
+                <i class="fas fa-info-circle"></i>
+                <span>Con costo adicional</span>
+            </div>
+            
+            <div class="tasting-options">
+                <div class="option-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Buscar Repostero</h3>
+                    <p>Explora nuestros talentosos reposteros y agenda una cita</p>
+                    <button onclick="window.location.href='/components/reposteros.html'" class="btn">
+                        Ver Reposteros
+                    </button>
+                </div>
 
-        <!-- Agenda cita -->
-        <div class="schedule-section">
-            <h2>Agenda tu cita</h2>
-            <form id="schedule-form">
-                <label for="date">Fecha de entrega:</label>
-                <input type="date" id="date" name="date" required>
-                <br>
-                <label for="time">Hora de entrega:</label>
-                <input type="time" id="time" name="time" required>
-                <br>
-                <label for="direccion">Dirección de entrega:</label>
-                <textarea id="direccion" name="direccion" 
-                    placeholder="Ingresa la dirección completa de entrega" 
-                    required></textarea>
-                <br>
-                <button type="button" class="btn" onclick="realizarPedido()">Realizar Pedido</button>
-            </form>
+                <div class="option-card">
+                    <i class="fas fa-user-check"></i>
+                    <h3>Ya tengo un repostero</h3>
+                    <p>Si ya sabes con quién quieres tu cita</p>
+                    <input type="text" id="repostero_nombre" placeholder="Nombre del repostero" class="repostero-input">
+                    <button onclick="agendarCitaConRepostero()" class="btn">
+                        Agendar Cita
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
 
-
-     <!-- footer section starts -->
-     <section class="footer">
+      <!-- footer section starts -->
+      <section class="footer">
         <div class="box-container">
             <div class="box">
-                <h3>quick links</h3>
-                <a href="/components/home.html"> <i class="fas fa-arrow-right"></i> Home</a>
-                <a href="/components/reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
-                <a href="components/categorias.html"> <i class="fas fa-arrow-right"></i> Catalogo</a>
+                <h3>Quick links</h3>
+                <a href="home.html"> <i class="fas fa-arrow-right"></i> Home</a>
+                <a href="reposteros.html"> <i class="fas fa-arrow-right"></i> Reposteros</a>
+                <a href="categorias.html"> <i class="fas fa-arrow-right"></i> Catálogo</a>
                 <a href="ayuda.html"> <i class="fas fa-arrow-right"></i> Centro de ayuda</a>
             </div>
             <div class="box">
@@ -160,7 +213,7 @@
                 <a href="pedidos.html"> <i class="fas fa-arrow-right"></i> Mis pedidos</a>
                 <a href="favoritos.html"> <i class="fas fa-arrow-right"></i> Mis favoritos</a>
                 <a href="carrito.html"> <i class="fas fa-arrow-right"></i> Mi carrito</a>
-                <a href="/components/perfil.html"> <i class="fas fa-arrow-right"></i> Mi perfil</a>
+                <a href="perfil.html"> <i class="fas fa-arrow-right"></i> Mi perfil</a>
                 <a href="#"> <i class="fas fa-arrow-right"></i> Política y privacidad</a>
             </div>
             <div class="box">
@@ -168,7 +221,6 @@
                 <a href="#"> <i class="fab fa-facebook-f"></i> Facebook</a>
                 <a href="#"> <i class="fab fa-twitter"></i> Twitter</a>
                 <a href="#"> <i class="fab fa-instagram"></i> Instagram</a>
-                <a href="#"> <i class="fab fa-linkedin"></i> LinkedIn</a>
                 <a href="#"> <i class="fab fa-pinterest"></i> Pinterest</a>
             </div>
         </div>
@@ -176,7 +228,268 @@
     <section class="credit"></section>
     <!-- footer section ends -->
 
+    <style>
+        .cake-editor {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cake-image {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cake-image img {
+            max-width: 400px;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            color: var(--main-color);
+        }
+
+        .form-group select,
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.4rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            background: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .btn-3d {
+            padding: 1.5rem 3rem;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-3d:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .cake-editor {
+                padding: 1rem;
+            }
+
+            .cake-image img {
+                max-width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button-group button {
+                width: 100%;
+            }
+        }
+
+        .tasting-section {
+            background: #fff5f5;
+            padding: 3rem;
+            border-radius: 1rem;
+            margin: 3rem 0;
+            text-align: center;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+        }
+
+        .tasting-section h2 {
+            color: var(--main-color);
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .tasting-section p {
+            font-size: 1.6rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .tasting-options {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .option-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 300px;
+            box-shadow: 0 0.3rem 0.6rem rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .option-card i {
+            font-size: 3rem;
+            color: var(--main-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .option-card h3 {
+            font-size: 1.8rem;
+            color: var(--main-color);
+            margin-bottom: 1rem;
+        }
+
+        .option-card p {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .repostero-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.4rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .tasting-section {
+                padding: 2rem;
+            }
+
+            .option-card {
+                width: 100%;
+            }
+        }
+
+        .cost-info {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            margin: 1rem auto 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px dashed var(--main-color);
+        }
+
+        .cost-info i {
+            color: var(--main-color);
+            font-size: 2rem;
+        }
+
+        .cost-info span {
+            font-size: 1.6rem;
+            color: var(--main-color);
+            font-weight: 600;
+        }
+
+        .cost-info small {
+            font-size: 1.2rem;
+            color: #666;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .cost-info {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+        }
+
+        .btn-cart {
+            background: var(--main-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+        }
+
+        .btn-cart:hover {
+            background: #ff6b81;
+            transform: translateY(-2px);
+        }
+    </style>
+
     <script>
+        function guardarDatosPastel(event) {
+            event.preventDefault();
+            
+            // Crear objeto con los datos del formulario
+            const formData = new FormData(event.target);
+            const datosPastel = {
+                tamaño: formData.get('size'),
+                sabor: formData.get('flavor'),
+                color_principal: formData.get('color_principal'),
+                color_secundario: formData.get('color_secundario'),
+                decoracion: formData.get('decoration'),
+                mensaje: formData.get('message'),
+                repostero: document.getElementById('repostero_nombre').value || null,
+                imagen: document.querySelector('.cake-image img').src
+            };
+
+            // Recuperar pasteles guardados existentes
+            const pastelesGuardados = JSON.parse(localStorage.getItem('pastelesGuardados')) || [];
+            
+            // Verificar si estamos editando un pastel existente
+            const pastelEnEdicion = JSON.parse(localStorage.getItem('pastelEnEdicion'));
+            if (pastelEnEdicion) {
+                // Encontrar el índice del pastel en edición
+                const index = pastelesGuardados.findIndex(p => 
+                    p.tamaño === pastelEnEdicion.tamaño && 
+                    p.sabor === pastelEnEdicion.sabor && 
+                    p.mensaje === pastelEnEdicion.mensaje
+                );
+                if (index !== -1) {
+                    pastelesGuardados[index] = datosPastel;
+                } else {
+                    pastelesGuardados.push(datosPastel);
+                }
+                // Limpiar el pastel en edición
+                localStorage.removeItem('pastelEnEdicion');
+            } else {
+                // Agregar nuevo pastel
+                pastelesGuardados.push(datosPastel);
+            }
+            
+            // Guardar en localStorage
+            localStorage.setItem('pastelesGuardados', JSON.stringify(pastelesGuardados));
+            
+            // Mostrar mensaje de éxito
+            alert('¡Diseño guardado correctamente!');
+            
+            // Redirigir a la sección de pasteles guardados
+            window.location.href = '../mainMenuModel3D/mainMenuUI.html';
+        }
+
         function addToCart() {
             const size = document.getElementById('size').value;
             const flavor = document.getElementById('flavor').value;
@@ -199,6 +512,17 @@
             const date = document.getElementById('date').value;
             const time = document.getElementById('time').value;
             alert(`Cita agendada para el ${date} a las ${time}`);
+        }
+
+        function agendarCitaConRepostero() {
+            const nombreRepostero = document.getElementById('repostero_nombre').value;
+            if (nombreRepostero.trim() === '') {
+                alert('Por favor, ingresa el nombre del repostero');
+                return;
+            }
+            // Aquí puedes agregar la lógica para agendar la cita
+            alert(`Se iniciará el proceso de agenda de cita con ${nombreRepostero}`);
+            // Puedes redirigir a una página específica o mostrar un modal para seleccionar fecha y hora
         }
     </script>
 

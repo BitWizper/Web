@@ -165,7 +165,7 @@
                                 <button onclick="eliminarDeFavoritos(${pastel.id_pastel})">
                                     <i class="fas fa-trash"></i> Eliminar
                                 </button>
-                                <button onclick="editarPastel(${pastel.id_pastel})">
+                                <button onclick='editarPastel(${pastel.id_pastel}, ${JSON.stringify(pastel).replace(/'/g, "&apos;")})'>
                                     <i class="fas fa-edit"></i> Editar
                                 </button>
                             </div>
@@ -207,8 +207,15 @@
             location.reload();
         }
 
-        function editarPastel(id_pastel) {
-            window.location.href = `editar-pastel.html?id_pastel=${id_pastel}`;
+        function editarPastel(id_pastel, pastelData) {
+            try {
+                // Guardar los datos del pastel en sessionStorage
+                sessionStorage.setItem('pastelEditar', JSON.stringify(pastelData));
+                window.location.href = `editar-pastel.html?id_pastel=${id_pastel}`;
+            } catch (error) {
+                console.error('Error al editar el pastel:', error);
+                alert('Hubo un error al intentar editar el pastel');
+            }
         }
     </script>
 </body>

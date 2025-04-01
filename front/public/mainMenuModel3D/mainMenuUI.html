@@ -107,6 +107,94 @@
         .popup-btn:hover {
             background: #A65168;
         }
+
+        .saved-cakes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .saved-cake-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+        }
+
+        .saved-cake-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .saved-cake-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .saved-cake-details h3 {
+            color: var(--main-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .tasting-info {
+            background: #fff5f5;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tasting-info h4 {
+            color: var(--main-color);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .cake-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .cake-actions button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: var(--main-color);
+            color: white;
+        }
+
+        .delete-btn {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .cake-actions button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -124,6 +212,7 @@
             <ul>
                 <li><a href="../components/perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
                 <li><a href="../components/pedidos.html"><i class="fas fa-box"></i> Mis Pedidos</a></li>
+                <li><a href="../components/citas.html"><i class="fas fa-calendar-alt"></i> Mis Citas</a></li>
                 <li><a href="../components/favoritos.html"><i class="fas fa-heart"></i> Favoritos</a></li>
                 <li><a href="../components/ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
                 <li><a href="../components/configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
@@ -185,8 +274,95 @@
         </div>
     </div>
 
+    <div class="menu-section">
+        <h2>Pasteles Guardados</h2>
+        <div id="pasteles-guardados" class="saved-cakes-container">
+            <!-- Los pasteles guardados se mostrarán aquí -->
+        </div>
+    </div>
+
     <script src="../js/menu.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/search.js"></script>
+    <script>
+        // Función para cargar los pasteles guardados
+        function cargarPastelesGuardados() {
+            const container = document.getElementById('pasteles-guardados');
+            
+            // Recuperar pasteles guardados del localStorage
+            const pastelesGuardados = JSON.parse(localStorage.getItem('pastelesGuardados')) || [];
+            
+            container.innerHTML = pastelesGuardados.map((pastel, index) => `
+                <div class="saved-cake-card">
+                    <img src="${pastel.imagen || 'https://i.pinimg.com/736x/8d/4d/20/8d4d20b75a8d8b13e3d2907c5c58e633.jpg'}" alt="Pastel guardado">
+                    <div class="saved-cake-details">
+                        <h3>Pastel Personalizado #${index + 1}</h3>
+                        <div class="detail-item">
+                            <span class="detail-label">Tamaño:</span>
+                            <span>${pastel.tamaño}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Sabor:</span>
+                            <span>${pastel.sabor}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Color Principal:</span>
+                            <span>${pastel.color_principal}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Color Secundario:</span>
+                            <span>${pastel.color_secundario || 'No especificado'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Decoración:</span>
+                            <span>${pastel.decoracion || 'No especificada'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Mensaje:</span>
+                            <span>${pastel.mensaje || 'No especificado'}</span>
+                        </div>
+                    </div>
+                    ${pastel.repostero ? `
+                        <div class="tasting-info">
+                            <h4>Degustación Programada</h4>
+                            <div class="detail-item">
+                                <span class="detail-label">Repostero:</span>
+                                <span>${pastel.repostero}</span>
+                            </div>
+                        </div>
+                    ` : ''}
+                    <div class="cake-actions">
+                        <button class="edit-btn" onclick="editarPastel(${index})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="delete-btn" onclick="eliminarPastel(${index})">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Función para editar un pastel guardado
+        function editarPastel(index) {
+            const pastelesGuardados = JSON.parse(localStorage.getItem('pastelesGuardados')) || [];
+            const pastel = pastelesGuardados[index];
+            localStorage.setItem('pastelEnEdicion', JSON.stringify(pastel));
+            window.location.href = '../components/editar-pastel.html';
+        }
+
+        // Función para eliminar un pastel guardado
+        function eliminarPastel(index) {
+            if (confirm('¿Estás seguro de que deseas eliminar este pastel?')) {
+                const pastelesGuardados = JSON.parse(localStorage.getItem('pastelesGuardados')) || [];
+                pastelesGuardados.splice(index, 1);
+                localStorage.setItem('pastelesGuardados', JSON.stringify(pastelesGuardados));
+                cargarPastelesGuardados();
+            }
+        }
+
+        // Cargar pasteles guardados al iniciar la página
+        document.addEventListener('DOMContentLoaded', cargarPastelesGuardados);
+    </script>
 </body>
 </html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Citas - Pastelería</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .back-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            font-size: 3rem;
+            color: var(--main-color);
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            color: var(--black);
+        }
+
+        .citas-container {
+            max-width: 1200px;
+            margin: 4rem auto 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--main-color);
+            padding-bottom: 1rem;
+        }
+
+        .calendar-title {
+            font-size: 3rem;
+            color: var(--main-color);
+        }
+
+        .month-title {
+            font-size: 2rem;
+            color: var(--black);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .calendar-nav button {
+            background: var(--main-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav button:hover {
+            background: var(--black);
+            transform: translateY(-2px);
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .weekday {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--main-color);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 0.8rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border: 1px solid #ddd;
+            border-radius: 0.8rem;
+            padding: 1rem;
+            position: relative;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .calendar-day.empty {
+            background: #f5f5f5;
+            border: none;
+        }
+
+        .calendar-day:hover:not(.empty) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .calendar-date {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+        }
+
+        .calendar-event {
+            background: var(--main-color);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-event:hover {
+            transform: scale(1.05);
+        }
+
+        .calendar-event.degustacion {
+            background: #4CAF50;
+        }
+
+        .calendar-event.muestra {
+            background: #2196F3;
+        }
+
+        .cita-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .cita-modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .cita-modal-close {
+            position: absolute;
+            right: 2rem;
+            top: 1rem;
+            font-size: 2.8rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        .cita-modal-close:hover {
+            color: var(--main-color);
+        }
+
+        .cita-detalles {
+            margin-top: 2rem;
+        }
+
+        .cita-detalles h3 {
+            color: var(--main-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--main-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .cita-info {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .cita-info p {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background: #f9f9f9;
+        }
+
+        .cita-info strong {
+            color: var(--main-color);
+            margin-right: 0.5rem;
+        }
+
+        .cita-acciones {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .cita-acciones button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reagendar {
+            background: var(--main-color);
+            color: white;
+        }
+
+        .btn-reagendar:hover {
+            background: var(--black);
+        }
+
+        .btn-cancelar {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-cancelar:hover {
+            background: #c82333;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+
+            .calendar-day {
+                aspect-ratio: auto;
+                min-height: 80px;
+                padding: 0.5rem;
+            }
+
+            .calendar-date {
+                font-size: 1.2rem;
+            }
+
+            .calendar-event {
+                font-size: 1rem;
+                padding: 0.5rem;
+            }
+
+            .citas-container {
+                margin: 4rem 1rem 2rem;
+                padding: 1rem;
+            }
+
+            .weekday {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <span class="back-btn" onclick="window.location.href='home.html'">↩</span>
+
+    <div class="citas-container">
+        <div class="calendar-header">
+            <h1 class="calendar-title">Mis Citas</h1>
+            <div class="calendar-nav">
+                <button onclick="cambiarMes(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="cambiarMes(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <h2 class="month-title" id="monthTitle"></h2>
+
+        <div class="weekdays">
+            <div class="weekday">Dom</div>
+            <div class="weekday">Lun</div>
+            <div class="weekday">Mar</div>
+            <div class="weekday">Mié</div>
+            <div class="weekday">Jue</div>
+            <div class="weekday">Vie</div>
+            <div class="weekday">Sáb</div>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- El calendario se generará dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Modal de detalles de cita -->
+    <div class="cita-modal" id="citaModal">
+        <div class="cita-modal-content">
+            <span class="cita-modal-close">&times;</span>
+            <div class="cita-detalles">
+                <h3>Detalles de la Cita</h3>
+                <div class="cita-info">
+                    <p><strong>Fecha:</strong> <span id="citaFecha"></span></p>
+                    <p><strong>Hora:</strong> <span id="citaHora"></span></p>
+                    <p><strong>Tipo:</strong> <span id="citaTipo"></span></p>
+                    <p><strong>Repostero:</strong> <span id="citaRepostero"></span></p>
+                    <p><strong>Notas:</strong> <span id="citaNotas"></span></p>
+                </div>
+                <div class="cita-acciones">
+                    <button class="btn-reagendar" onclick="reagendarCita()">Reagendar</button>
+                    <button class="btn-cancelar" onclick="cancelarCita()">Cancelar Cita</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo de citas (esto se reemplazará con datos reales de la base de datos)
+        const citas = [
+            {
+                fecha: '2024-03-15',
+                hora: '10:00',
+                tipo: 'Degustación',
+                repostero: 'Ana Martínez',
+                notas: 'Degustación de pastel de bodas'
+            },
+            {
+                fecha: '2024-03-20',
+                hora: '15:00',
+                tipo: 'Muestra',
+                repostero: 'Carlos Ruiz',
+                notas: 'Presentación del diseño final'
+            }
+        ];
+
+        const meses = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+
+        // Función para generar el calendario
+        function generarCalendario(mes, año) {
+            const primerDia = new Date(año, mes, 1);
+            const ultimoDia = new Date(año, mes + 1, 0);
+            const grid = document.getElementById('calendarGrid');
+            const monthTitle = document.getElementById('monthTitle');
+            
+            // Actualizar título del mes
+            monthTitle.textContent = `${meses[mes]} ${año}`;
+            
+            grid.innerHTML = '';
+
+            // Añadir días vacíos al principio
+            for (let i = 0; i < primerDia.getDay(); i++) {
+                const diaVacio = document.createElement('div');
+                diaVacio.className = 'calendar-day empty';
+                grid.appendChild(diaVacio);
+            }
+
+            // Generar días del mes
+            for (let i = 1; i <= ultimoDia.getDate(); i++) {
+                const dia = document.createElement('div');
+                dia.className = 'calendar-day';
+                
+                const fecha = document.createElement('div');
+                fecha.className = 'calendar-date';
+                fecha.textContent = i;
+                dia.appendChild(fecha);
+
+                // Buscar citas para este día
+                const fechaActual = `${año}-${String(mes + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                const citasDelDia = citas.filter(cita => cita.fecha === fechaActual);
+
+                citasDelDia.forEach(cita => {
+                    const evento = document.createElement('div');
+                    evento.className = `calendar-event ${cita.tipo.toLowerCase()}`;
+                    evento.textContent = `${cita.hora} - ${cita.tipo}`;
+                    evento.onclick = () => mostrarDetallesCita(cita);
+                    dia.appendChild(evento);
+                });
+
+                grid.appendChild(dia);
+            }
+
+            // Añadir días vacíos al final si es necesario
+            const totalDias = grid.children.length;
+            const diasRestantes = 42 - totalDias; // 6 filas x 7 días = 42
+            for (let i = 0; i < diasRestantes; i++) {
+                const diaVacio = document.createElement('div');
+                diaVacio.className = 'calendar-day empty';
+                grid.appendChild(diaVacio);
+            }
+        }
+
+        // Variables para el mes actual
+        let mesActual = new Date().getMonth();
+        let añoActual = new Date().getFullYear();
+
+        // Inicializar calendario
+        generarCalendario(mesActual, añoActual);
+
+        // Función para cambiar de mes
+        function cambiarMes(delta) {
+            mesActual += delta;
+            if (mesActual > 11) {
+                mesActual = 0;
+                añoActual++;
+            } else if (mesActual < 0) {
+                mesActual = 11;
+                añoActual--;
+            }
+            generarCalendario(mesActual, añoActual);
+        }
+
+        // Funciones para el modal
+        function mostrarDetallesCita(cita) {
+            document.getElementById('citaFecha').textContent = cita.fecha;
+            document.getElementById('citaHora').textContent = cita.hora;
+            document.getElementById('citaTipo').textContent = cita.tipo;
+            document.getElementById('citaRepostero').textContent = cita.repostero;
+            document.getElementById('citaNotas').textContent = cita.notas;
+            document.getElementById('citaModal').style.display = 'block';
+        }
+
+        function reagendarCita() {
+            // Aquí iría la lógica para reagendar
+            alert('Función de reagendar en desarrollo');
+        }
+
+        function cancelarCita() {
+            if (confirm('¿Estás seguro de que deseas cancelar esta cita?')) {
+                // Aquí iría la lógica para cancelar
+                alert('Cita cancelada');
+                document.getElementById('citaModal').style.display = 'none';
+            }
+        }
+
+        // Cerrar modal
+        document.querySelector('.cita-modal-close').onclick = function() {
+            document.getElementById('citaModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('citaModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 
