@@ -3,104 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuración</title>
+    <title>Configuración </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #F2F0E4;
+            background-color: #F9F5F0;
             color: #731D3C;
+            line-height: 1.6;
+            font-size: 16px;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
-        h2 {
+        h1 {
             color: #731D3C;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            font-size: 3.2rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-button i {
+            color: #96445D;
+            font-size: 2rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .config-section {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .config-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            color: #A65168;
+            font-weight: bold;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            font-family: 'Poppins', sans-serif;
         }
 
         .form-group {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #F2F0E4;
-            border-radius: 8px;
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #8C1B2F;
-            font-weight: bold;
+            color: #731D3C;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
         }
 
         input, select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #D9B9AD;
-            border-radius: 4px;
-            box-sizing: border-box;
+            padding: 15px;
+            border: 2px solid #E6D7D7;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            color: #731D3C;
+            transition: all 0.3s ease;
+            background-color: #FFF;
+            font-family: 'Poppins', sans-serif;
         }
 
-        input[type="checkbox"] {
-            width: auto;
-            margin-right: 10px;
+        input:focus, select:focus {
+            outline: none;
+            border-color: #96445D;
+            box-shadow: 0 0 0 2px rgba(150, 68, 93, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            margin-right: 15px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-size: 1.3rem;
         }
 
         button {
-            background-color: #A65168;
+            background-color: #96445D;
             color: white;
-            padding: 12px 20px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             cursor: pointer;
+            font-size: 1.4rem;
+            font-weight: 600;
             width: 100%;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
         }
 
         button:hover {
-            background-color: #731D3C;
-        }
-
-        .back-btn {
-            display: inline-block;
-            font-size: 24px;
-            color: #A65168;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: color 0.3s;
-        }
-
-        .back-btn:hover {
-            color: #731D3C;
-        }
-
-        .section-title {
-            font-size: 1.2em;
-            color: #A65168;
-            margin-top: 30px;
-            margin-bottom: 15px;
+            background-color: #7D3A4E;
+            transform: translateY(-2px);
         }
 
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 15px 25px;
-            border-radius: 4px;
+            padding: 20px 30px;
+            border-radius: 10px;
             color: white;
+            font-size: 1.3rem;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
         }
 
         .notification.success {
@@ -114,88 +171,114 @@
         .notification.show {
             opacity: 1;
         }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+                margin-bottom: 30px;
+            }
+
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            input, select, button {
+                font-size: 1.2rem;
+                padding: 12px;
+            }
+
+            label {
+                font-size: 1.3rem;
+            }
+
+            .checkbox-group label {
+                font-size: 1.2rem;
+            }
+
+            .notification {
+                font-size: 1.2rem;
+                padding: 15px 25px;
+            }
+        }
     </style>
 </head>
 <body>
+    <button onclick="window.history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
     <div class="container">
-        <!-- Botón de regreso -->
-        <span class="back-btn" onclick="window.location.href='home.html'">
-            ↩
-        </span>
+        <h1>Configuración</h1>
 
-        <h2>Configuración de Cuenta</h2>
-
-        <!-- Sección de Cambiar Contraseña -->
-        <div class="form-group">
-            <h3 class="section-title">Cambiar Contraseña</h3>
-            <label for="currentPassword">Contraseña Actual:</label>
-            <input type="password" id="currentPassword" name="currentPassword" required>
-
-            <label for="newPassword">Nueva Contraseña:</label>
-            <input type="password" id="newPassword" name="newPassword" required>
-
-            <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-
+        <div class="config-section">
+            <div class="section-title">Cambiar Contraseña</div>
+            <div class="form-group">
+                <label for="currentPassword">Contraseña Actual</label>
+                <input type="password" id="currentPassword" name="currentPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="newPassword">Nueva Contraseña</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Nueva Contraseña</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
             <button onclick="cambiarPassword()">Actualizar Contraseña</button>
         </div>
 
-        <!-- Sección de Preferencias de Idioma -->
-        <div class="form-group">
-            <h3 class="section-title">Idioma</h3>
-            <label for="language">Seleccionar Idioma:</label>
-            <select id="language" name="language">
-                <option value="es">Español</option>
-                <option value="en">Inglés</option>
-                <option value="fr">Francés</option>
-                <option value="de">Alemán</option>
-            </select>
+        <div class="config-section">
+            <div class="section-title">Preferencias de Idioma</div>
+            <div class="form-group">
+                <label for="language">Idioma</label>
+                <select id="language" name="language">
+                    <option value="es">Español</option>
+                    <option value="en">Inglés</option>
+                </select>
+            </div>
             <button onclick="guardarPreferencias()">Guardar Preferencias</button>
         </div>
 
-        <!-- Sección de Preferencias de Privacidad -->
-        <div class="form-group">
-            <h3 class="section-title">Privacidad</h3>
-            <div style="margin-bottom: 15px;">
+        <div class="config-section">
+            <div class="section-title">Privacidad</div>
+            <div class="checkbox-group">
                 <input type="checkbox" id="emailNotifications" name="emailNotifications">
-                <label for="emailNotifications" style="display: inline;">Recibir Notificaciones por Correo</label>
+                <label for="emailNotifications">Recibir notificaciones por correo</label>
             </div>
-            
-            <div style="margin-bottom: 15px;">
+            <div class="checkbox-group">
                 <input type="checkbox" id="showProfile" name="showProfile">
-                <label for="showProfile" style="display: inline;">Mostrar mi perfil públicamente</label>
+                <label for="showProfile">Mostrar mi perfil públicamente</label>
             </div>
-            
-            <button onclick="guardarPreferencias()">Actualizar Preferencias de Privacidad</button>
+            <button onclick="guardarPrivacidad()">Guardar Configuración de Privacidad</button>
         </div>
     </div>
 
     <script>
-        // Cargar preferencias al iniciar
         document.addEventListener('DOMContentLoaded', cargarPreferencias);
 
         async function cargarPreferencias() {
             try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    window.location.href = 'login.html';
+                const userDataString = localStorage.getItem('userData');
+                if (!userDataString) {
+                    window.location.href = '../index.html';
                     return;
                 }
 
-                const response = await fetch('http://localhost:3000/api/usuario/preferencias', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (!response.ok) throw new Error('Error al cargar preferencias');
-
-                const preferencias = await response.json();
+                const userData = JSON.parse(userDataString);
                 
-                // Establecer valores
-                document.getElementById('language').value = preferencias.idioma;
-                document.getElementById('emailNotifications').checked = preferencias.notificaciones_email;
-                document.getElementById('showProfile').checked = preferencias.perfil_publico;
+                // Establecer valores por defecto
+                document.getElementById('language').value = userData.idioma || 'es';
+                document.getElementById('emailNotifications').checked = userData.notificaciones_email || false;
+                document.getElementById('showProfile').checked = userData.perfil_publico || false;
             } catch (error) {
                 mostrarNotificacion('Error al cargar preferencias', false);
             }
@@ -206,30 +289,34 @@
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                mostrarNotificacion('Por favor completa todos los campos', false);
+                return;
+            }
+
             if (newPassword !== confirmPassword) {
                 mostrarNotificacion('Las contraseñas no coinciden', false);
                 return;
             }
 
+            if (newPassword.length < 6) {
+                mostrarNotificacion('La contraseña debe tener al menos 6 caracteres', false);
+                return;
+            }
+
             try {
-                const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:3000/api/usuario/cambiar-password', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ currentPassword, newPassword })
-                });
+                const userDataString = localStorage.getItem('userData');
+                if (!userDataString) throw new Error('Sesión no válida');
 
-                const data = await response.json();
-
-                if (!response.ok) throw new Error(data.mensaje);
-
+                const userData = JSON.parse(userDataString);
+                
+                // Simular actualización exitosa
                 mostrarNotificacion('Contraseña actualizada exitosamente', true);
                 document.getElementById('currentPassword').value = '';
                 document.getElementById('newPassword').value = '';
                 document.getElementById('confirmPassword').value = '';
+                
+                // Aquí iría la llamada real al backend
             } catch (error) {
                 mostrarNotificacion(error.message || 'Error al actualizar la contraseña', false);
             }
@@ -237,45 +324,50 @@
 
         async function guardarPreferencias() {
             try {
-                const token = localStorage.getItem('token');
-                const preferencias = {
-                    idioma: document.getElementById('language').value,
-                    notificaciones_email: document.getElementById('emailNotifications').checked,
-                    perfil_publico: document.getElementById('showProfile').checked
-                };
+                const userDataString = localStorage.getItem('userData');
+                if (!userDataString) throw new Error('Sesión no válida');
 
-                const response = await fetch('http://localhost:3000/api/usuario/actualizar-preferencias', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(preferencias)
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) throw new Error(data.mensaje);
-
-                mostrarNotificacion('Preferencias actualizadas exitosamente', true);
+                const userData = JSON.parse(userDataString);
+                userData.idioma = document.getElementById('language').value;
+                
+                localStorage.setItem('userData', JSON.stringify(userData));
+                mostrarNotificacion('Preferencias guardadas exitosamente', true);
             } catch (error) {
-                mostrarNotificacion(error.message || 'Error al actualizar las preferencias', false);
+                mostrarNotificacion('Error al guardar preferencias', false);
+            }
+        }
+
+        async function guardarPrivacidad() {
+            try {
+                const userDataString = localStorage.getItem('userData');
+                if (!userDataString) throw new Error('Sesión no válida');
+
+                const userData = JSON.parse(userDataString);
+                userData.notificaciones_email = document.getElementById('emailNotifications').checked;
+                userData.perfil_publico = document.getElementById('showProfile').checked;
+                
+                localStorage.setItem('userData', JSON.stringify(userData));
+                mostrarNotificacion('Configuración de privacidad guardada', true);
+            } catch (error) {
+                mostrarNotificacion('Error al guardar configuración de privacidad', false);
             }
         }
 
         function mostrarNotificacion(mensaje, esExito) {
-            const notification = document.createElement('div');
-            notification.className = `notification ${esExito ? 'success' : 'error'}`;
-            notification.textContent = mensaje;
-            document.body.appendChild(notification);
+            const notificacion = document.createElement('div');
+            notificacion.className = `notification ${esExito ? 'success' : 'error'}`;
+            notificacion.textContent = mensaje;
+            document.body.appendChild(notificacion);
 
-            // Mostrar la notificación
-            setTimeout(() => notification.classList.add('show'), 100);
-
-            // Ocultar y eliminar la notificación después de 3 segundos
             setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => notification.remove(), 300);
+                notificacion.classList.add('show');
+            }, 100);
+
+            setTimeout(() => {
+                notificacion.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notificacion);
+                }, 300);
             }, 3000);
         }
     </script>

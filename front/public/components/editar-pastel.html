@@ -178,21 +178,27 @@
             <div class="tasting-options">
                 <div class="option-card">
                     <i class="fas fa-search"></i>
-                    <h3>Buscar Repostero</h3>
-                    <p>Explora nuestros talentosos reposteros y agenda una cita</p>
-                    <button onclick="window.location.href='/components/reposteros.html'" class="btn">
-                        Ver Reposteros
+                    <h3>Explorar Reposteros</h3>
+                    <p>Conoce a todos nuestros talentosos reposteros</p>
+                    <button onclick="window.location.href='reposteros.html'" class="btn">
+                        Ver Todos los Reposteros
                     </button>
                 </div>
 
                 <div class="option-card">
                     <i class="fas fa-user-check"></i>
-                    <h3>Ya tengo un repostero</h3>
-                    <p>Si ya sabes con quién quieres tu cita</p>
-                    <input type="text" id="repostero_nombre" placeholder="Nombre del repostero" class="repostero-input">
-                    <button onclick="agendarCitaConRepostero()" class="btn">
-                        Agendar Cita
-                    </button>
+                    <h3>Buscar Repostero</h3>
+                    <p>¿Ya conoces a tu repostero? Búscalo aquí</p>
+                    <div class="search-container">
+                        <input type="text" 
+                               id="repostero_search" 
+                               class="repostero-input" 
+                               placeholder="Escribe el nombre del repostero..."
+                               oninput="buscarReposteros(this.value)">
+                        <div id="search-results" class="search-results">
+                            <!-- Los resultados de búsqueda aparecerán aquí -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -369,23 +375,55 @@
             margin-bottom: 1.5rem;
         }
 
-        .repostero-input {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.4rem;
-            border: 1px solid #ddd;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
+        .reposteros-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
-        @media (max-width: 768px) {
-            .tasting-section {
-                padding: 2rem;
-            }
+        .repostero-card {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
 
-            .option-card {
-                width: 100%;
-            }
+        .repostero-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .repostero-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #96445D;
+        }
+
+        .repostero-card h4 {
+            margin-top: 0.5rem;
+            font-size: 1.4rem;
+            color: #333;
+        }
+
+        .repostero-card .rating {
+            color: #FFD700;
+            font-size: 1.2rem;
+        }
+
+        .repostero-input {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.6rem;
+            border: 2px solid #ddd;
+            border-radius: 0.8rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+        }
+
+        .repostero-input:focus {
+            border-color: #96445D;
+            outline: none;
         }
 
         .cost-info {
@@ -437,6 +475,99 @@
             background: #ff6b81;
             transform: translateY(-2px);
         }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0.8rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-result-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .search-result-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-info h4 {
+            font-size: 1.4rem;
+            color: #333;
+            margin: 0;
+        }
+
+        .search-result-info p {
+            font-size: 1.2rem;
+            color: #666;
+            margin: 0.2rem 0 0 0;
+        }
+
+        .search-result-rating {
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+
+        .btn-agendar {
+            background: #96445D;
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 0.8rem;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .btn-agendar:hover {
+            background: #7D3A4E;
+            transform: translateY(-2px);
+        }
+
+        .search-result-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-results {
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+        }
     </style>
 
     <script>
@@ -452,7 +583,7 @@
                 color_secundario: formData.get('color_secundario'),
                 decoracion: formData.get('decoration'),
                 mensaje: formData.get('message'),
-                repostero: document.getElementById('repostero_nombre').value || null,
+                repostero: document.getElementById('repostero_select').value || null,
                 imagen: document.querySelector('.cake-image img').src
             };
 
@@ -514,16 +645,120 @@
             alert(`Cita agendada para el ${date} a las ${time}`);
         }
 
-        function agendarCitaConRepostero() {
-            const nombreRepostero = document.getElementById('repostero_nombre').value;
-            if (nombreRepostero.trim() === '') {
-                alert('Por favor, ingresa el nombre del repostero');
+        // Función para ir al perfil del repostero
+        async function irAPerfilRepostero(id) {
+            try {
+                // Obtener los datos del repostero usando la ruta correcta de la API
+                const response = await fetch(`http://localhost:3000/api/repostero/reposteros/${id}`);
+                if (!response.ok) {
+                    throw new Error('Error al obtener datos del repostero');
+                }
+
+                const repostero = await response.json();
+                
+                // Guardar los datos del repostero en localStorage para usarlos en la página de perfil
+                localStorage.setItem('reposteroSeleccionado', JSON.stringify(repostero));
+
+                // Guardar los datos del pastel actual antes de ir al perfil
+                const formData = new FormData(document.getElementById('cake-form'));
+                const datosPastel = {
+                    tamaño: formData.get('size'),
+                    sabor: formData.get('flavor'),
+                    color_principal: formData.get('color_principal'),
+                    color_secundario: formData.get('color_secundario'),
+                    decoracion: formData.get('decoration'),
+                    mensaje: formData.get('message')
+                };
+
+                // Guardar datos del pastel temporalmente
+                localStorage.setItem('pastelEnProceso', JSON.stringify(datosPastel));
+                
+                // Redirigir al perfil del repostero con el ID como parámetro
+                window.location.href = `perfil-repostero.html?id=${id}`;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al acceder al perfil del repostero. Por favor, intenta de nuevo.');
+            }
+        }
+
+        // Función para buscar reposteros
+        async function buscarReposteros(query) {
+            const searchResults = document.getElementById('search-results');
+            
+            // Si el campo está vacío, ocultar resultados
+            if (!query.trim()) {
+                searchResults.style.display = 'none';
                 return;
             }
-            // Aquí puedes agregar la lógica para agendar la cita
-            alert(`Se iniciará el proceso de agenda de cita con ${nombreRepostero}`);
-            // Puedes redirigir a una página específica o mostrar un modal para seleccionar fecha y hora
+
+            try {
+                // Obtener todos los reposteros desde la API
+                const response = await fetch('http://localhost:3000/api/repostero/obtenereposteros');
+                if (!response.ok) {
+                    throw new Error('Error al obtener reposteros');
+                }
+
+                const reposteros = await response.json();
+                
+                // Filtrar reposteros localmente basado en la búsqueda
+                const resultados = reposteros.filter(repostero => {
+                    const searchQuery = query.toLowerCase();
+                    const nombre = (repostero.nombre || '').toLowerCase();
+                    const especialidad = (repostero.especialidad || '').toLowerCase();
+                    
+                    return nombre.includes(searchQuery) || 
+                           especialidad.includes(searchQuery) ||
+                           searchQuery.split(' ').some(word => 
+                               nombre.includes(word) || especialidad.includes(word)
+                           );
+                });
+
+                // Mostrar resultados
+                if (resultados.length > 0) {
+                    searchResults.innerHTML = resultados.map(repostero => `
+                        <div class="search-result-item" onclick="irAPerfilRepostero('${repostero.id_repostero}')">
+                            <img src="${repostero.imagen || '../images/default-profile.jpg'}" alt="${repostero.nombre}">
+                            <div class="search-result-info">
+                                <h4>${repostero.nombre}</h4>
+                                <p>${repostero.especialidad || 'Repostero General'}</p>
+                            </div>
+                            <div class="search-result-rating">★ ${repostero.calificacion || '4.0'}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    searchResults.innerHTML = `
+                        <div class="search-result-item">
+                            <p>No se encontraron reposteros. Intenta con otro nombre o especialidad.</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                searchResults.innerHTML = `
+                    <div class="search-result-item">
+                        <p>Ocurrió un error al buscar reposteros. Por favor, intenta de nuevo.</p>
+                    </div>
+                `;
+            }
+            
+            // Mostrar el contenedor de resultados
+            searchResults.style.display = 'block';
         }
+
+        // Cerrar resultados de búsqueda al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            const searchResults = document.getElementById('search-results');
+            const searchContainer = document.querySelector('.search-container');
+            
+            if (!searchContainer.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Eliminar la función cargarReposteros ya que no necesitamos cargar datos locales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aquí podemos inicializar otros componentes si es necesario
+        });
     </script>
 
     

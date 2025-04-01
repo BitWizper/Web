@@ -339,23 +339,50 @@
     </div>
 
     <script>
-        // Datos de ejemplo de citas (esto se reemplazará con datos reales de la base de datos)
-        const citas = [
-            {
-                fecha: '2024-03-15',
-                hora: '10:00',
-                tipo: 'Degustación',
-                repostero: 'Ana Martínez',
-                notas: 'Degustación de pastel de bodas'
-            },
-            {
-                fecha: '2024-03-20',
-                hora: '15:00',
-                tipo: 'Muestra',
-                repostero: 'Carlos Ruiz',
-                notas: 'Presentación del diseño final'
+        // Función para obtener las citas del servidor
+        async function obtenerCitas() {
+            try {
+                // Intentar obtener el ID del usuario de diferentes fuentes
+                const usuarioId = localStorage.getItem('userId') || sessionStorage.getItem('userId') || localStorage.getItem('user_id');
+                
+                console.log('ID de usuario encontrado:', usuarioId); // Para depuración
+
+                if (!usuarioId) {
+                    // Si no hay ID de usuario, intentar obtener los datos del usuario
+                    const userData = localStorage.getItem('userData');
+                    if (userData) {
+                        const user = JSON.parse(userData);
+                        if (user && user.id) {
+                            console.log('ID encontrado en userData:', user.id);
+                            localStorage.setItem('userId', user.id);
+                            return obtenerCitasDelServidor(user.id);
+                        }
+                    }
+                    throw new Error('No se pudo encontrar la información del usuario');
+                }
+
+                return obtenerCitasDelServidor(usuarioId);
+            } catch (error) {
+                console.error('Error al obtener citas:', error);
+                // No mostrar alerta, solo retornar array vacío
+                return [];
             }
-        ];
+        }
+
+        // Función separada para obtener las citas del servidor
+        async function obtenerCitasDelServidor(usuarioId) {
+            try {
+                const response = await fetch(`http://localhost:3000/api/citas/usuario/${usuarioId}`);
+                if (!response.ok) {
+                    throw new Error('Error al obtener las citas del servidor');
+                }
+                const citas = await response.json();
+                return citas;
+            } catch (error) {
+                console.error('Error al obtener citas del servidor:', error);
+                return [];
+            }
+        }
 
         const meses = [
             'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -363,7 +390,7 @@
         ];
 
         // Función para generar el calendario
-        function generarCalendario(mes, año) {
+        async function generarCalendario(mes, año) {
             const primerDia = new Date(año, mes, 1);
             const ultimoDia = new Date(año, mes + 1, 0);
             const grid = document.getElementById('calendarGrid');
@@ -373,6 +400,9 @@
             monthTitle.textContent = `${meses[mes]} ${año}`;
             
             grid.innerHTML = '';
+
+            // Obtener las citas del servidor
+            const citas = await obtenerCitas();
 
             // Añadir días vacíos al principio
             for (let i = 0; i < primerDia.getDay(); i++) {
@@ -397,8 +427,8 @@
 
                 citasDelDia.forEach(cita => {
                     const evento = document.createElement('div');
-                    evento.className = `calendar-event ${cita.tipo.toLowerCase()}`;
-                    evento.textContent = `${cita.hora} - ${cita.tipo}`;
+                    evento.className = `calendar-event ${cita.tipo_pastel.toLowerCase()}`;
+                    evento.textContent = `${cita.hora} - ${cita.tipo_pastel}`;
                     evento.onclick = () => mostrarDetallesCita(cita);
                     dia.appendChild(evento);
                 });
@@ -437,25 +467,58 @@
         }
 
         // Funciones para el modal
-        function mostrarDetallesCita(cita) {
-            document.getElementById('citaFecha').textContent = cita.fecha;
-            document.getElementById('citaHora').textContent = cita.hora;
-            document.getElementById('citaTipo').textContent = cita.tipo;
-            document.getElementById('citaRepostero').textContent = cita.repostero;
-            document.getElementById('citaNotas').textContent = cita.notas;
-            document.getElementById('citaModal').style.display = 'block';
+        async function mostrarDetallesCita(cita) {
+            try {
+                // Obtener los detalles del repostero
+                const responseRepostero = await fetch(`http://localhost:3000/api/repostero/reposteros/${cita.id_repostero}`);
+                if (!responseRepostero.ok) {
+                    throw new Error('Error al obtener datos del repostero');
+                }
+                const repostero = await responseRepostero.json();
+                const nombreRepostero = Array.isArray(repostero) ? repostero[0].nombre_repostero : repostero.nombre_repostero;
+
+                document.getElementById('citaFecha').textContent = cita.fecha;
+                document.getElementById('citaHora').textContent = cita.hora;
+                document.getElementById('citaTipo').textContent = cita.tipo_pastel;
+                document.getElementById('citaRepostero').textContent = nombreRepostero;
+                document.getElementById('citaNotas').textContent = cita.notas || 'Sin notas adicionales';
+                
+                // Guardar el ID de la cita en el modal para usarlo en las acciones
+                document.getElementById('citaModal').dataset.citaId = cita.id_cita;
+                
+                document.getElementById('citaModal').style.display = 'block';
+            } catch (error) {
+                console.error('Error al mostrar detalles de la cita:', error);
+                alert('Error al cargar los detalles de la cita');
+            }
         }
 
-        function reagendarCita() {
-            // Aquí iría la lógica para reagendar
+        async function reagendarCita() {
+            const citaId = document.getElementById('citaModal').dataset.citaId;
+            // Aquí puedes implementar la lógica para reagendar
             alert('Función de reagendar en desarrollo');
         }
 
-        function cancelarCita() {
+        async function cancelarCita() {
             if (confirm('¿Estás seguro de que deseas cancelar esta cita?')) {
-                // Aquí iría la lógica para cancelar
-                alert('Cita cancelada');
-                document.getElementById('citaModal').style.display = 'none';
+                try {
+                    const citaId = document.getElementById('citaModal').dataset.citaId;
+                    const response = await fetch(`http://localhost:3000/api/citas/${citaId}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Error al cancelar la cita');
+                    }
+
+                    alert('Cita cancelada exitosamente');
+                    document.getElementById('citaModal').style.display = 'none';
+                    // Recargar el calendario
+                    generarCalendario(mesActual, añoActual);
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error al cancelar la cita');
+                }
             }
         }
 

@@ -7,6 +7,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
+        body {
+            background-color: #F9F5F0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 1000;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-button i {
+            color: #96445D;
+            font-size: 1.8rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+            }
+        }
+
         .profile-section {
             max-width: 800px;
             margin: 2rem auto;
@@ -22,7 +62,7 @@
 
         .profile-heading {
             text-align: center;
-            color: var(--main-color);
+            color: #96445D;
             font-size: 2.5rem;
             margin-bottom: 2rem;
         }
@@ -39,14 +79,14 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--main-color);
+            border: 3px solid #96445D;
         }
 
         .image-upload-btn {
             position: absolute;
             bottom: 0;
             right: 0;
-            background: var(--main-color);
+            background: #96445D;
             color: #fff;
             width: 35px;
             height: 35px;
@@ -59,7 +99,7 @@
         }
 
         .image-upload-btn:hover {
-            background: var(--black);
+            background: #7D3A4E;
         }
 
         .form-row {
@@ -92,8 +132,7 @@
 
         .form-group input:focus,
         .form-group select:focus {
-            border-color: var(--main-color);
-            outline: none;
+            border-color: #96445D;
         }
 
         .skills-container {
@@ -104,7 +143,7 @@
         }
 
         .skill-tag {
-            background: var(--main-color);
+            background: #96445D;
             color: #fff;
             padding: 0.8rem 1.5rem;
             border-radius: 2rem;
@@ -120,8 +159,8 @@
 
         .add-skill-btn {
             background: transparent;
-            border: 2px dashed var(--main-color);
-            color: var(--main-color);
+            border: 2px dashed #96445D;
+            color: #96445D;
             width: 3rem;
             height: 3rem;
             border-radius: 2rem;
@@ -133,8 +172,7 @@
         }
 
         .add-skill-btn:hover {
-            background: var(--main-color);
-            color: #fff;
+            background: #96445D;
         }
 
         .form-actions {
@@ -154,12 +192,12 @@
         }
 
         .btn-save {
-            background: var(--main-color);
+            background: #96445D;
             color: #fff;
         }
 
         .btn-save:hover {
-            background: var(--black);
+            background: #7D3A4E;
         }
 
         .btn-cancel {
@@ -182,9 +220,50 @@
                 padding: 1.5rem;
             }
         }
+
+        /* Estilo para los select */
+        select {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+
+        select:focus {
+            border-color: #96445D;
+        }
+
+        /* Estilo para los botones de filtro como en la imagen */
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: 1px solid #96445D;
+            border-radius: 2rem;
+            background: transparent;
+            color: #96445D;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #96445D;
+            color: white;
+        }
+
+        .filter-btn:hover {
+            background: #96445D;
+            color: white;
+        }
     </style>
 </head>
 <body>
+    <button onclick="window.history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </button>
     <section class="profile-section">
         <div class="profile-container">
             <h2 class="profile-heading">Editar Perfil</h2>
@@ -196,88 +275,129 @@
                         <i class="fas fa-camera"></i>
                     </label>
                     <input type="file" id="image-upload" hidden>
-                </div>
+            </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="firstName">Nombre</label>
-                        <input type="text" id="firstName" placeholder="Tu nombre" value="Jake">
-                    </div>
+                        <input type="text" id="firstName" placeholder="Tu nombre">
+            </div>
                     <div class="form-group">
                         <label for="lastName">Apellido</label>
-                        <input type="text" id="lastName" placeholder="Tu apellido" value="Jensen">
-                    </div>
-                </div>
+                        <input type="text" id="lastName" placeholder="Tu apellido">
+            </div>
+            </div>
 
                 <div class="form-group skills-group">
                     <label>Intereses</label>
-                    <div class="skills-container">
-                        <span class="skill-tag">PASTELES DE BODA<i class="fas fa-times"></i></span>
-                        <span class="skill-tag">CUPCAKES<i class="fas fa-times"></i></span>
-                        <span class="skill-tag">POSTRES<i class="fas fa-times"></i></span>
+                    <div class="skills-container" id="interests-container">
                         <button class="add-skill-btn"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
+            </div>
+            </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Tu email" value="jakejensen@fakemail.com">
-                    </div>
+                        <input type="email" id="email" placeholder="Tu email">
+            </div>
                     <div class="form-group">
                         <label for="phone">Teléfono</label>
-                        <input type="tel" id="phone" placeholder="Tu teléfono" value="(555) 987-1234">
-                    </div>
-                </div>
+                        <input type="tel" id="phone" placeholder="Tu teléfono">
+            </div>
+        </div>
 
                 <div class="form-group">
                     <label for="address">Dirección</label>
-                    <input type="text" id="address" placeholder="Tu dirección" value="1234 Fake Street">
+                    <input type="text" id="address" placeholder="Tu dirección">
                 </div>
-
+                
                 <div class="form-row">
                     <div class="form-group">
                         <label for="country">País</label>
                         <select id="country">
-                            <option value="MX">México</option>
-                            <option value="US" selected>Estados Unidos</option>
+                            <option value="MX" selected>México</option>
+                            <option value="US">Estados Unidos</option>
                             <option value="ES">España</option>
                         </select>
-                    </div>
+            </div>
                     <div class="form-group">
                         <label for="state">Estado/Provincia</label>
                         <select id="state">
-                            <option value="CA" selected>California</option>
-                            <option value="NY">Nueva York</option>
-                            <option value="TX">Texas</option>
+                            <option value="YUC" selected>Yucatán</option>
+                            <option value="QROO">Quintana Roo</option>
+                            <option value="CAM">Campeche</option>
+                            <!-- Otros estados -->
                         </select>
-                    </div>
-                </div>
+            </div>
+            </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="city">Ciudad</label>
                         <select id="city">
-                            <option value="SD" selected>San Diego</option>
-                            <option value="LA">Los Angeles</option>
-                            <option value="SF">San Francisco</option>
+                            <option value="MID" selected>Mérida</option>
+                            <option value="PRO">Progreso</option>
+                            <option value="VAL">Valladolid</option>
+                            <!-- Otras ciudades -->
                         </select>
-                    </div>
+            </div>
                     <div class="form-group">
                         <label for="zipCode">Código Postal</label>
-                        <input type="text" id="zipCode" placeholder="Tu código postal" value="92118">
-                    </div>
-                </div>
+                        <input type="text" id="zipCode" placeholder="Tu código postal" value="97000">
+            </div>
+            </div>
 
                 <div class="form-actions">
                     <button type="button" class="btn btn-save">Guardar Perfil</button>
                     <button type="button" class="btn btn-cancel">Cancelar</button>
-                </div>
+            </div>
             </div>
         </div>
     </section>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar datos del usuario
+            const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual')) || {
+                pais: 'MX',
+                estado: 'YUC',
+                ciudad: 'MID',
+                codigoPostal: '97000'
+            };
+            
+            // Cargar imagen de perfil
+            if (usuarioActual.imagenPerfil) {
+                document.getElementById('profile-image').src = usuarioActual.imagenPerfil;
+            }
+
+            // Cargar datos en los campos
+            document.getElementById('firstName').value = usuarioActual.nombre || '';
+            document.getElementById('lastName').value = usuarioActual.apellidos || '';
+            document.getElementById('email').value = usuarioActual.email || '';
+            document.getElementById('phone').value = usuarioActual.telefono || '';
+            document.getElementById('address').value = usuarioActual.direccion || '';
+            document.getElementById('country').value = usuarioActual.pais || 'MX';
+            document.getElementById('state').value = usuarioActual.estado || 'YUC';
+            document.getElementById('city').value = usuarioActual.ciudad || 'MID';
+            document.getElementById('zipCode').value = usuarioActual.codigoPostal || '97000';
+
+            // Cargar intereses
+            if (usuarioActual.intereses && usuarioActual.intereses.length > 0) {
+                const container = document.getElementById('interests-container');
+                usuarioActual.intereses.forEach(interes => {
+                    const skillTag = document.createElement('span');
+                    skillTag.className = 'skill-tag';
+                    skillTag.innerHTML = `${interes}<i class="fas fa-times"></i>`;
+                    
+                    skillTag.querySelector('i').addEventListener('click', function() {
+                        skillTag.remove();
+                    });
+
+                    container.insertBefore(skillTag, container.lastElementChild);
+                });
+            }
+        });
+
         // Manejar la carga de imagen
         document.getElementById('image-upload').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -313,10 +433,33 @@
             }
         });
 
-        // Manejar los botones de guardar y cancelar
+        // Manejar el guardado del perfil
         document.querySelector('.btn-save').addEventListener('click', function() {
-            // Aquí iría la lógica para guardar los cambios
-            alert('Cambios guardados exitosamente');
+            const usuarioActual = JSON.parse(localStorage.getItem('usuarioActual')) || {};
+            
+            // Recopilar todos los intereses
+            const intereses = Array.from(document.querySelectorAll('.skill-tag'))
+                .map(tag => tag.textContent.replace('×', '').trim());
+
+            // Actualizar datos del usuario
+            const usuarioActualizado = {
+                ...usuarioActual,
+                nombre: document.getElementById('firstName').value,
+                apellidos: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('phone').value,
+                direccion: document.getElementById('address').value,
+                pais: document.getElementById('country').value,
+                estado: document.getElementById('state').value,
+                ciudad: document.getElementById('city').value,
+                codigoPostal: document.getElementById('zipCode').value,
+                intereses: intereses,
+                imagenPerfil: document.getElementById('profile-image').src
+            };
+
+            // Guardar en localStorage
+            localStorage.setItem('usuarioActual', JSON.stringify(usuarioActualizado));
+            alert('Perfil actualizado correctamente');
         });
 
         document.querySelector('.btn-cancel').addEventListener('click', function() {
