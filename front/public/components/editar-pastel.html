@@ -55,27 +55,40 @@
                 </a>
             </div>
             <!-- Icono del carrito -->
-            <!-- Icono del carrito -->
-        <div class="cart-section">
-            <a href="javascript:void(0);" id="cart-icon" title="Carrito de compras">
-                <i class="fas fa-shopping-cart fa-lg"></i>
-            </a>
-        </div>
+            <div class="cart-section">
+                <a href="javascript:void(0);" id="cart-icon" title="Carrito de compras">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                    <span class="cart-count" style="
+                        position: absolute;
+                        top: -8px;
+                        right: -8px;
+                        background: #8B1538;
+                        color: white;
+                        border-radius: 50%;
+                        width: 20px;
+                        height: 20px;
+                        display: none;
+                        font-size: 12px;
+                        text-align: center;
+                        line-height: 20px;
+                    ">0</span>
+                </a>
+            </div>
 
-        <!-- Cuadro emergente del carrito -->
-        <div id="cart-popup" class="cart-popup" style="display: none;">
-            <div class="cart-popup-content">
-                <span id="close-cart" class="close">&times;</span>
-                <h3>Tu Carrito</h3>
-                <div id="cart-items" class="cart-items">
-                    <!-- Aquí se agregarán los productos del carrito -->
-                </div>
-                <div class="cart-total">
-                    <p><strong>Total: </strong><span id="cart-total">0</span></p>
-                    <a href="carrito.html" class="btn">Ir al carrito</a>
+            <!-- Cuadro emergente del carrito -->
+            <div id="cart-popup" class="cart-popup" style="display: none;">
+                <div class="cart-popup-content">
+                    <span id="close-cart" class="close">&times;</span>
+                    <h3>Tu Carrito</h3>
+                    <div id="cart-items" class="cart-items">
+                        <!-- Aquí se agregarán los productos del carrito -->
+                    </div>
+                    <div class="cart-total">
+                        <p><strong>Total: </strong><span id="cart-total">0</span></p>
+                        <a href="carrito.html" class="btn">Ir al carrito</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
 
             <div class="profile-icon-section">
@@ -93,7 +106,7 @@
             <img src="https://i.pinimg.com/736x/8d/4d/20/8d4d20b75a8d8b13e3d2907c5c58e633.jpg" alt="Pastel Personalizado">
         </div>
         <div class="cake-options">
-            <form id="cake-form" onsubmit="guardarDatosPastel(event)">
+            <form id="cake-form" onsubmit="guardarCambios(event)">
                 <div class="form-group">
                     <label for="size">Tamaño del pastel:</label>
                     <select id="size" name="size" required>
@@ -158,9 +171,15 @@
                     <button type="button" class="btn-3d" onclick="window.location.href='../mainMenuModel3D/mainMenuUI.html'">
                         <i class="fas fa-cube"></i> Ver en 3D
                     </button>
-                    <button type="submit" class="btn">Guardar Diseño</button>
-                    <button type="button" class="btn btn-cart" onclick="addToCart()">
-                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    <button type="submit" class="btn-save">Guardar Cambios</button>
+                    <button type="button" class="btn-cart" onclick="addToCart({
+                        id: Date.now(),
+                        nombre: `Pastel ${document.querySelector('select[name=\'flavor\']').value} ${document.querySelector('select[name=\'size\']').value}`,
+                        precio: calcularPrecio(document.querySelector('select[name=\'size\']').value),
+                        imagen: document.querySelector('.cake-image img').src,
+                        cantidad: 1
+                    })">
+                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
                     </button>
                 </div>
             </form>
@@ -238,12 +257,20 @@
         .cake-editor {
             padding: 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 8rem auto 2rem; /* Aumentamos el margen superior para que no se oculte detrás del header */
+        }
+
+        .cake-editor h1 {
+            text-align: center;
+            color: var(--main-color);
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            padding-top: 2rem;
         }
 
         .cake-image {
             text-align: center;
-            margin-bottom: 2rem;
+            margin: 2rem 0;
         }
 
         .cake-image img {
@@ -463,16 +490,37 @@
         }
 
         .btn-cart {
-            background: var(--main-color);
+            background: #A65168;
             color: white;
+            padding: 1.5rem 3rem;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 1rem;
-            font-weight: 600;
         }
 
         .btn-cart:hover {
-            background: #ff6b81;
+            background: #8B3D52;
+            transform: translateY(-2px);
+        }
+
+        .btn-save {
+            background: var(--main-color);
+            color: white;
+            padding: 1.5rem 3rem;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            background: #8B3D52;
             transform: translateY(-2px);
         }
 
@@ -571,72 +619,126 @@
     </style>
 
     <script>
-        function guardarDatosPastel(event) {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si venimos de pasteles guardados
+            const urlParams = new URLSearchParams(window.location.search);
+            const modoEditar = urlParams.get('editar');
+
+            if (modoEditar === 'true') {
+                // Cargar los datos del pastel guardado
+                const pastelEditar = JSON.parse(localStorage.getItem('pastelEditar'));
+                if (pastelEditar) {
+                    // Llenar los campos del formulario con los datos del pastel
+                    document.querySelector('select[name="size"]').value = pastelEditar.tamaño;
+                    document.querySelector('select[name="flavor"]').value = pastelEditar.sabor;
+                    document.querySelector('select[name="color_principal"]').value = pastelEditar.color_principal;
+                    document.querySelector('select[name="color_secundario"]').value = pastelEditar.color_secundario || '';
+                    document.querySelector('textarea[name="decoration"]').value = pastelEditar.decoracion;
+                    document.querySelector('textarea[name="message"]').value = pastelEditar.mensaje || '';
+
+                    // Si hay una imagen, mostrarla
+                    if (pastelEditar.imagen) {
+                        const previewImage = document.getElementById('preview-image');
+                        if (previewImage) {
+                            previewImage.src = pastelEditar.imagen;
+                            previewImage.style.display = 'block';
+                        }
+                    }
+                }
+            }
+        });
+
+        // Función para guardar los cambios
+        function guardarCambios(event) {
             event.preventDefault();
             
-            // Crear objeto con los datos del formulario
-            const formData = new FormData(event.target);
-            const datosPastel = {
-                tamaño: formData.get('size'),
-                sabor: formData.get('flavor'),
-                color_principal: formData.get('color_principal'),
-                color_secundario: formData.get('color_secundario'),
-                decoracion: formData.get('decoration'),
-                mensaje: formData.get('message'),
-                repostero: document.getElementById('repostero_select').value || null,
-                imagen: document.querySelector('.cake-image img').src
+            const urlParams = new URLSearchParams(window.location.search);
+            const modoEditar = urlParams.get('editar');
+            
+            const pastelData = {
+                id_pastel: modoEditar === 'true' ? JSON.parse(localStorage.getItem('pastelEditar')).id_pastel : Date.now().toString(),
+                tamaño: document.querySelector('select[name="size"]').value,
+                sabor: document.querySelector('select[name="flavor"]').value,
+                color_principal: document.querySelector('select[name="color_principal"]').value,
+                color_secundario: document.querySelector('select[name="color_secundario"]').value,
+                decoracion: document.querySelector('input[name="decoration"]').value,
+                mensaje: document.querySelector('input[name="message"]').value,
+                imagen: document.querySelector('.cake-image img')?.src || null
             };
 
-            // Recuperar pasteles guardados existentes
+            // Obtener pasteles guardados
             const pastelesGuardados = JSON.parse(localStorage.getItem('pastelesGuardados')) || [];
             
-            // Verificar si estamos editando un pastel existente
-            const pastelEnEdicion = JSON.parse(localStorage.getItem('pastelEnEdicion'));
-            if (pastelEnEdicion) {
-                // Encontrar el índice del pastel en edición
-                const index = pastelesGuardados.findIndex(p => 
-                    p.tamaño === pastelEnEdicion.tamaño && 
-                    p.sabor === pastelEnEdicion.sabor && 
-                    p.mensaje === pastelEnEdicion.mensaje
-                );
+            if (modoEditar === 'true') {
+                // Actualizar el pastel existente
+                const index = pastelesGuardados.findIndex(p => p.id_pastel === pastelData.id_pastel);
                 if (index !== -1) {
-                    pastelesGuardados[index] = datosPastel;
-                } else {
-                    pastelesGuardados.push(datosPastel);
+                    pastelesGuardados[index] = pastelData;
+                    // Guardar en localStorage
+                    localStorage.setItem('pastelesGuardados', JSON.stringify(pastelesGuardados));
+                    alert('¡El pastel ha sido actualizado!');
                 }
-                // Limpiar el pastel en edición
-                localStorage.removeItem('pastelEnEdicion');
             } else {
                 // Agregar nuevo pastel
-                pastelesGuardados.push(datosPastel);
+                pastelesGuardados.push(pastelData);
+                // Guardar en localStorage
+                localStorage.setItem('pastelesGuardados', JSON.stringify(pastelesGuardados));
+                alert('¡El pastel ha sido guardado!');
             }
             
-            // Guardar en localStorage
-            localStorage.setItem('pastelesGuardados', JSON.stringify(pastelesGuardados));
-            
-            // Mostrar mensaje de éxito
-            alert('¡Diseño guardado correctamente!');
-            
-            // Redirigir a la sección de pasteles guardados
-            window.location.href = '../mainMenuModel3D/mainMenuUI.html';
+            // Redirigir a la página de pasteles guardados
+            window.location.href = '../mainMenuModel3D/pasteles-guardados.html';
         }
 
-        function addToCart() {
-            const size = document.getElementById('size').value;
-            const flavor = document.getElementById('flavor').value;
-            const decoration = document.getElementById('decoration').value;
-            const message = document.getElementById('message').value;
+        // Agregar el event listener al formulario
+        document.querySelector('form').addEventListener('submit', guardarCambios);
 
+        function calcularPrecio(tamaño) {
+            switch(tamaño) {
+                case 'pequeño':
+                    return 300;
+                case 'mediano':
+                    return 450;
+                case 'grande':
+                    return 600;
+                default:
+                    return 0;
+            }
+        }
+
+        function actualizarVistaCarritoPopup(carrito) {
+            const cartPopup = document.getElementById('cart-popup');
             const cartItems = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
+            
+            if (cartItems) {
+                cartItems.innerHTML = carrito.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <img src="${item.imagen}" alt="Pastel" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                            <div>
+                                <p>${item.nombre}</p>
+                                <small>Cantidad: ${item.cantidad}</small>
+                            </div>
+                            <span>$${(item.precio * item.cantidad).toFixed(2)}</span>
+                        </div>
+                    </div>
+                `).join('');
 
-            const item = document.createElement('div');
-            item.innerHTML = `<p>Pastel ${flavor} ${size} con mensaje: "${message}" y decoración: "${decoration}"</p>`;
-            cartItems.appendChild(item);
+                // Actualizar el total
+                const cartTotal = document.getElementById('cart-total');
+                if (cartTotal) {
+                    const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+                    cartTotal.textContent = total.toFixed(2);
+                }
 
-            let currentTotal = parseFloat(cartTotal.textContent || 0);
-            cartTotal.textContent = (currentTotal + 1).toFixed(2);  // Example increment
-            document.getElementById('cart-popup').style.display = 'block';
+                // Mostrar el popup
+                cartPopup.style.display = 'block';
+
+                // Ocultar el popup después de 3 segundos
+                setTimeout(() => {
+                    cartPopup.style.display = 'none';
+                }, 3000);
+            }
         }
 
         function scheduleAppointment() {
@@ -761,11 +863,11 @@
         });
     </script>
 
-    
+    <!-- Cargar primero los scripts globales -->
     <script src="../js/carrito.js"></script>
     <script src="../js/menu.js"></script>
     
-    <!-- Custom JS link -->
+    <!-- Cargar al final los scripts específicos de la página -->
     <script src="../js/editar-pastel.js"></script>
 
 </body>

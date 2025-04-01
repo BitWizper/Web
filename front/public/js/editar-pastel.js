@@ -109,25 +109,6 @@ async function realizarPedido() {
     }
 }
 
-// Mantener las funciones existentes
-function addToCart() {
-    const size = document.getElementById('size').value;
-    const flavor = document.getElementById('flavor').value;
-    const decoration = document.getElementById('decoration').value;
-    const message = document.getElementById('message').value;
-
-    const cartItems = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-
-    const item = document.createElement('div');
-    item.innerHTML = `<p>Pastel ${flavor} ${size} con mensaje: "${message}" y decoración: "${decoration}"</p>`;
-    cartItems.appendChild(item);
-
-    let currentTotal = parseFloat(cartTotal.textContent || 0);
-    cartTotal.textContent = (currentTotal + 1).toFixed(2);
-    document.getElementById('cart-popup').style.display = 'block';
-}
-
 function scheduleAppointment() {
     realizarPedido();
 }

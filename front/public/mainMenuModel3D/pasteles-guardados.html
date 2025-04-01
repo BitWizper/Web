@@ -3,134 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Principal</title>
+    <title>Pasteles Guardados</title>
     <!-- fontawesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <!-- custom css link -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <style>
-        @font-face {
-            font-family: 'KenaFont';
-            src: url('https://github.com/google/fonts/raw/main/ofl/imfellenglishsc/IMFellEnglishSC-Regular.ttf');
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            background: url('../img/Elegant.jpg') no-repeat center center/cover;
-            color: white;
-            overflow: hidden;
-        }
-
-        .menu-container {
-            text-align: left;
-            position: absolute;
-            left: 5%;
-            top: 30%;
-            z-index: 2;
-        }
-
-        .title {
-            font-size: 50px;
-            text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
-        }
-
-        .menu {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .menu a {
-            font-size: 24px;
-            color: white;
-            text-decoration: none;
-            padding: 10px 0;
-            transition: all 0.3s ease;
-            display: block;
-            width: fit-content;
-            position: relative;
-        }
-
-        .menu a:hover {
-            text-shadow: 0px 0px 15px white;
-            transform: scale(1.1);
-        }
-
-        /* Estilos para el popup del carrito */
-        .popup-container {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 300px;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            padding: 15px;
-            z-index: 1000;
-        }
-
-        .popup-container h3 {
-            color: #731D3C;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .popup-items {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .popup-footer {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .popup-btn {
-            background: #731D3C;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .popup-btn:hover {
-            background: #A65168;
-        }
-
-        .pasteles-guardados {
-            position: absolute;
-            right: 5%;
-            top: 20%;
-            width: 50%;
-            background: rgba(255, 255, 255, 0.9);
+        .pasteles-container {
             padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            max-height: 70vh;
-            overflow-y: auto;
+            margin-top: 8rem;
+            width: 90%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .pasteles-guardados h2 {
+        .pasteles-titulo {
             color: #731D3C;
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 2rem;
             text-align: center;
         }
 
         .pasteles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
         }
 
@@ -148,7 +46,7 @@
 
         .pastel-imagen {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
         }
 
@@ -210,6 +108,26 @@
             color: #666;
             font-size: 1.6rem;
             padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-crear-nuevo {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 1rem 2rem;
+            background: #731D3C;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-crear-nuevo:hover {
+            background: #5a1730;
         }
     </style>
 </head>
@@ -217,13 +135,10 @@
     <!-- header section starts -->
     <header class="header">
         <div class="left-section">
-            <!-- Menú hamburguesa -->
             <a href="#" id="menu" class="menu-icon"><i class="fas fa-bars"></i></a>
-            <!-- Logo -->
-            <a href="#" class="logo"><i class="fas fa-cake"></i> </a>
+            <a href="#" class="logo"><i class="fas fa-cake"></i></a>
         </div>
 
-        <!-- Menú desplegable de opciones de usuario -->
         <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
             <ul>
                 <li><a href="../components/perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
@@ -232,7 +147,7 @@
                 <li><a href="../components/favoritos.html"><i class="fas fa-heart"></i> Favoritos</a></li>
                 <li><a href="../components/ayuda.html"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
                 <li><a href="../components/configuracion.html"><i class="fas fa-cog"></i> Configuración</a></li>
-                <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                <li><a href="../../index.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
             </ul>
         </div>
 
@@ -240,7 +155,7 @@
             <a href="../components/home.html">Home</a>
             <a href="../components/categorias.html">Pasteles</a>
             <a href="../components/reposteros.html">Reposteros</a>
-            <a href="../components/loadingCake.html" class="active">Crear Pastel</a>
+            <a href="Menu3D.html">Crear Pastel</a>
         </nav>
 
         <div class="header-right">
@@ -253,67 +168,38 @@
                     <i class="fas fa-bell fa-lg"></i>
                 </a>
             </div>
-
             <div class="cart-section">
-                <a href="javascript:void(0);" id="cart-icon" title="Carrito de compras">
+                <a href="../components/carrito.html" title="Carrito de compras">
                     <i class="fas fa-shopping-cart fa-lg"></i>
                 </a>
-            </div>       
-
-            <!-- Cuadro emergente del carrito -->
-            <div id="cart-popup" class="popup-container">
-                <h3>Carrito de Compras</h3>
-                <div class="popup-items">
-                    <!-- Aquí se agregarán los productos del carrito -->
-                </div>
-                <div class="popup-footer">
-                    <a href="../components/carrito.html" class="popup-btn">Ver Carrito</a>
-                </div>
             </div>
-
             <div class="profile-icon-section">
-                <a href="../index.html" title="Registro">
+                <a href="../../index.html" title="Registro">
                     <i class="fas fa-user-plus fa-lg"></i>
                 </a>
             </div>
         </div>
     </header>
-    <!-- header section ends -->
 
-    <!-- Main Content -->
-    <div class="menu-container">
-        <h1 class="title">BORCELLE</h1>
-        <div class="menu">
-            <a href="Menu3D.html">Crear Pastel</a>
-            <a href="pasteles-guardados.html">Pasteles Guardados</a>
-            <a href="../components/home.html">Salir</a>
-        </div>
-    </div>
-
-    <!-- Sección de Pasteles Guardados -->
-    <div id="pasteles-guardados" class="pasteles-guardados" style="display: none;">
-        <h2>Mis Pasteles Guardados</h2>
+    <!-- Contenido principal -->
+    <div class="pasteles-container">
+        <h1 class="pasteles-titulo">Mis Pasteles Guardados</h1>
         <div class="pasteles-grid" id="pasteles-container">
             <!-- Los pasteles se cargarán aquí dinámicamente -->
         </div>
     </div>
 
-    <script src="../js/menu.js"></script>
-    <script src="../js/carrito.js"></script>
-    <script src="../js/search.js"></script>
+    <script src="../../js/menu.js"></script>
     <script>
-        function mostrarPastelesGuardados() {
-            const contenedor = document.getElementById('pasteles-guardados');
+        function cargarPastelesGuardados() {
             const pastelesContainer = document.getElementById('pasteles-container');
             const pastelesGuardados = JSON.parse(localStorage.getItem('pastelesGuardados')) || [];
-
-            contenedor.style.display = 'block';
 
             if (pastelesGuardados.length === 0) {
                 pastelesContainer.innerHTML = `
                     <div class="no-pasteles">
                         <p>No tienes pasteles guardados</p>
-                        <button onclick="window.location.href='../components/editar-pastel.html'" class="btn-editar">
+                        <button onclick="window.location.href='Menu3D.html'" class="btn-crear-nuevo">
                             Crear Nuevo Pastel
                         </button>
                     </div>`;
@@ -322,7 +208,7 @@
 
             pastelesContainer.innerHTML = pastelesGuardados.map(pastel => `
                 <div class="pastel-card">
-                    <img src="${pastel.imagen || '../images/default-cake.jpg'}" alt="${pastel.nombre}" class="pastel-imagen">
+                    <img src="${pastel.imagen || '../../images/default-cake.jpg'}" alt="${pastel.nombre}" class="pastel-imagen">
                     <div class="pastel-info">
                         <h3 class="pastel-nombre">${pastel.nombre}</h3>
                         <div class="pastel-detalles">
@@ -345,7 +231,14 @@
         }
 
         function editarPastel(id_pastel) {
-            window.location.href = `../components/editar-pastel.html?id_pastel=${id_pastel}`;
+            const pastelesGuardados = JSON.parse(localStorage.getItem('pastelesGuardados')) || [];
+            const pastelSeleccionado = pastelesGuardados.find(p => p.id_pastel === id_pastel);
+            
+            if (pastelSeleccionado) {
+                // Guardamos el pastel seleccionado en localStorage para accederlo en la página de edición
+                localStorage.setItem('pastelEditar', JSON.stringify(pastelSeleccionado));
+                window.location.href = '../components/editar-pastel.html?editar=true';
+            }
         }
 
         function eliminarPastel(id_pastel) {
@@ -353,14 +246,12 @@
                 const pastelesGuardados = JSON.parse(localStorage.getItem('pastelesGuardados')) || [];
                 const nuevosPateles = pastelesGuardados.filter(p => p.id_pastel !== id_pastel);
                 localStorage.setItem('pastelesGuardados', JSON.stringify(nuevosPateles));
-                mostrarPastelesGuardados();
+                cargarPastelesGuardados();
             }
         }
 
-        // Mostrar pasteles guardados si venimos de guardar un pastel
-        if (window.location.hash === '#pasteles') {
-            mostrarPastelesGuardados();
-        }
+        // Cargar pasteles al iniciar la página
+        document.addEventListener('DOMContentLoaded', cargarPastelesGuardados);
     </script>
 </body>
-</html>
+</html> 

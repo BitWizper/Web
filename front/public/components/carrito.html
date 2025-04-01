@@ -9,67 +9,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        /* Estilos para el panel lateral */
-        .cart-sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            top: 0;
-            right: 0;
-            background-color: #f8f8f8;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-            overflow-x: hidden;
-            transition: 0.3s;
-            padding-top: 60px;
-            z-index: 1000;
-        }
-
-        .cart-sidebar a {
-            padding: 15px;
-            text-decoration: none;
-            font-size: 20px;
-            color: #333;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .cart-sidebar a:hover {
-            background-color: #ddd;
-        }
-
-        .cart-sidebar .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 30px;
-            background-color: transparent;
-            border: none;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .cart-sidebar h2 {
-            padding: 20px;
-            margin-top: 0;
-            font-size: 24px;
-            color: #333;
-            border-bottom: 1px solid #ccc;
-        }
-
-        /* Ajuste para el ícono del carrito */
-        .cart-icon {
-            font-size: 30px;
-            cursor: pointer;
-            color: #333;
-        }
-
         /* Estilo para el contenido del carrito */
-        #cart-items {
-            padding: 15px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
         .carrito-items {
             padding: 20px;
             max-width: 1200px;
@@ -84,11 +24,13 @@
         .carrito-item {
             display: flex;
             align-items: center;
-            padding: 25px;
-            margin-bottom: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            position: relative;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .carrito-item img {
@@ -96,90 +38,88 @@
             height: 100px;
             object-fit: cover;
             border-radius: 8px;
-            margin-right: 20px;
+            margin-right: 15px;
         }
 
-        .carrito-item-details {
-            flex-grow: 1;
+        .item-details {
+            flex: 1;
         }
 
-        .carrito-item-details h4 {
+        .item-details h3 {
             margin: 0;
             color: #333;
-            font-size: 1.2em;
+            font-size: 1.1em;
         }
 
-        .carrito-item-price {
-            color: #8B1538;
-            font-weight: bold;
+        .item-price {
+            color: #666;
             margin: 5px 0;
         }
 
-        .carrito-item-quantity {
+        .item-quantity {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-left: 20px;
+            margin: 0 20px;
         }
 
-        .btn-cantidad {
-            width: 35px;
-            height: 35px;
-            border: none;
-            background-color: #8B1538;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-cantidad:hover {
-            background-color: #6d102c;
-        }
-
-        .carrito-item-quantity span {
-            min-width: 40px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .btn-eliminar {
-            background-color: #ff4444;
-            color: white;
+        .quantity-btn {
+            background: #f5f5f5;
             border: none;
             width: 30px;
             height: 30px;
-            border-radius: 5px;
-            cursor: pointer;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .btn-eliminar:hover {
-            background-color: #cc0000;
+        .quantity-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .quantity {
+            margin: 0 15px;
+            font-size: 1.1em;
+        }
+
+        .item-total {
+            font-weight: bold;
+            color: #8B1538;
+            margin: 0 20px;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+
+        .delete-btn:hover {
+            color: #cc0000;
         }
 
         .carrito-vacio {
             text-align: center;
-            padding: 40px;
-            color: #666;
+            padding: 50px 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .carrito-vacio .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #8B1538;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
+        .carrito-vacio i {
+            font-size: 4em;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .carrito-vacio p {
+            color: #666;
+            margin-bottom: 20px;
         }
 
         .carrito-resumen {
@@ -187,7 +127,7 @@
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-top: -30px;
+            margin-top: 20px;
             width: 400px;
             margin-left: auto;
             position: sticky;
@@ -219,251 +159,21 @@
             font-size: 20px;
             padding: 15px 30px;
             margin-top: 25px;
-        }
-
-        /* Estilos para el seguimiento de pago */
-        .seguimiento-pago {
-            margin-top: 20px;
-            padding: 15px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .seguimiento-pago h4 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-
-        .estado-pago {
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        .pago-pendiente {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .pago-procesando {
-            background-color: #cce5ff;
-            color: #004085;
-        }
-
-        .pago-completado {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .historial-pago {
-            margin-top: 15px;
-        }
-
-        .historial-pago p {
-            margin: 10px 0;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 5px;
-        }
-
-        .historial-pago .fecha {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .heading-title {
-            margin-bottom: 80px;
-        }
-
-        /* Estilos para los métodos de pago */
-        .metodos-pago {
-            margin: 20px 0;
-        }
-
-        .metodo-pago-option {
-            background: #f8f9fa;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .metodo-pago-option:hover {
-            background: #e9ecef;
-        }
-
-        .metodo-pago-option input[type="radio"] {
-            margin-right: 10px;
-        }
-
-        .metodo-pago-option label {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-            color: #333;
-        }
-
-        .metodo-pago-option i {
-            margin-right: 10px;
-            font-size: 20px;
-            color: #8B1538;
-        }
-
-        /* Estilos para el formulario de tarjeta */
-        .form-tarjeta {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .form-row input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .form-check {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .form-check input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-        }
-
-        .form-check label {
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* Estilos para tarjetas guardadas */
-        .tarjetas-guardadas {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .tarjetas-guardadas h5 {
-            margin: 0 0 15px 0;
-            color: #333;
-            font-size: 16px;
-        }
-
-        .tarjeta-guardada {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-
-        .tarjeta-guardada input[type="radio"] {
-            margin-right: 10px;
-        }
-
-        .tarjeta-guardada label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .btn-nueva-tarjeta {
-            background: none;
-            border: 1px dashed #8B1538;
-            color: #8B1538;
-            padding: 10px;
-            width: 100%;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-nueva-tarjeta:hover {
-            background: #8B1538;
-            color: white;
-        }
-
-        /* Estilos para detalles de efectivo y transferencia */
-        .efectivo-details,
-        .transferencia-details {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .datos-transferencia {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-
-        .datos-transferencia p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
-        .datos-transferencia strong {
-            color: #8B1538;
-        }
-
-        .btn-confirmar-pago {
-            width: 100%;
-            padding: 15px;
             background: #8B1538;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-top: 20px;
+            width: 100%;
         }
 
-        .btn-confirmar-pago:hover {
+        .btn:hover {
             background: #6d102c;
         }
 
-        .estado-actual {
-            margin-bottom: 20px;
+        .heading-title {
+            margin-bottom: 80px;
         }
     </style>
 </head>
@@ -530,7 +240,7 @@
     <section class="carrito">
         <div class="carrito-container">
             <div class="carrito-items">
-                <!-- Aquí se mostrarán los productos del carrito -->
+                <!-- Los items del carrito se cargarán dinámicamente aquí -->
             </div>
             <div class="carrito-resumen">
                 <h3>Resumen del Pedido</h3>
@@ -551,15 +261,6 @@
         </div>
     </section>
     <!-- carrito section ends -->
-
-    <!-- Carrito Sidebar -->
-    <div id="cartSidebar" class="cart-sidebar">
-        <button class="close-btn" onclick="closeCart()">&times;</button>
-        <h2>Tu Carrito</h2>
-        <div id="cart-items">
-            <!-- Aquí se mostrarán los productos del carrito sin ejemplos previos -->
-        </div>
-    </div>
 
     <!-- Footer Section Starts -->
     <section class="footer">
@@ -593,23 +294,99 @@
     <section class="credit"></section>
     <!-- footer section ends -->
 
-    <!-- JS para abrir y cerrar el carrito -->
     <script>
-        // Función para abrir el carrito
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarUI();
+        });
+
+        // Redirigir al carrito cuando se hace clic en el ícono
         document.getElementById('cart-icon').onclick = function() {
-            document.getElementById('cartSidebar').style.width = '300px';
+            window.location.href = 'carrito.html';
         }
 
-        // Función para cerrar el carrito
-        function closeCart() {
-            document.getElementById('cartSidebar').style.width = '0';
+        function actualizarCantidad(index, cambio) {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            if (carrito[index]) {
+                const nuevaCantidad = carrito[index].cantidad + cambio;
+                if (nuevaCantidad > 0) {
+                    carrito[index].cantidad = nuevaCantidad;
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+                    actualizarUI();
+                    addNotification(cambio > 0 ? 'Cantidad aumentada' : 'Cantidad disminuida');
+                } else if (nuevaCantidad === 0) {
+                    eliminarItem(index);
+                }
+            }
+        }
+
+        function eliminarItem(index) {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const itemEliminado = carrito[index];
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarUI();
+            addNotification(`Se eliminó ${itemEliminado.nombre} del carrito`);
+        }
+
+        function actualizarUI() {
+            const carritoItems = document.querySelector('.carrito-items');
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+            if (carrito.length === 0) {
+                carritoItems.innerHTML = `
+                    <div class="carrito-vacio">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Tu carrito está vacío</p>
+                        <a href="categorias.html" class="btn">Ver pasteles</a>
+                    </div>
+                `;
+            } else {
+                carritoItems.innerHTML = carrito.map((item, index) => `
+                    <div class="carrito-item" data-id="${item.id}">
+                        <img src="${item.imagen}" alt="${item.nombre}">
+                        <div class="item-details">
+                            <h3>${item.nombre}</h3>
+                            <p class="item-price">$${item.precio.toFixed(2)}</p>
+                        </div>
+                        <div class="item-quantity">
+                            <button class="quantity-btn minus" onclick="actualizarCantidad(${index}, -1)">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="quantity">${item.cantidad}</span>
+                            <button class="quantity-btn plus" onclick="actualizarCantidad(${index}, 1)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="item-total">
+                            $${(item.precio * item.cantidad).toFixed(2)}
+                        </div>
+                        <button class="delete-btn" onclick="eliminarItem(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            actualizarTotal();
+        }
+
+        function actualizarTotal() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const subtotal = carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
+            const iva = subtotal * 0.16;
+            const total = subtotal + iva;
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('iva').textContent = `$${iva.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function procederPago() {
+            window.location.href = 'pago.html';
         }
     </script>
 
     <!-- custom js link -->
-    <script src="../js/carrito.js"></script>
     <script src="../js/menu.js"></script>
-
 
 </body>
 </html>

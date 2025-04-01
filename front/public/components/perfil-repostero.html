@@ -465,12 +465,6 @@
 
         // Funciones para el modal de cita
         function mostrarFormularioCita(reposteroId) {
-            // Verificar si el usuario está autenticado
-            if (!isAuthenticated()) {
-                showLoginDialog();
-                return;
-            }
-
             reposteroIdActual = reposteroId;
             const modal = document.getElementById('citaModal');
             const fechaInput = document.getElementById('fecha');
@@ -497,42 +491,29 @@
             e.preventDefault();
 
             try {
-                // Verificar si el usuario está logueado
-                const userId = localStorage.getItem('id_usuario');
-                if (!userId) {
-                    showLoginDialog();
-                    return;
-                }
-
                 // Recoger los datos del formulario
                 const citaData = {
-                    id_usuario: userId,
+                    id_cita: Date.now().toString(),
+                    id_usuario: Date.now().toString(), // ID temporal para usuarios no autenticados
                     id_repostero: reposteroIdActual,
                     fecha: document.getElementById('fecha').value,
                     hora: document.getElementById('hora').value,
                     tipo_pastel: document.getElementById('tipo').value,
                     notas: document.getElementById('notas').value,
-                    estado: 'pendiente'
+                    estado: 'pendiente',
+                    // Obtener información del repostero para mostrar en el calendario
+                    repostero: {
+                        nombre: document.querySelector('.profile-info h1').textContent,
+                        imagen: document.querySelector('.profile-photo').src
+                    }
                 };
 
                 console.log('Enviando datos de cita:', citaData);
 
-                const response = await fetch('http://localhost:3000/api/citas/crear', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify(citaData)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Error al agendar la cita');
-                }
-
-                const result = await response.json();
-                console.log('Cita creada:', result);
+                // Guardar en localStorage para el calendario
+                const citasGuardadas = JSON.parse(localStorage.getItem('misCitas')) || [];
+                citasGuardadas.push(citaData);
+                localStorage.setItem('misCitas', JSON.stringify(citasGuardadas));
 
                 alert('¡Cita agendada con éxito!');
                 cerrarModal();
@@ -544,65 +525,6 @@
                 alert('Error al agendar la cita: ' + error.message);
             }
         });
-
-        // Función para mostrar el diálogo de login
-        function showLoginDialog() {
-            const dialogHTML = `
-                <div id="loginDialog" style="
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: rgba(0, 0, 0, 0.5);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 9999;
-                ">
-                    <div style="
-                        background: white;
-                        padding: 20px;
-                        border-radius: 8px;
-                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                        text-align: center;
-                        max-width: 300px;
-                        width: 90%;
-                    ">
-                        <h3 style="color: #731D3C; margin-bottom: 20px;">Debes iniciar sesión para agendar una cita</h3>
-                        <div style="display: flex; justify-content: center; gap: 10px;">
-                            <button onclick="closeLoginDialog()" style="
-                                padding: 8px 20px;
-                                border: none;
-                                border-radius: 4px;
-                                background: #A65168;
-                                color: white;
-                                cursor: pointer;
-                            ">Cancelar</button>
-                            <button onclick="redirectToLogin()" style="
-                                padding: 8px 20px;
-                                border: none;
-                                border-radius: 4px;
-                                background: #731D3C;
-                                color: white;
-                                cursor: pointer;
-                            ">Iniciar Sesión</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', dialogHTML);
-        }
-
-        // Funciones para el diálogo de login
-        window.closeLoginDialog = function() {
-            const dialog = document.getElementById('loginDialog');
-            if (dialog) dialog.remove();
-        };
-
-        window.redirectToLogin = function() {
-            window.location.href = '../index.html';
-        };
     </script>
 
     <section class="footer">

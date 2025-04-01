@@ -140,11 +140,11 @@
         }
 
         .calendar-event.degustacion {
-            background: #4CAF50;
+            background: var(--main-color);
         }
 
         .calendar-event.muestra {
-            background: #2196F3;
+            background: var(--main-color);
         }
 
         .cita-modal {
@@ -249,12 +249,12 @@
         }
 
         .btn-cancelar {
-            background: #dc3545;
+            background: #A65168;
             color: white;
         }
 
         .btn-cancelar:hover {
-            background: #c82333;
+            background: #8B3D52;
         }
 
         @media (max-width: 768px) {
@@ -313,226 +313,126 @@
         </div>
 
         <div class="calendar-grid" id="calendarGrid">
-            <!-- El calendario se generará dinámicamente -->
+            <!-- Los días del calendario se generarán aquí -->
         </div>
     </div>
 
-    <!-- Modal de detalles de cita -->
-    <div class="cita-modal" id="citaModal">
+    <!-- Modal para ver detalles de la cita -->
+    <div id="citaModal" class="cita-modal">
         <div class="cita-modal-content">
-            <span class="cita-modal-close">&times;</span>
-            <div class="cita-detalles">
-                <h3>Detalles de la Cita</h3>
-                <div class="cita-info">
-                    <p><strong>Fecha:</strong> <span id="citaFecha"></span></p>
-                    <p><strong>Hora:</strong> <span id="citaHora"></span></p>
-                    <p><strong>Tipo:</strong> <span id="citaTipo"></span></p>
-                    <p><strong>Repostero:</strong> <span id="citaRepostero"></span></p>
-                    <p><strong>Notas:</strong> <span id="citaNotas"></span></p>
-                </div>
-                <div class="cita-acciones">
-                    <button class="btn-reagendar" onclick="reagendarCita()">Reagendar</button>
-                    <button class="btn-cancelar" onclick="cancelarCita()">Cancelar Cita</button>
-                </div>
+            <span class="cita-modal-close" onclick="cerrarModal()">&times;</span>
+            <div class="cita-detalles" id="citaDetalles">
+                <!-- Los detalles de la cita se mostrarán aquí -->
             </div>
         </div>
     </div>
 
     <script>
-        // Función para obtener las citas del servidor
-        async function obtenerCitas() {
-            try {
-                // Intentar obtener el ID del usuario de diferentes fuentes
-                const usuarioId = localStorage.getItem('userId') || sessionStorage.getItem('userId') || localStorage.getItem('user_id');
-                
-                console.log('ID de usuario encontrado:', usuarioId); // Para depuración
+        let fechaActual = new Date();
+        let citasGuardadas = [];
 
-                if (!usuarioId) {
-                    // Si no hay ID de usuario, intentar obtener los datos del usuario
-                    const userData = localStorage.getItem('userData');
-                    if (userData) {
-                        const user = JSON.parse(userData);
-                        if (user && user.id) {
-                            console.log('ID encontrado en userData:', user.id);
-                            localStorage.setItem('userId', user.id);
-                            return obtenerCitasDelServidor(user.id);
-                        }
-                    }
-                    throw new Error('No se pudo encontrar la información del usuario');
-                }
-
-                return obtenerCitasDelServidor(usuarioId);
-            } catch (error) {
-                console.error('Error al obtener citas:', error);
-                // No mostrar alerta, solo retornar array vacío
-                return [];
-            }
+        function cargarCitas() {
+            citasGuardadas = JSON.parse(localStorage.getItem('misCitas')) || [];
+            generarCalendario();
         }
 
-        // Función separada para obtener las citas del servidor
-        async function obtenerCitasDelServidor(usuarioId) {
-            try {
-                const response = await fetch(`http://localhost:3000/api/citas/usuario/${usuarioId}`);
-                if (!response.ok) {
-                    throw new Error('Error al obtener las citas del servidor');
-                }
-                const citas = await response.json();
-                return citas;
-            } catch (error) {
-                console.error('Error al obtener citas del servidor:', error);
-                return [];
-            }
-        }
+        function generarCalendario() {
+            const primerDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+            const ultimoDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
+            const diasTotales = ultimoDia.getDate();
+            const primerDiaSemana = primerDia.getDay();
 
-        const meses = [
-            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-        ];
-
-        // Función para generar el calendario
-        async function generarCalendario(mes, año) {
-            const primerDia = new Date(año, mes, 1);
-            const ultimoDia = new Date(año, mes + 1, 0);
-            const grid = document.getElementById('calendarGrid');
-            const monthTitle = document.getElementById('monthTitle');
-            
             // Actualizar título del mes
-            monthTitle.textContent = `${meses[mes]} ${año}`;
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            document.getElementById('monthTitle').textContent = `${meses[fechaActual.getMonth()]} ${fechaActual.getFullYear()}`;
+
+            let gridHTML = '';
             
-            grid.innerHTML = '';
-
-            // Obtener las citas del servidor
-            const citas = await obtenerCitas();
-
-            // Añadir días vacíos al principio
-            for (let i = 0; i < primerDia.getDay(); i++) {
-                const diaVacio = document.createElement('div');
-                diaVacio.className = 'calendar-day empty';
-                grid.appendChild(diaVacio);
+            // Días vacíos antes del primer día del mes
+            for (let i = 0; i < primerDiaSemana; i++) {
+                gridHTML += '<div class="calendar-day empty"></div>';
             }
 
-            // Generar días del mes
-            for (let i = 1; i <= ultimoDia.getDate(); i++) {
-                const dia = document.createElement('div');
-                dia.className = 'calendar-day';
-                
-                const fecha = document.createElement('div');
-                fecha.className = 'calendar-date';
-                fecha.textContent = i;
-                dia.appendChild(fecha);
-
-                // Buscar citas para este día
-                const fechaActual = `${año}-${String(mes + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-                const citasDelDia = citas.filter(cita => cita.fecha === fechaActual);
-
-                citasDelDia.forEach(cita => {
-                    const evento = document.createElement('div');
-                    evento.className = `calendar-event ${cita.tipo_pastel.toLowerCase()}`;
-                    evento.textContent = `${cita.hora} - ${cita.tipo_pastel}`;
-                    evento.onclick = () => mostrarDetallesCita(cita);
-                    dia.appendChild(evento);
+            // Días del mes
+            for (let dia = 1; dia <= diasTotales; dia++) {
+                const fecha = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), dia);
+                const citasDelDia = citasGuardadas.filter(cita => {
+                    const fechaCita = new Date(cita.fecha);
+                    return fechaCita.getDate() === dia && 
+                           fechaCita.getMonth() === fecha.getMonth() && 
+                           fechaCita.getFullYear() === fecha.getFullYear();
                 });
 
-                grid.appendChild(dia);
+                gridHTML += `
+                    <div class="calendar-day">
+                        <div class="calendar-date">${dia}</div>
+                        ${citasDelDia.map(cita => `
+                            <div class="calendar-event degustacion" onclick="mostrarDetalleCita('${cita.id_cita}')">
+                                ${cita.hora} - Degustación
+                            </div>
+                        `).join('')}
+                    </div>`;
             }
 
-            // Añadir días vacíos al final si es necesario
-            const totalDias = grid.children.length;
-            const diasRestantes = 42 - totalDias; // 6 filas x 7 días = 42
-            for (let i = 0; i < diasRestantes; i++) {
-                const diaVacio = document.createElement('div');
-                diaVacio.className = 'calendar-day empty';
-                grid.appendChild(diaVacio);
-            }
+            document.getElementById('calendarGrid').innerHTML = gridHTML;
         }
 
-        // Variables para el mes actual
-        let mesActual = new Date().getMonth();
-        let añoActual = new Date().getFullYear();
-
-        // Inicializar calendario
-        generarCalendario(mesActual, añoActual);
-
-        // Función para cambiar de mes
         function cambiarMes(delta) {
-            mesActual += delta;
-            if (mesActual > 11) {
-                mesActual = 0;
-                añoActual++;
-            } else if (mesActual < 0) {
-                mesActual = 11;
-                añoActual--;
-            }
-            generarCalendario(mesActual, añoActual);
+            fechaActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + delta, 1);
+            generarCalendario();
         }
 
-        // Funciones para el modal
-        async function mostrarDetallesCita(cita) {
-            try {
-                // Obtener los detalles del repostero
-                const responseRepostero = await fetch(`http://localhost:3000/api/repostero/reposteros/${cita.id_repostero}`);
-                if (!responseRepostero.ok) {
-                    throw new Error('Error al obtener datos del repostero');
-                }
-                const repostero = await responseRepostero.json();
-                const nombreRepostero = Array.isArray(repostero) ? repostero[0].nombre_repostero : repostero.nombre_repostero;
+        function mostrarDetalleCita(idCita) {
+            const cita = citasGuardadas.find(c => c.id_cita === idCita);
+            if (!cita) return;
 
-                document.getElementById('citaFecha').textContent = cita.fecha;
-                document.getElementById('citaHora').textContent = cita.hora;
-                document.getElementById('citaTipo').textContent = cita.tipo_pastel;
-                document.getElementById('citaRepostero').textContent = nombreRepostero;
-                document.getElementById('citaNotas').textContent = cita.notas || 'Sin notas adicionales';
-                
-                // Guardar el ID de la cita en el modal para usarlo en las acciones
-                document.getElementById('citaModal').dataset.citaId = cita.id_cita;
-                
-                document.getElementById('citaModal').style.display = 'block';
-            } catch (error) {
-                console.error('Error al mostrar detalles de la cita:', error);
-                alert('Error al cargar los detalles de la cita');
-            }
+            const detallesHTML = `
+                <h3>Detalles de la Cita</h3>
+                <div class="cita-info">
+                    <p><strong>Fecha:</strong> ${new Date(cita.fecha).toLocaleDateString()}</p>
+                    <p><strong>Hora:</strong> ${cita.hora}</p>
+                    <p><strong>Repostero:</strong> ${cita.repostero.nombre}</p>
+                    <p><strong>Tipo de Pastel:</strong> ${cita.tipo_pastel}</p>
+                    <p><strong>Estado:</strong> ${cita.estado}</p>
+                    ${cita.notas ? `<p><strong>Notas:</strong> ${cita.notas}</p>` : ''}
+                </div>
+                <div class="cita-acciones">
+                    <button class="btn-reagendar" onclick="reagendarCita('${idCita}')">Reagendar</button>
+                    <button class="btn-cancelar" onclick="cancelarCita('${idCita}')">Cancelar Cita</button>
+                </div>`;
+
+            document.getElementById('citaDetalles').innerHTML = detallesHTML;
+            document.getElementById('citaModal').style.display = 'block';
         }
 
-        async function reagendarCita() {
-            const citaId = document.getElementById('citaModal').dataset.citaId;
-            // Aquí puedes implementar la lógica para reagendar
-            alert('Función de reagendar en desarrollo');
-        }
-
-        async function cancelarCita() {
-            if (confirm('¿Estás seguro de que deseas cancelar esta cita?')) {
-                try {
-                    const citaId = document.getElementById('citaModal').dataset.citaId;
-                    const response = await fetch(`http://localhost:3000/api/citas/${citaId}`, {
-                        method: 'DELETE'
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Error al cancelar la cita');
-                    }
-
-                    alert('Cita cancelada exitosamente');
-                    document.getElementById('citaModal').style.display = 'none';
-                    // Recargar el calendario
-                    generarCalendario(mesActual, añoActual);
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Error al cancelar la cita');
-                }
-            }
-        }
-
-        // Cerrar modal
-        document.querySelector('.cita-modal-close').onclick = function() {
+        function cerrarModal() {
             document.getElementById('citaModal').style.display = 'none';
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('citaModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
+        function reagendarCita(idCita) {
+            // Implementar la lógica de reagendar
+            alert('Función de reagendar en desarrollo');
+        }
+
+        function cancelarCita(idCita) {
+            if (confirm('¿Estás seguro de que deseas cancelar esta cita?')) {
+                citasGuardadas = citasGuardadas.filter(c => c.id_cita !== idCita);
+                localStorage.setItem('misCitas', JSON.stringify(citasGuardadas));
+                cerrarModal();
+                generarCalendario();
             }
         }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('citaModal');
+            if (event.target === modal) {
+                cerrarModal();
+            }
+        }
+
+        // Cargar las citas cuando se carga la página
+        document.addEventListener('DOMContentLoaded', cargarCitas);
     </script>
 </body>
 </html> 
